@@ -17,6 +17,8 @@ INSTALLED_APPS = list(INSTALLED_APPS) + [
     '%s.base' % PROJECT_MODULE,
     # Example code. Can (and should) be removed for actual projects.
     '%s.examples' % PROJECT_MODULE,
+
+    'django_browserid',
 ]
 
 # Note! If you intend to add `south` to INSTALLED_APPS,
@@ -48,9 +50,8 @@ LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL_FAILURE = '/'
 
-TEMPLATE_CONTEXT_PROCESSORS += (
-    'django_browserid.context_processors.browserid',
-)
+# TEMPLATE_CONTEXT_PROCESSORS += (
+# )
 
 # Should robots.txt deny everything or disallow a calculated list of URLs we
 # don't want to be crawled?  Default is false, disallow everything.
