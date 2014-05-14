@@ -18,7 +18,8 @@ INSTALLED_APPS = list(INSTALLED_APPS) + [
     # Example code. Can (and should) be removed for actual projects.
     '%s.examples' % PROJECT_MODULE,
 
-    'django_browserid',
+    'debug_toolbar',
+    'django_extensions',
 ]
 
 # Note! If you intend to add `south` to INSTALLED_APPS,
@@ -37,6 +38,7 @@ JINGO_EXCLUDE_APPS = (
     'admin',
     'registration',
     'browserid',
+    'debug_toolbar',
 )
 
 # BrowserID configuration
