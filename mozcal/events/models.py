@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -12,7 +14,25 @@ class Location(models.Model):
   lon = models.FloatField()
 
 
+
+# @see http://www.dabapps.com/blog/higher-level-query-api-django-orm/
+# @see http://stackoverflow.com/questions/2163151/custom-queryset-and-manager-without-breaking-dry
+class EventManager(models.Manager):
+  def past_events(self):
+    return self.filter(end__lte=datetime.now())
+
+  def upcoming_events(self):
+    return self.filter(start__gte=datetime.now())
+
+  def current_events(self):
+    now = datetime.now()
+
+    return self.filter(start__lte=now).filter(end__gte=now)
+
+
 class Event(models.Model):
+  objects = EventManager()
+
   created = models.DateTimeField(auto_now_add=True)
   modified = models.DateTimeField(auto_now=True)
 
@@ -30,7 +50,7 @@ class Event(models.Model):
   attendees = models.ManyToManyField(User, related_name="events_attended")
 
   def __unicode__(self):
-    return 'Event:' + self.title
+    return '#%s %s' % (self.id, self.title)
 
   def save(self, *args, **kwargs):
     # Create unique slug
