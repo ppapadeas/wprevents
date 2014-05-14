@@ -1,0 +1,17 @@
+[
+{
+  "pk": 1,
+  "model": "events.event",
+  "fields": {
+    "end": "2014-05-14T03:44:45",
+    "description": "",
+    "created": "2014-05-14T05:45:37",
+    "functional_areas": [],
+    "title": "Awesome Firefox presentation",
+    "modified": "2014-05-14T05:45:37",
+    "start": "2014-05-14T03:44:45",
+    "location": null,
+    "attendees": []
+  }
+}
+]

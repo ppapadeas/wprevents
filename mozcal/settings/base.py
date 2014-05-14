@@ -18,7 +18,9 @@ INSTALLED_APPS = list(INSTALLED_APPS) + [
     # Example code. Can (and should) be removed for actual projects.
     '%s.examples' % PROJECT_MODULE,
 
-    'debug_toolbar',
+    '%s.events' % PROJECT_MODULE,
+
+    'django_browserid',
     'django_extensions',
 ]
 

@@ -14,6 +14,7 @@ patch()
 urlpatterns = patterns('',
     # Example:
     (r'', include(urls)),
+    (r'^events/', include('mozcal.events.urls')),
     (r'^browserid/', include('django_browserid.urls')),
 
     # Generate a robots.txt
