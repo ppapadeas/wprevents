@@ -2,6 +2,7 @@
 Django==1.5.6
 -e git://github.com/jbalogh/django-multidb-router.git#egg=django-multidb-router
 -e git://github.com/jsocol/django-cronjobs.git#egg=django-cronjobs
+django-uuslug==1.0.2
 
 # BrowserID
 django-browserid==0.10.1

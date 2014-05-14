@@ -1,0 +1,11 @@
+setup.cfg
+setup.py
+django_uuslug.egg-info/PKG-INFO
+django_uuslug.egg-info/SOURCES.txt
+django_uuslug.egg-info/dependency_links.txt
+django_uuslug.egg-info/requires.txt
+django_uuslug.egg-info/top_level.txt
+uuslug/__init__.py
+uuslug/models.py
+uuslug/tests.py
+uuslug/testsettings.py

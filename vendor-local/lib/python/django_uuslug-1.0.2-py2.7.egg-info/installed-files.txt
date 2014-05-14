@@ -1,0 +1,14 @@
+../uuslug/__init__.py
+../uuslug/models.py
+../uuslug/tests.py
+../uuslug/testsettings.py
+../uuslug/__init__.pyc
+../uuslug/models.pyc
+../uuslug/tests.pyc
+../uuslug/testsettings.pyc
+./
+dependency_links.txt
+PKG-INFO
+requires.txt
+SOURCES.txt
+top_level.txt

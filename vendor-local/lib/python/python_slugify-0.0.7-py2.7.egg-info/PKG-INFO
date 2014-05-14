@@ -1,0 +1,15 @@
+Metadata-Version: 1.0
+Name: python-slugify
+Version: 0.0.7
+Summary: A Python slugify application that handles unicode
+Home-page: https://github.com/un33k/python-slugify
+Author: Val Neekman
+Author-email: info@neekware.com
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
