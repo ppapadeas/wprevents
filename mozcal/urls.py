@@ -2,8 +2,6 @@ from django.conf import settings
 from django.conf.urls.defaults import patterns, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from .examples import urls
-
 from funfactory.monkeypatches import patch
 patch()
 
@@ -12,9 +10,7 @@ patch()
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    (r'', include(urls)),
-    (r'^events/', include('mozcal.events.urls')),
+    (r'', include('mozcal.events.urls')),
     (r'^browserid/', include('django_browserid.urls')),
 
     # Generate a robots.txt
