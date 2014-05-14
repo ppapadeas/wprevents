@@ -20,7 +20,7 @@ INSTALLED_APPS = list(INSTALLED_APPS) + [
 
     '%s.events' % PROJECT_MODULE,
 
-    'django_browserid',
+    'debug_toolbar',
     'django_extensions',
 ]
 
