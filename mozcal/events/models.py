@@ -6,7 +6,27 @@ from django.db import models
 from uuslug import uuslug as slugify
 
 class FunctionalArea(models.Model):
-  title = models.CharField(max_length=120)
+  name = models.CharField(max_length=120)
+
+
+class Space(models.Model):
+  name = models.CharField(max_length=120)
+  slug = models.SlugField(max_length=50)
+  description = models.TextField()
+
+  address = models.CharField(max_length=150)
+  address2 = models.CharField(max_length=150)
+  city = models.CharField(max_length=50, blank=False, default='')
+  country = models.CharField(max_length=50, default='US')
+  postal_code = models.CharField(max_length=8, blank=True)
+
+  lat = models.FloatField(null=True)
+  lon = models.FloatField(null=True)
+
+  photo_url = models.URLField(max_length=300, null=True, blank=True)
+
+  def __unicode__(self):
+    return '%s' % self.name
 
 
 # @see http://www.dabapps.com/blog/higher-level-query-api-django-orm/
@@ -33,20 +53,16 @@ class Event(models.Model):
   title = models.CharField(max_length=120)
   slug = models.SlugField(max_length=50)
   description = models.TextField()
+  details = models.TextField()
 
   start = models.DateTimeField()
   end = models.DateTimeField()
 
-  lat = models.FloatField(null=True)
-  lon = models.FloatField(null=True)
-  city = models.CharField(max_length=50, blank=False, default='')
-  region = models.CharField(max_length=50, null=False, blank=True, default='')
-  country = models.CharField(max_length=50, default='US')
-
+  space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted')
   owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
 
-  categories = models.ManyToManyField(FunctionalArea)
-  attendees = models.ManyToManyField(User, related_name="events_attended")
+  # TODO: single or multiple areas for each event?
+  areas = models.ManyToManyField(FunctionalArea)
 
   def __unicode__(self):
     return '#%s %s' % (self.id, self.title)
@@ -57,3 +73,4 @@ class Event(models.Model):
     if not self.slug:
       self.slug = slugify(self.title, instance=self)
     super(Event, self).save(*args, **kwargs)
+
