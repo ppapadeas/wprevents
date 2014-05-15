@@ -12,7 +12,11 @@ class Location(models.Model):
   title = models.CharField(max_length=120)
   lat = models.FloatField()
   lon = models.FloatField()
-
+  city = models.CharField(max_length=50, blank=False, default='')
+  region = models.CharField(max_length=50, null=False, blank=True, default='')
+  country = models.CharField(max_length=50)
+  lat = models.FloatField()
+  lon = models.FloatField()
 
 
 # @see http://www.dabapps.com/blog/higher-level-query-api-django-orm/
@@ -43,10 +47,10 @@ class Event(models.Model):
   start = models.DateTimeField()
   end = models.DateTimeField()
 
-  location = models.ForeignKey('Location', null=True, blank=True)
+  location = models.ForeignKey('Location', null=True, blank=True) # todo: remove null/blank
+  owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
 
-
-  functional_areas = models.ManyToManyField(FunctionalArea)
+  categories = models.ManyToManyField(FunctionalArea)
   attendees = models.ManyToManyField(User, related_name="events_attended")
 
   def __unicode__(self):

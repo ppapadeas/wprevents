@@ -1,33 +1,33 @@
 [
 {
-  "pk": 1, 
-  "model": "events.event", 
+  "pk": 1,
+  "model": "events.event",
   "fields": {
-    "end": "2014-05-14T03:44:45", 
-    "description": "", 
-    "title": "Awesome Firefox presentation", 
-    "functional_areas": [], 
-    "created": "2014-05-14T05:45:37", 
-    "modified": "2014-05-14T07:25:30", 
-    "start": "2014-05-14T03:44:45", 
-    "location": null, 
-    "attendees": [], 
+    "end": "2014-05-14T03:44:45",
+    "description": "",
+    "title": "Awesome Firefox presentation",
+    "categories": [],
+    "created": "2014-05-14T05:45:37",
+    "modified": "2014-05-14T07:25:30",
+    "start": "2014-05-14T03:44:45",
+    "location": null,
+    "attendees": [],
     "slug": "awesome-firefox-presentation"
   }
 },
 {
-  "pk": 2, 
-  "model": "events.event", 
+  "pk": 2,
+  "model": "events.event",
   "fields": {
-    "end": "2014-05-14T03:44:45", 
-    "description": "", 
-    "title": "Awesome Firefox presentation", 
-    "functional_areas": [], 
-    "created": "2014-05-14T07:50:11", 
-    "modified": "2014-05-14T07:50:11", 
-    "start": "2014-05-14T03:44:45", 
-    "location": null, 
-    "attendees": [], 
+    "end": "2014-05-14T03:44:45",
+    "description": "",
+    "title": "Awesome Firefox presentation",
+    "categories": [],
+    "created": "2014-05-14T07:50:11",
+    "modified": "2014-05-14T07:50:11",
+    "start": "2014-05-14T03:44:45",
+    "location": null,
+    "attendees": [],
     "slug": "awesome-firefox-presentation-1"
   }
 }
