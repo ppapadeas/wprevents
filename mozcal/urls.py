@@ -15,6 +15,7 @@ event_resource = EventResource()
 
 urlpatterns = patterns('',
   (r'^api/', include(event_resource.urls)),
+  (r'^admin/', include('mozcal.admin.urls')),
   (r'', include('mozcal.events.urls')),
   (r'^browserid/', include('django_browserid.urls')),
 
