@@ -25,6 +25,9 @@ class EventManager(models.Manager):
 
 
 class Event(models.Model):
+  class Meta:
+    ordering = ['-start']
+
   objects = EventManager()
 
   created = models.DateTimeField(auto_now_add=True)
