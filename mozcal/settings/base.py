@@ -16,6 +16,7 @@ INSTALLED_APPS = list(INSTALLED_APPS) + [
     # Application base, containing global templates.
     '%s.base' % PROJECT_MODULE,
     '%s.events' % PROJECT_MODULE,
+    '%s.admin' % PROJECT_MODULE,
 
     'tastypie',
 

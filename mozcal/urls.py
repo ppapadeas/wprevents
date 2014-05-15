@@ -14,25 +14,24 @@ event_resource = EventResource()
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^api/', include(event_resource.urls)),
-    (r'', include('mozcal.events.urls')),
-    (r'^browserid/', include('django_browserid.urls')),
+  (r'^api/', include(event_resource.urls)),
+  (r'^admin/', include('mozcal.admin.urls')),
+  (r'', include('mozcal.events.urls')),
+  (r'^browserid/', include('django_browserid.urls')),
 
-    # Generate a robots.txt
-    (r'^robots\.txt$',
-        lambda r: HttpResponse(
-            "User-agent: *\n%s: /" % 'Allow' if settings.ENGAGE_ROBOTS else 'Disallow' ,
-            mimetype="text/plain"
-        )
-    )
+  # Generate a robots.txt
+  (r'^robots\.txt$', lambda r: HttpResponse(
+    "User-agent: *\n%s: /" % 'Allow' if settings.ENGAGE_ROBOTS else 'Disallow' ,
+    mimetype="text/plain")
+  )
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+  # Uncomment the admin/doc line below to enable admin documentation:
+  # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+  # Uncomment the next line to enable the admin:
+  # (r'^admin/', include(admin.site.urls)),
 )
 
 ## In DEBUG mode, serve media files through Django.
 if settings.DEBUG:
-    urlpatterns += staticfiles_urlpatterns()
+  urlpatterns += staticfiles_urlpatterns()
