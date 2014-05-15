@@ -77,3 +77,6 @@ class Event(models.Model):
       self.slug = slugify(self.title, instance=self)
     super(Event, self).save(*args, **kwargs)
 
+  @property
+  def area_names(self):
+    return [area.name for area in self.areas.all()]

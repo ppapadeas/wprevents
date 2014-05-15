@@ -5,7 +5,8 @@
     slug: {{ event.slug }}<br>
     start: {{ event.start }}<br>
     end: {{ event.end }}<br>
-    space: {{ event.space }}
+    space: {{ event.space }}<br>
+    areas: {{ event.area_names|join(', ') }}
   </li>
 {% endfor %}
 </ul>
