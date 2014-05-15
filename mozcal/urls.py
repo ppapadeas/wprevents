@@ -5,11 +5,16 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from funfactory.monkeypatches import patch
 patch()
 
+from events.api import EventResource
+
+event_resource = EventResource()
+
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^api/', include(event_resource.urls)),
     (r'', include('mozcal.events.urls')),
     (r'^browserid/', include('django_browserid.urls')),
 
