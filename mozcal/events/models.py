@@ -8,16 +8,6 @@ from uuslug import uuslug as slugify
 class FunctionalArea(models.Model):
   title = models.CharField(max_length=120)
 
-class Location(models.Model):
-  title = models.CharField(max_length=120)
-  lat = models.FloatField()
-  lon = models.FloatField()
-  city = models.CharField(max_length=50, blank=False, default='')
-  region = models.CharField(max_length=50, null=False, blank=True, default='')
-  country = models.CharField(max_length=50)
-  lat = models.FloatField()
-  lon = models.FloatField()
-
 
 # @see http://www.dabapps.com/blog/higher-level-query-api-django-orm/
 # @see http://stackoverflow.com/questions/2163151/custom-queryset-and-manager-without-breaking-dry
@@ -47,7 +37,12 @@ class Event(models.Model):
   start = models.DateTimeField()
   end = models.DateTimeField()
 
-  location = models.ForeignKey('Location', null=True, blank=True) # todo: remove null/blank
+  lat = models.FloatField(null=True)
+  lon = models.FloatField(null=True)
+  city = models.CharField(max_length=50, blank=False, default='')
+  region = models.CharField(max_length=50, null=False, blank=True, default='')
+  country = models.CharField(max_length=50, default='US')
+
   owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
 
   categories = models.ManyToManyField(FunctionalArea)

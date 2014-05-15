@@ -10,7 +10,6 @@
     "created": "2014-05-14T05:45:37",
     "modified": "2014-05-14T07:25:30",
     "start": "2014-05-14T03:44:45",
-    "location": null,
     "attendees": [],
     "slug": "awesome-firefox-presentation"
   }
@@ -26,7 +25,6 @@
     "created": "2014-05-14T07:50:11",
     "modified": "2014-05-14T07:50:11",
     "start": "2014-05-14T03:44:45",
-    "location": null,
     "attendees": [],
     "slug": "awesome-firefox-presentation-1"
   }
