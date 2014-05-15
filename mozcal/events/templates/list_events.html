@@ -1,7 +1,7 @@
 <ul>
 {% for event in events %}
   <li>
-    Title: {{ event.title }}<br>
+    Title: <a href="{{ url('event.one', slug=event.slug) }}">{{ event.title }}</a><br>
     slug: {{ event.slug }}<br>
     Created: {{ event.created }}
   </li>
