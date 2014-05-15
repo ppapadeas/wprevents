@@ -20,6 +20,8 @@ INSTALLED_APPS = list(INSTALLED_APPS) + [
 
     '%s.events' % PROJECT_MODULE,
 
+    'tastypie',
+
     'debug_toolbar',
     'django_extensions',
 ]

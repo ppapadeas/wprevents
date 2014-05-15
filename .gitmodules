@@ -1,3 +1,6 @@
 [submodule "vendor"]
 	path = vendor
 	url = git://github.com/mozilla/playdoh-lib.git
+[submodule "vendor-local/src/django-tastypie"]
+	path = vendor-local/src/django-tastypie
+	url = git://github.com/toastdriven/django-tastypie.git
