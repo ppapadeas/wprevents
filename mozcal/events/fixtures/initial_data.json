@@ -55,6 +55,7 @@
   "model": "events.space",
   "fields": {
     "name": "Mountain View",
+    "slug": "moutain-view",
     "address": "331 E. Evelyn Avenue",
     "city": "Mountain View",
     "country": "USA",
@@ -68,6 +69,7 @@
   "model": "events.space",
   "fields": {
     "name": "London",
+    "slug": "london",
     "address": "101 St Martin's Lane, 3rd Floor",
     "city": "London",
     "country": "UK",
@@ -81,6 +83,7 @@
   "model": "events.space",
   "fields": {
     "name": "Paris",
+    "slug": "paris",
     "address": "16 Bis Boulevard Montmartre",
     "city": "Paris",
     "country": "FR",
