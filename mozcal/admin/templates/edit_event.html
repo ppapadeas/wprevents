@@ -4,8 +4,30 @@
   {{ csrf() }}
   <ul>
     <li>id: {{ event.id }}</li>
-    <li>Title: <input value="{{ event.title }}" size="40"></li>
-    <li>Description: <textarea>{{ event.description }}</textarea></li>
+    <li>
+      <label>Title</label>
+      <input value="{{ event.title }}" size="40">
+    </li>
+    <li>
+      <label for="start_date">Start Date</label>
+      <input type="text" id="start_date" value="{{ event.start_date }}">
+      <label for="end_date">End Date</label>
+      <input type="text" id="end_date" value="{{ event.end_date }}">
+    </li>
+    <li>
+      <label for="start_time">Start Time</label>
+      <input type="text" id="start_time" value="{{ event.start_time }}">
+      <label for="end_time">End Time</label>
+      <input type="text" id="end_time" value="{{ event.end_time }}">
+    </li>
+    <li>
+      <label>Description:</label>
+      <textarea>{{ event.description }}</textarea>
+    </li>
+    <li>
+      <label>Details:</label>
+      <textarea>{{ event.details }}</textarea>
+    </li>
   </ul>
   <input type="submit" value="Save event">
 </form>
