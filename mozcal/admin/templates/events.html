@@ -1,7 +1,9 @@
 <h1>Admin: events</h1>
 
+<a href="{{ url('events_new_event') }}">Add event</a>
+
 <ul>
 {% for event in events %}
-  <li><a href="{{ url('event_edit', id=event.id) }}">{{ event.title }}</a> (id: {{ event.id }})</li>
+  <li><a href="{{ url('event_edit', slug=event.slug) }}">{{ event.title }}</a> (id: {{ event.id }})</li>
 {% endfor %}
 </ul>

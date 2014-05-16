@@ -1,7 +1,9 @@
 <h1>Admin: spaces</h1>
 
+<a href="{{ url('events_new_space') }}">Add space</a>
+
 <ul>
 {% for space in spaces %}
-  <li><a href="{{ url('space_edit', id=space.id) }}">{{ space.name }}</a> (id: {{ space.id }})</li>
+  <li><a href="{{ url('space_edit', slug=space.slug) }}">{{ space.name }}</a> (id: {{ space.id }})</li>
 {% endfor %}
 </ul>

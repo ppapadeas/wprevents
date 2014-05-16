@@ -1,6 +1,6 @@
 <h1>Edit {{ space.name }} ({{ space.id }})</h1>
 
-<form action="/admin/spaces/{{ space.id }}/edit" method="post">
+<form method="post">
   {{ csrf() }}
   {{ form.errors }}
   <ul>
