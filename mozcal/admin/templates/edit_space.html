@@ -1,0 +1,10 @@
+<h1>Edit {{ space.name }} ({{ space.id }})</h1>
+
+<form>
+  <ul>
+    <li>id: {{ space.id }}</li>
+    <li>Title: <input value="{{ space.name }}" size="40"></li>
+    <li>Description: <textarea>{{ space.description }}</textarea></li>
+  </ul>
+  <input type="submit" value="Save space">
+</form>
