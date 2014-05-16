@@ -31,6 +31,13 @@ class Space(models.Model):
   def __unicode__(self):
     return '%s' % self.name
 
+  def save(self, *args, **kwargs):
+    # Create unique slug
+    # @see https://github.com/un33k/django-uuslug
+    if not self.slug:
+      self.slug = slugify(self.name, instance=self)
+    super(Space, self).save(*args, **kwargs)
+
 
 # @see http://www.dabapps.com/blog/higher-level-query-api-django-orm/
 # @see http://stackoverflow.com/questions/2163151/custom-queryset-and-manager-without-breaking-dry
