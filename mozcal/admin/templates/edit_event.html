@@ -1,0 +1,10 @@
+<h1>Edit {{ event.title }} ({{ event.id }})</h1>
+
+<form>
+  <ul>
+    <li>id: {{ event.id }}</li>
+    <li>Title: <input value="{{ event.title }}" size="40"></li>
+    <li>Description: <textarea>{{ event.description }}</textarea></li>
+  </ul>
+  <input type="submit">
+</form>
