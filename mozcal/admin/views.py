@@ -23,7 +23,7 @@ def event_edit(request, slug=None):
       form.save()
       return HttpResponseRedirect('/admin/events')
 
-  return render(request, 'edit_event.html', { 'event': event, 'form': form })
+  return render(request, 'event_form.html', { 'event': event, 'form': form })
 
 
 def spaces_list(request):
@@ -41,4 +41,4 @@ def space_edit(request, slug=None):
       form.save()
       return HttpResponseRedirect('/admin/spaces')
 
-  return render(request, 'edit_space.html', { 'space': space, 'form': form })
+  return render(request, 'space_form.html', { 'space': space, 'form': form })
