@@ -2,6 +2,6 @@
 
 <ul>
 {% for event in events %}
-  <li>{{ event.title }} (id: {{ event.id }})</li>
+  <li><a href="{{ url('event_edit', id=event.id) }}">{{ event.title }}</a> (id: {{ event.id }})</li>
 {% endfor %}
 </ul>

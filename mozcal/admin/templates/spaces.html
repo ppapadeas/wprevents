@@ -2,6 +2,6 @@
 
 <ul>
 {% for space in spaces %}
-  <li>{{ space.name }} (id: {{ space.id }})</li>
+  <li><a href="{{ url('space_edit', id=space.id) }}">{{ space.name }}</a> (id: {{ space.id }})</li>
 {% endfor %}
 </ul>
