@@ -1,6 +1,7 @@
 <h1>Edit {{ event.title }} ({{ event.id }})</h1>
 
-<form>
+<form action="/admin/events/{{ event.id }}/edit" method="post">
+  {{ csrf() }}
   <ul>
     <li>id: {{ event.id }}</li>
     <li>Title: <input value="{{ event.title }}" size="40"></li>
