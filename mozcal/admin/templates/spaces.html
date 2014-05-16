@@ -1,0 +1,7 @@
+<h1>Admin: spaces</h1>
+
+<ul>
+{% for space in spaces %}
+  <li>{{ space.name }} (id: {{ space.id }})</li>
+{% endfor %}
+</ul>

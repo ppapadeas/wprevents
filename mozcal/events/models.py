@@ -11,11 +11,11 @@ class FunctionalArea(models.Model):
 
 class Space(models.Model):
   name = models.CharField(max_length=120)
-  slug = models.SlugField(max_length=50)
-  description = models.TextField()
+  slug = models.SlugField(max_length=50, blank=True)
+  description = models.TextField(blank=True)
 
   address = models.CharField(max_length=150)
-  address2 = models.CharField(max_length=150)
+  address2 = models.CharField(max_length=150, blank=True)
   city = models.CharField(max_length=50, blank=False, default='')
   country = models.CharField(max_length=50, default='US')
   postal_code = models.CharField(max_length=8, blank=True)
