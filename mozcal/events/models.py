@@ -54,9 +54,9 @@ class Event(models.Model):
   modified = models.DateTimeField(auto_now=True)
 
   title = models.CharField(max_length=120)
-  slug = models.SlugField(max_length=50)
-  description = models.TextField()
-  details = models.TextField()
+  slug = models.SlugField(max_length=50, blank=True)
+  description = models.TextField(blank=True)
+  details = models.TextField(blank=True)
 
   start = models.DateTimeField()
   end = models.DateTimeField()
@@ -65,7 +65,7 @@ class Event(models.Model):
   owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
 
   # TODO: single or multiple areas for each event?
-  areas = models.ManyToManyField(FunctionalArea)
+  areas = models.ManyToManyField(FunctionalArea, blank=True)
 
   def __unicode__(self):
     return '#%s %s' % (self.id, self.title)

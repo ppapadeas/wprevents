@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
 
 from mozcal.events.models import Event, Space
+from .forms import EventForm
 
 
 def events_list(request):
@@ -11,8 +13,14 @@ def events_list(request):
 
 def event_edit(request, id):
   event = get_object_or_404(Event, id=id)
+  form = EventForm(request.POST, instance=event)
 
-  return render(request, 'edit_event.html', { 'event': event })
+  if request.method == 'POST':
+    if form.is_valid():
+      event.save()
+      return HttpResponseRedirect('/admin/events')
+
+  return render(request, 'edit_event.html', { 'event': event, 'form': form })
 
 
 def space_edit(request, id):

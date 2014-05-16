@@ -2,31 +2,34 @@
 
 <form action="/admin/events/{{ event.id }}/edit" method="post">
   {{ csrf() }}
+  {{ form.errors }}
   <ul>
     <li>id: {{ event.id }}</li>
     <li>
       <label>Title</label>
-      <input value="{{ event.title }}" size="40">
+      <input name="title" value="{{ event.title }}" size="40">
     </li>
     <li>
       <label for="start_date">Start Date</label>
-      <input type="text" id="start_date" value="{{ event.start_date }}">
+      <input name="start" type="text" id="start_date" value="{{ event.start }}">
+
       <label for="end_date">End Date</label>
-      <input type="text" id="end_date" value="{{ event.end_date }}">
+      <input name="end" type="text" id="end_date" value="{{ event.end }}">
     </li>
     <li>
       <label for="start_time">Start Time</label>
-      <input type="text" id="start_time" value="{{ event.start_time }}">
+      <input type="text" id="start_time" value="{{ event.start }}">
+
       <label for="end_time">End Time</label>
-      <input type="text" id="end_time" value="{{ event.end_time }}">
+      <input type="text" id="end_time" value="{{ event.end }}">
     </li>
     <li>
       <label>Description:</label>
-      <textarea>{{ event.description }}</textarea>
+      <textarea name="description">{{ event.description }}</textarea>
     </li>
     <li>
       <label>Details:</label>
-      <textarea>{{ event.details }}</textarea>
+      <textarea name="details">{{ event.details }}</textarea>
     </li>
   </ul>
   <input type="submit" value="Save event">
