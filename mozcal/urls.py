@@ -14,10 +14,12 @@ event_resource = EventResource()
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+  (r'', include('mozcal.events.urls')),
+
   (r'^api/', include(event_resource.urls)),
   (r'^admin/', include('mozcal.admin.urls')),
-  (r'', include('mozcal.events.urls')),
   (r'^browserid/', include('django_browserid.urls')),
+
 
   # Generate a robots.txt
   (r'^robots\.txt$', lambda r: HttpResponse(

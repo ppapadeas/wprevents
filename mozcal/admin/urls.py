@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = patterns('',
   url(r'^events/', views.events_list, name='event_all'),
+  url(r'^events/$', views.events_list, name='event_all'),
 )
