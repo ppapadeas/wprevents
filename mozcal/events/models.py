@@ -8,6 +8,9 @@ from uuslug import uuslug as slugify
 class FunctionalArea(models.Model):
   name = models.CharField(max_length=120)
 
+  def __unicode__(self):
+    return self.name
+
 
 class Space(models.Model):
   name = models.CharField(max_length=120)

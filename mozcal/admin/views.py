@@ -19,7 +19,7 @@ def event_edit(request, id):
 
   if request.method == 'POST':
     if form.is_valid():
-      event.save()
+      form.save()
       return HttpResponseRedirect('/admin/events')
 
   return render(request, 'edit_event.html', { 'event': event, 'form': form })
@@ -37,7 +37,7 @@ def space_edit(request, id):
 
   if request.method == 'POST':
     if form.is_valid():
-      space.save()
+      form.save()
       return HttpResponseRedirect('/admin/spaces')
 
   return render(request, 'edit_space.html', { 'space': space, 'form': form })
