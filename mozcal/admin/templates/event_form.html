@@ -9,6 +9,9 @@
       <input name="title" value="{{ event.title }}" size="40">
     </li>
     <li>
+      <label>{{ form.space.label }}</label>: {{ form.space }}
+    </li>
+    <li>
       <label for="start_date">Start Date</label>
       <input name="start" type="text" id="start_date" value="{{ event.start }}">
 
@@ -24,9 +27,6 @@
     </li>
     <li>
      Areas {{ form.areas }}
-    </li>
-    <li>
-      <label>{{ form.space.label }}</label>: {{ form.space }}
     </li>
     <li>
       <label>Description:</label>
