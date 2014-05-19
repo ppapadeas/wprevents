@@ -1,14 +1,10 @@
 from django.conf import settings
-from django.conf.urls.defaults import patterns, include
+from django.conf.urls.defaults import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.http import HttpResponse
 
 from funfactory.monkeypatches import patch
 patch()
-
-from events.api import EventResource
-
-event_resource = EventResource()
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -17,7 +13,8 @@ event_resource = EventResource()
 urlpatterns = patterns('',
   (r'', include('mozcal.events.urls')),
 
-  (r'^api/', include(event_resource.urls)),
+  # API
+  url(r'^api/', include('mozcal.api.urls')),
   (r'^admin/', include('mozcal.admin.urls')),
   (r'^browserid/', include('django_browserid.urls')),
 
