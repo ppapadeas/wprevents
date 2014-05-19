@@ -26,6 +26,13 @@ def event_edit(request, slug=None):
   return render(request, 'event_form.html', { 'event': event, 'form': form })
 
 
+def event_delete(request):
+  event = Event.objects.get(id=request.POST.get('id'))
+
+  event.delete()
+  return HttpResponseRedirect('/admin/events')
+
+
 def spaces_list(request):
   spaces = Space.objects.all()
 
