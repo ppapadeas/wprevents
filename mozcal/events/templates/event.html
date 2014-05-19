@@ -1,1 +1,28 @@
-<h1>{{ event.title }} ({{ event.id }})</h1>
+<div>
+  <div id="date">
+    {{ event.start }}
+  </div>
+
+  <h1>{{ event.title }}</h1>
+
+  <div id="meta">
+    <div>{{ event.space }}</div>
+    <div>{{ event.area_names|join(', ') }}</div>
+  </div>
+</div>
+
+
+<div>
+  <div>{{ event.photo }}</div>
+  <div>
+    <h2>Description</h2>
+
+    <div>{{ event.description }}</div>
+
+    <h2>Details</h2>
+
+    <div>{{ event.details }}</div>
+
+  </div>
+
+</div>
