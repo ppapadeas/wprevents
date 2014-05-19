@@ -49,3 +49,9 @@ def space_edit(request, slug=None):
       return HttpResponseRedirect('/admin/spaces')
 
   return render(request, 'space_form.html', { 'space': space, 'form': form })
+
+def space_delete(request):
+  space = Space.objects.get(id=request.POST.get('id'))
+
+  space.delete()
+  return HttpResponseRedirect('/admin/spaces')

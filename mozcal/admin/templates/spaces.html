@@ -26,7 +26,12 @@
       <td>
         <a href="">e</a>
         <a href="">d</a>
-        <a href="">x</a>
+
+        <form action="{{ url('space_delete') }}" method="post">
+          {{ csrf() }}
+          <input type="hidden" name="id" value="{{ space.id }}">
+          <input type="submit" value="x">
+        </form>
       </td>
     </tr>
     {% endfor %}

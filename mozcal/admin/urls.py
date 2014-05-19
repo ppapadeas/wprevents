@@ -11,4 +11,5 @@ urlpatterns = patterns('',
   url(r'^spaces/$', views.spaces_list, name='space_all'),
   url(r'^spaces/(?P<slug>[a-z0-9-]+)/edit', views.space_edit, name='space_edit'),
   url(r'^spaces/new$', views.space_edit, name='events_new_space'),
+  url(r'^spaces/delete$', views.space_delete, name='space_delete'),
 )
