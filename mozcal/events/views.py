@@ -11,4 +11,4 @@ def one(request, slug):
 def all(request):
   events = Event.objects.all()
 
-  return render(request, 'events.html', { 'events': events })
+  return render(request, 'events_all.html', { 'events': events })

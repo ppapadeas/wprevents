@@ -1,0 +1,17 @@
+<ul>
+{% for event in events %}
+  <li>
+    <div id="date">
+      {{ event.start }}
+    </div>
+    <div id="info">
+      <h2><a href="{{ url('event_one', slug=event.slug) }}">{{ event.title }}</a></h2>
+      <div class="description">{{ event.description }}</div>
+    </div>
+    <div id="meta">
+      <div>{{ event.space }}</div>
+      <div>{{ event.area_names|join(', ') }}</div>
+    </div>
+  </li>
+{% endfor %}
+</ul>
