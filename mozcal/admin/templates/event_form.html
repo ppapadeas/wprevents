@@ -12,18 +12,12 @@
       <label>{{ form.space.label }}</label>: {{ form.space }}
     </li>
     <li>
-      <label for="start_date">Start Date</label>
-      <input name="start" type="text" id="start_date" value="{{ event.start }}">
-
-      <label for="end_date">End Date</label>
-      <input name="end" type="text" id="end_date" value="{{ event.end }}">
+      <label for="date_start">Start</label>
+      {{ form.start }}
     </li>
     <li>
-      <label for="start_time">Start Time</label>
-      <input type="text" id="start_time" value="{{ event.start }}">
-
-      <label for="end_time">End Time</label>
-      <input type="text" id="end_time" value="{{ event.end }}">
+      <label for="time_start">End</label>
+      {{ form.end }}
     </li>
     <li>
      Areas {{ form.areas }}
