@@ -71,7 +71,7 @@ class Event(models.Model):
   start = models.DateTimeField()
   end = models.DateTimeField()
 
-  space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted')
+  space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted', on_delete=models.SET_NULL)
   owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
 
   # TODO: single or multiple areas for each event?
