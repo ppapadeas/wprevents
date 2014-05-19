@@ -1,9 +1,34 @@
 <h1>Admin: events</h1>
 
-<a href="{{ url('events_new_event') }}">Add event</a>
+<div>
+  <a href="">Export CSV</a>
+  <a href="{{ url('events_new_event') }}">New event</a>
+</div>
 
-<ul>
-{% for event in events %}
-  <li><a href="{{ url('event_edit', slug=event.slug) }}">{{ event.title }}</a> (id: {{ event.id }})</li>
-{% endfor %}
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Event name</th>
+      <th>Space</th>
+      <th>Date</th>
+      <th>Area</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for event in events %}
+    <tr>
+      <td><a href="{{ url('event_edit', slug=event.slug) }}">{{ event.title }}</a></td>
+      <td>{{ event.space }}</td>
+      <td>{{ event.start }} - {{ event.end }}</td>
+      <td>{{ event.areas.all() }}</td>
+      <td>
+        <a href="">e</a>
+        <a href="">d</a>
+        <a href="">x</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
