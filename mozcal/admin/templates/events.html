@@ -19,12 +19,12 @@
   <tbody>
     {% for event in events %}
     <tr>
-      <td><a href="{{ url('event_edit', slug=event.slug) }}">{{ event.title }}</a></td>
+      <td>{{ event.title }}</td>
       <td>{{ event.space }}</td>
       <td>{{ event.start }} - {{ event.end }}</td>
       <td>{{ event.areas.all() }}</td>
       <td>
-        <a href="">e</a>
+        <a href="{{ url('event_edit', slug=event.slug) }}">e</a>
         <a href="">d</a>
 
         <form action="{{ url('event_delete') }}" method="post">

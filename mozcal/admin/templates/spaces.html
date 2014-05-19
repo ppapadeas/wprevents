@@ -19,12 +19,12 @@
   <tbody>
     {% for space in spaces %}
     <tr>
-      <td><a href="{{ url('space_edit', slug=space.slug) }}">{{ space.name }}</a> (id: {{ space.id }})</td>
+      <td>{{ space.name }}</td>
       <td>{{ space.address }}, {{ space.city }}, {{ space.country }}</td>
       <td>{{ space.lat }} {{ space.lon }}</td>
       <td>{{ space.photo }}</td>
       <td>
-        <a href="">e</a>
+        <a href="{{ url('space_edit', slug=space.slug) }}">e</a>
         <a href="">d</a>
 
         <form action="{{ url('space_delete') }}" method="post">
