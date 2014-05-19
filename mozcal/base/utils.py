@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from django.core.exceptions import ValidationError
+
 
 def get_or_create_instance(model_class, **kwargs):
   """
