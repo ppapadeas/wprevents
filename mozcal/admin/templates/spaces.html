@@ -1,9 +1,34 @@
 <h1>Admin: spaces</h1>
 
-<a href="{{ url('events_new_space') }}">Add space</a>
+<div>
+  <a href="">Export CSV</a>
+  <a href="{{ url('events_new_space') }}">Add space</a>
+</div>
 
-<ul>
-{% for space in spaces %}
-  <li><a href="{{ url('space_edit', slug=space.slug) }}">{{ space.name }}</a> (id: {{ space.id }})</li>
-{% endfor %}
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Space name</th>
+      <th>Address</th>
+      <th>Coordinates</th>
+      <th>Photo</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for space in spaces %}
+    <tr>
+      <td><a href="{{ url('space_edit', slug=space.slug) }}">{{ space.name }}</a> (id: {{ space.id }})</td>
+      <td>{{ space.address }}, {{ space.city }}, {{ space.country }}</td>
+      <td>{{ space.lat }} {{ space.lon }}</td>
+      <td>{{ space.photo }}</td>
+      <td>
+        <a href="">e</a>
+        <a href="">d</a>
+        <a href="">x</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
