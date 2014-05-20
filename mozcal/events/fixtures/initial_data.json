@@ -33,21 +33,24 @@
   "pk": 1,
   "model": "events.functionalarea",
   "fields": {
-    "name": "Quality Assurance"
+    "name": "Quality Assurance",
+    "slug": "quality-assurance"
   }
 },
 {
   "pk": 2,
   "model": "events.functionalarea",
   "fields": {
-    "name": "Localization"
+    "name": "Localization",
+    "slug": "localization"
   }
 },
 {
   "pk": 3,
   "model": "events.functionalarea",
   "fields": {
-    "name": "Accessibility"
+    "name": "Accessibility",
+    "slug": "accessibility"
   }
 },
 {
