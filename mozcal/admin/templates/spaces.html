@@ -25,7 +25,6 @@
       <td>{{ space.photo }}</td>
       <td>
         <a href="{{ url('space_edit', slug=space.slug) }}">e</a>
-        <a href="">d</a>
 
         <form action="{{ url('space_delete') }}" method="post">
           {{ csrf() }}
