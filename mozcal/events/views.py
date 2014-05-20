@@ -10,8 +10,10 @@ def one(request, slug):
 
 def all(request):
   search_string = request.GET.get('search', '')
+  space_name = request.GET.get('space', '')
+  area_name = request.GET.get('area', '')
 
-  events = Event.objects.filter(title__icontains=search_string)
+  events = Event.objects.filter(title__icontains=search_string).filter(space__slug__contains=space_name).filter(areas__slug__contains=area_name)
   spaces = Space.objects.all()
   areas = FunctionalArea.objects.all()
 

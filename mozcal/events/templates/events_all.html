@@ -3,15 +3,17 @@
     <input type="text" name="search">
 
     <select name="space">
-    {% for space in spaces %}
+      <option value="">All</option>
+      {% for space in spaces %}
       <option value="{{ space.slug }}">{{ space.name }}</option>
-    {% endfor %}
+      {% endfor %}
     </select>
 
     <select name="area">
-    {% for area in areas %}
+      <option value="">All</option>
+      {% for area in areas %}
       <option value="{{ area.slug }}">{{ area.name }}</option>
-    {% endfor %}
+      {% endfor %}
     </select>
 
     <select name="period">
