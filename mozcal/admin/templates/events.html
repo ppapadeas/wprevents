@@ -22,7 +22,7 @@
       <td>{{ event.title }}</td>
       <td>{{ event.space }}</td>
       <td>{{ event.start }} - {{ event.end }}</td>
-      <td>{{ event.areas.all() }}</td>
+      <td>{{ event.area_names|join(', ') }}</td>
       <td>
         <a href="{{ url('event_edit', slug=event.slug) }}">e</a>
         <a href="{{ url('event_dedupe', slug=event.slug) }}">d</a>
