@@ -9,7 +9,9 @@ def one(request, slug):
 
 
 def all(request):
-  events = Event.objects.all()
+  search_string = request.GET.get('search', '')
+
+  events = Event.objects.filter(title__icontains=search_string)
   spaces = Space.objects.all()
   areas = FunctionalArea.objects.all()
 
