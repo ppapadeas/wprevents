@@ -96,11 +96,11 @@ class Event(models.Model):
     super(Event, self).save(*args, **kwargs)
 
 
-  def get_duplicate_candidates(self, q=None):
-    after = datetime.date(self.start)
-    before = datetime.date(self.end) + timedelta(days=1)
+  def get_duplicate_candidates(self, q=''):
+    event_day = datetime.date(self.start)
+    day_after_event = datetime.date(self.end) + timedelta(days=1)
 
-    duplicate_candidates = Event.objects.filter(start__gte=after).filter(end__lte=before).exclude(id=self.id).filter(title__icontains=q)
+    duplicate_candidates = Event.objects.filter(start__gte=event_day).filter(end__lte=day_after_event).exclude(id=self.id).filter(title__icontains=q)
 
     return duplicate_candidates
 

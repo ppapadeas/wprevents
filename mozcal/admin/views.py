@@ -43,7 +43,7 @@ def event_dedupe(request, slug=None):
     event.remove_duplicate(request.POST.get('duplicate_id'))
     return HttpResponseRedirect('/admin/events/'+ event.slug +'/dedupe')
 
-  events = event.get_duplicate_candidates(request.GET.get('q'))
+  events = event.get_duplicate_candidates(request.GET.get('q', ''))
 
   return render(request, 'event_dedupe.html', { 'events': events })
 
