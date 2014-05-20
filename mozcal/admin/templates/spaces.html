@@ -1,4 +1,8 @@
-<h1>Admin: spaces</h1>
+{% extends 'admin.html' %}
+
+{% block content %}
+
+<h1>Spaces</h1>
 
 <div>
   <a href="?format=csv">Export CSV</a>
@@ -36,3 +40,5 @@
     {% endfor %}
   </tbody>
 </table>
+
+{% endblock %}

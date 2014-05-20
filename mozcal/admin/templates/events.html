@@ -1,4 +1,8 @@
-<h1>Admin: events</h1>
+{% extends 'admin.html' %}
+
+{% block content %}
+
+<h1>Events</h1>
 
 <div>
   <a href="?format=csv">Export CSV</a>
@@ -37,3 +41,5 @@
     {% endfor %}
   </tbody>
 </table>
+
+{% endblock %}
