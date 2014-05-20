@@ -43,4 +43,4 @@ class EventForm(ModelForm):
 class SpaceForm(ModelForm):
   class Meta:
     model = Space
-    fields = ['name', 'address', 'address2', 'city', 'country', 'description', 'lat', 'lon']
+    fields = ['name', 'address', 'address2', 'city', 'country', 'postal_code', 'description', 'lat', 'lon']
