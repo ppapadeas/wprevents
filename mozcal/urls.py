@@ -11,12 +11,12 @@ patch()
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+  (r'', include('django_browserid.urls')),
   (r'', include('mozcal.events.urls')),
 
   # API
   url(r'^api/', include('mozcal.api.urls')),
   (r'^admin/', include('mozcal.admin.urls')),
-  (r'^browserid/', include('django_browserid.urls')),
 
 
   # Generate a robots.txt
