@@ -96,6 +96,11 @@ class Event(models.Model):
 
     return duplicate_candidates
 
+
+  def remove_duplicate(self, id):
+    Event.objects.filter(id=id).delete()
+
+
   @property
   def area_names(self):
     return [area.name for area in self.areas.all()]

@@ -39,6 +39,10 @@ def event_delete(request):
 def event_dedupe(request, slug=None):
   event = Event.objects.get(slug=slug)
 
+  if request.method == 'POST':
+    event.remove_duplicate(request.POST.get('duplicate_id'))
+    return HttpResponseRedirect('/admin/events/'+ event.slug +'/dedupe')
+
   events = event.get_duplicate_candidates()
 
   return render(request, 'event_dedupe.html', { 'events': events })

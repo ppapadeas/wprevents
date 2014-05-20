@@ -12,6 +12,15 @@
     {% for event in events %}
     <tr>
       <td>{{ event.title }}</td>
+      <td></td>
+      <td></td>
+      <td>
+        <form method="post">
+          {{ csrf() }}
+          <input type="hidden" name="duplicate_id" value="{{ event.id }}">
+          <input type="submit" value="dupe">
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
