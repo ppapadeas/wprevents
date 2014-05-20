@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -86,6 +86,15 @@ class Event(models.Model):
     if not self.slug:
       self.slug = slugify(self.title, instance=self)
     super(Event, self).save(*args, **kwargs)
+
+
+  def get_duplicate_candidates(self):
+    after = datetime.date(self.start)
+    before = datetime.date(self.end) + timedelta(days=1)
+
+    duplicate_candidates = Event.objects.filter(start__gte=after).filter(end__lte=before).exclude(id=self.id)
+
+    return duplicate_candidates
 
   @property
   def area_names(self):

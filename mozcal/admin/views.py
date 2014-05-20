@@ -36,6 +36,14 @@ def event_delete(request):
   return HttpResponseRedirect('/admin/events')
 
 
+def event_dedupe(request, slug=None):
+  event = Event.objects.get(slug=slug)
+
+  events = event.get_duplicate_candidates()
+
+  return render(request, 'event_dedupe.html', { 'events': events })
+
+
 def spaces_list(request):
   spaces = Space.objects.all()
 

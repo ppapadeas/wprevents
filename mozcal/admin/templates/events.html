@@ -25,7 +25,7 @@
       <td>{{ event.areas.all() }}</td>
       <td>
         <a href="{{ url('event_edit', slug=event.slug) }}">e</a>
-        <a href="">d</a>
+        <a href="{{ url('event_dedupe', slug=event.slug) }}">d</a>
 
         <form action="{{ url('event_delete') }}" method="post">
           {{ csrf() }}
