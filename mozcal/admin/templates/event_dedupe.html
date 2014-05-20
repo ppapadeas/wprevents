@@ -2,9 +2,10 @@
   <thead>
     <tr>
       <th>Event name</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Space</th>
+      <th>Date</th>
+      <th>Area</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -12,8 +13,9 @@
     {% for event in events %}
     <tr>
       <td>{{ event.title }}</td>
-      <td></td>
-      <td></td>
+      <td>{{ event.space }}</td>
+      <td>{{ event.start.strftime('%Y-%m-%d') }}</td>
+      <td>{{ event.area_names }}</td>
       <td>
         <form method="post">
           {{ csrf() }}
