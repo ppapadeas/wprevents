@@ -47,10 +47,15 @@ JINGO_EXCLUDE_APPS = (
 # BrowserID configuration
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'django_browserid.auth.BrowserIDBackend',
+    # 'django_browserid.auth.BrowserIDBackend',
+    'mozcal.base.auth.BrowserIDBackend',
 )
 
 SITE_URL = 'http://localhost:8000'
+
+# Do not create user on login
+BROWSERID_CREATE_USER = False
+
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL_FAILURE = '/'
