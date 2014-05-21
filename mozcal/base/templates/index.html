@@ -6,11 +6,52 @@
 
     {% block site_css %}
       {% compress css %}
-      <link href="{{ static('examples/css/main.css') }}" rel="stylesheet">
+
       {% endcompress %}
     {% endblock %}
+
+    {{ browserid_css() }}
   </head>
   <body data-mobile-cookie="{{ settings.MOBILE_COOKIE }}">
+
+    {{ browserid_info() }}
+
+    <!-- Sign In & Sign Out -->
+    <div class="large-10 small-10 columns" id="login-box">
+      <div class="account anonymous nomenu logout">
+        {% if not user.is_authenticated() %}
+          <span id="login-menu-locator">
+            {{ browserid_login(text='Sign in') }}
+          </span>
+          or
+          <a href="#" data-reveal-id="join-modal">Join</a>
+        {% else %}
+          <div class="hide-for-small" id="logout-menu-locator">
+            {% if user_is_rep(user) %}
+              <a id="base-displayname" href="{{ url('profiles_view_my_profile') }}">
+                {{ user.get_full_name()|default('user.userprofile.display_name') }}
+              </a>
+            {% else %}
+              {{ user.get_full_name()|default('user.userprofile.display_name') }}
+            {% endif %}
+            [{{ browserid_logout(text='Sign out') }}]
+          </div>
+          <div class="show-for-small">
+            {% if user_is_rep(user) %}
+              <a id="base-displayname" href="{{ url('profiles_view_my_profile') }}">
+                {{ user.get_full_name()|default('user.userprofile.display_name') }}
+              </a>
+            {% else %}
+              {{ user.get_full_name()|default('user.userprofile.display_name') }}
+            {% endif %}
+            <div>
+              {{ browserid_logout(text='Sign out') }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
     {% block content %}{% endblock %}
 
     <div id="footer">
@@ -20,12 +61,7 @@
       <a class="mobile-link" href="">{{ _('View Mobile Site') }}</a>
     </div>
 
-    {% block site_js %}
-      {% compress js %}
-      <script src="{{ static('examples/js/libs/jquery-1.10.2.min.js') }}"></script>
-      <script src="{{ static('examples/js/libs/jquery.cookie.js') }}"></script>
-      <script src="{{ static('examples/js/init.js') }}"></script>
-      {% endcompress %}
-    {% endblock %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    {{ browserid_js() }}
   </body>
 </html>
