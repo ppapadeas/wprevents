@@ -6,9 +6,9 @@ from django.db import models
 from uuslug import uuslug as slugify
 
 class FunctionalArea(models.Model):
-  name = models.CharField(max_length=120)
-  slug = models.SlugField(max_length=50, blank=True)
-  color = models.CharField(max_length=7, default="#fff")
+  name = models.CharField(max_length=120, blank=False)
+  slug = models.SlugField(max_length=50, blank=False)
+  color = models.CharField(max_length=7, blank=False, default="#fff")
 
   def __unicode__(self):
     return self.name
