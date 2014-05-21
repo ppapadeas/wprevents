@@ -20,7 +20,6 @@ class Space(models.Model):
 
   name = models.CharField(max_length=120)
   slug = models.SlugField(max_length=50, blank=True)
-  description = models.TextField(blank=True)
 
   address = models.CharField(max_length=150)
   address2 = models.CharField(max_length=150, blank=True)
