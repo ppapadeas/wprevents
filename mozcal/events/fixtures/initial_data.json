@@ -61,7 +61,7 @@
     "slug": "moutain-view",
     "address": "331 E. Evelyn Avenue",
     "city": "Mountain View",
-    "country": "USA",
+    "country": "us",
     "postal_code": "94041",
     "lat": 37.3874349,
     "lon": -122.0609917
@@ -75,7 +75,7 @@
     "slug": "london",
     "address": "101 St Martin's Lane, 3rd Floor",
     "city": "London",
-    "country": "UK",
+    "country": "gb",
     "postal_code": "WC2N 4AZ",
     "lat": 51.51045,
     "lon": -0.127497
@@ -89,7 +89,7 @@
     "slug": "paris",
     "address": "16 Bis Boulevard Montmartre",
     "city": "Paris",
-    "country": "FR",
+    "country": "fr",
     "postal_code": "75009",
     "lat": 48.8721388,
     "lon": 2.3411542

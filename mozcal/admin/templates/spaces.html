@@ -24,7 +24,7 @@
     {% for space in spaces %}
     <tr>
       <td>{{ space.name }}</td>
-      <td>{{ space.address }}, {{ space.city }}, {{ space.country }}</td>
+      <td>{{ space.address }}, {{ space.city }}, {{ space.get_country_display() }}</td>
       <td>{{ space.lat }} {{ space.lon }}</td>
       <td>{{ space.photo }}</td>
       <td>

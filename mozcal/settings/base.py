@@ -107,3 +107,13 @@ LOGGING = {
         }
     }
 }
+
+# List of valid country codes.
+def lazy_countries():
+    from product_details import product_details
+
+    try:
+        return product_details.get_regions('en-US')
+    except IOError:
+        return {u'us': 'United States'}
+COUNTRIES = lazy(lazy_countries, dict)()

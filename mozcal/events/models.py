@@ -1,3 +1,4 @@
+from django.conf import settings
 from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
@@ -15,6 +16,8 @@ class FunctionalArea(models.Model):
 
 
 class Space(models.Model):
+  COUNTRIES = settings.COUNTRIES.items()
+
   name = models.CharField(max_length=120)
   slug = models.SlugField(max_length=50, blank=True)
   description = models.TextField(blank=True)
@@ -22,7 +25,7 @@ class Space(models.Model):
   address = models.CharField(max_length=150)
   address2 = models.CharField(max_length=150, blank=True)
   city = models.CharField(max_length=50, blank=False, default='')
-  country = models.CharField(max_length=50, default='US')
+  country = models.CharField(max_length=50, default='US', choices=COUNTRIES)
   postal_code = models.CharField(max_length=8, blank=True)
 
   lat = models.FloatField(null=True)
