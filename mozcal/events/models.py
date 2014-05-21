@@ -8,16 +8,10 @@ from uuslug import uuslug as slugify
 class FunctionalArea(models.Model):
   name = models.CharField(max_length=120)
   slug = models.SlugField(max_length=50, blank=True)
+  color = models.CharField(max_length=7, default="#fff")
 
   def __unicode__(self):
     return self.name
-
-  def save(self, *args, **kwargs):
-    # Create unique slug
-    # @see https://github.com/un33k/django-uuslug
-    if not self.slug:
-      self.slug = slugify(self.name, instance=self)
-    super(Space, self).save(*args, **kwargs)
 
 
 class Space(models.Model):
