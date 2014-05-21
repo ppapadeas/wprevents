@@ -1,3 +1,7 @@
+<h2>Deduplicate {{ event.title }}</h2>
+
+{{ event.title }} in {{ event.space.name }} scheduled for {{ event.start }} is a duplicate of:
+
 <table>
   <thead>
     <tr>
@@ -15,7 +19,7 @@
       <td>{{ event.title }}</td>
       <td>{{ event.space }}</td>
       <td>{{ event.start.strftime('%Y-%m-%d') }}</td>
-      <td>{{ event.area_names }}</td>
+      <td>{{ event.area_names|join(', ') }}</td>
       <td>
         <form method="post">
           {{ csrf() }}

@@ -48,7 +48,10 @@ def event_dedupe(request, slug=None):
 
   events = event.get_duplicate_candidates(request.GET.get('q', ''))
 
-  return render(request, 'event_dedupe.html', { 'events': events })
+  return render(request, 'event_dedupe.html', {
+    'event': event,
+    'events': events
+  })
 
 
 # SPACES
