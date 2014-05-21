@@ -24,29 +24,10 @@
             {{ browserid_login(text='Sign in') }}
           </span>
           or
-          <a href="#" data-reveal-id="join-modal">Join</a>
+          <a href="#">Join</a>
         {% else %}
-          <div class="hide-for-small" id="logout-menu-locator">
-            {% if user_is_rep(user) %}
-              <a id="base-displayname" href="{{ url('profiles_view_my_profile') }}">
-                {{ user.get_full_name()|default('user.userprofile.display_name') }}
-              </a>
-            {% else %}
-              {{ user.get_full_name()|default('user.userprofile.display_name') }}
-            {% endif %}
-            [{{ browserid_logout(text='Sign out') }}]
-          </div>
           <div class="show-for-small">
-            {% if user_is_rep(user) %}
-              <a id="base-displayname" href="{{ url('profiles_view_my_profile') }}">
-                {{ user.get_full_name()|default('user.userprofile.display_name') }}
-              </a>
-            {% else %}
-              {{ user.get_full_name()|default('user.userprofile.display_name') }}
-            {% endif %}
-            <div>
-              {{ browserid_logout(text='Sign out') }}
-            </div>
+            {{ browserid_logout(text='Sign out') }}
           </div>
         {% endif %}
       </div>
