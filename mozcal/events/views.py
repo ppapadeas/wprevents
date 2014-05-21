@@ -13,7 +13,14 @@ def all(request):
   space_name = request.GET.get('space', '')
   area_name = request.GET.get('area', '')
 
-  events = Event.objects.filter(title__icontains=search_string).filter(space__slug__contains=space_name).filter(areas__slug__contains=area_name)
+  events = Event.objects.filter(
+    space__slug__contains=space_name
+  ).filter(
+    areas__slug__contains=area_name
+  ).filter(
+    title__icontains=search_string
+  ).distinct()
+
   spaces = Space.objects.all()
   areas = FunctionalArea.objects.all()
 
