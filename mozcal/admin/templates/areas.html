@@ -1,0 +1,42 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+
+<h1>Functional Areas</h1>
+
+<div>
+  <a href="?format=csv">Export CSV</a>
+  <a href="{{ url('areas_new_area') }}">New area</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Color</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for area in areas %}
+    <tr>
+      <td>{{ area.name }}</td>
+      <td>{{ area.slug }}</td>
+      <td>{{ area.color }}</td>
+      <td>
+        <a href="{{ url('area_edit', slug=area.slug) }}">e</a>
+
+        <form action="{{ url('area_delete') }}" method="post">
+          {{ csrf() }}
+          <input type="hidden" name="id" value="{{ area.id }}">
+          <input type="submit" value="x">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

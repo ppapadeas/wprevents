@@ -2,10 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from mozcal.base.utils import get_or_create_instance
-from mozcal.events.models import Event, Space
+from mozcal.events.models import Event, Space, FunctionalArea
 
-from .forms import EventForm, SpaceForm
+from .forms import EventForm, SpaceForm, FunctionalAreaForm
 from .utils import as_csv
+
+
+# EVENTS
 
 def events_list(request):
   events = Event.objects.all()
@@ -48,6 +51,8 @@ def event_dedupe(request, slug=None):
   return render(request, 'event_dedupe.html', { 'events': events })
 
 
+# SPACES
+
 def spaces_list(request):
   spaces = Space.objects.all()
 
@@ -73,3 +78,32 @@ def space_delete(request):
 
   space.delete()
   return HttpResponseRedirect('/admin/spaces')
+
+
+# AREAS
+
+def area_list(request):
+  areas = FunctionalArea.objects.all()
+
+  if request.GET.get('format') == 'csv':
+    return as_csv(request, FunctionalArea.objects.all(), ['name', 'slug', 'color'], fileName='areas.csv')
+
+  return render(request, 'areas.html', { 'areas': areas })
+
+
+def area_edit(request, slug=None):
+  area, created = get_or_create_instance(FunctionalArea, slug=slug)
+  form = FunctionalAreaForm(request.POST or None, instance=area)
+
+  if request.method == 'POST':
+    if form.is_valid():
+      form.save()
+      return HttpResponseRedirect('/admin/areas')
+
+  return render(request, 'area_form.html', { 'area': area, 'form': form })
+
+def area_delete(request):
+  area = FunctionalArea.objects.get(id=request.POST.get('id'))
+
+  area.delete()
+  return HttpResponseRedirect('/admin/area')

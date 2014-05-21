@@ -6,7 +6,7 @@ from django.forms import ModelForm
 from datetimewidgets import SplitSelectDateTimeWidget
 
 from mozcal.base.utils import validate_datetime
-from mozcal.events.models import Event, Space
+from mozcal.events.models import Event, Space, FunctionalArea
 
 
 class EventForm(ModelForm):
@@ -44,3 +44,9 @@ class SpaceForm(ModelForm):
   class Meta:
     model = Space
     fields = ['name', 'address', 'address2', 'city', 'country', 'postal_code', 'description', 'lat', 'lon']
+
+
+class FunctionalAreaForm(ModelForm):
+  class Meta:
+    model = FunctionalArea
+    fields = ['name', 'slug', 'color']
