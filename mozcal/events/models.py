@@ -55,6 +55,17 @@ class EventManager(models.Manager):
 
     return self.filter(start__lte=now).filter(end__gte=now)
 
+  def search(self, space_name, area_name, search_string):
+    events = Event.objects.filter(
+      space__slug__contains=space_name
+    ).filter(
+      areas__slug__contains=area_name
+    ).filter(
+      title__icontains=search_string
+    ).distinct()
+
+    return events
+
 
 class Event(models.Model):
   class Meta:
