@@ -1,3 +1,7 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+
 <h2>Deduplicate {{ event.title }}</h2>
 
 {{ event.title }} in {{ event.space.name }} scheduled for {{ event.start }} is a duplicate of:
@@ -31,3 +35,5 @@
     {% endfor %}
   </tbody>
 </table>
+
+{% endblock %}

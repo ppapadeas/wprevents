@@ -1,3 +1,7 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+
 <h1>Edit {{ space.name }} ({{ space.id }})</h1>
 
 <form method="post">
@@ -39,3 +43,5 @@
   </ul>
   <input type="submit" value="Save space">
 </form>
+
+{% endblock %}
