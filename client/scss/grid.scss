@@ -2,6 +2,10 @@
 
 $columns-count: 12;
 
+.row {
+  @include clearfix;
+}
+
 .column {
   float: left;
   position: relative;

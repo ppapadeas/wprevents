@@ -18,5 +18,67 @@
       }
     }
   }
+}
 
+.event-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+li.event {
+  background: #fff;
+  padding: ($baseLine / 2) 0;
+
+  &:nth-child(even) {
+    background: darken(#fff, 3%);
+  }
+
+  .event-info {
+    padding-top: 2px;
+  }
+
+  .event-name {
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+  }
+
+  .event-description {
+    p {
+      margin: 0;
+      font-size: $fontSizeSmall;
+    }
+  }
+
+  .event-date {
+    @include clearfix;
+    padding-top: 3px;
+
+    .day,
+    .monthyear {
+      float: left;
+      width: 50%;
+      font-weight: 600;
+      color: $textColorLight;
+      text-align: center;
+    }
+
+    .day {
+      font-size: 48px;
+      line-height: 48px;
+    }
+
+    .monthyear {
+      line-height: 1;
+    }
+
+    .month {
+      font-size: 24px;
+    }
+
+    .year {
+      font-size: 22px;
+    }
+  }
 }

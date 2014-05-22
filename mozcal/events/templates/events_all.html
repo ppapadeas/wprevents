@@ -34,23 +34,28 @@
   </div>
 </div>
 
-
-<ul class="width-container">
-{% for event in events %}
-  <li>
-    <div id="date">
-      {{ event.start }}
-    </div>
-    <div id="info">
-      <h2><a href="{{ url('event_one', slug=event.slug) }}">{{ event.title }}</a></h2>
-      <div class="description">{{ event.description }}</div>
-    </div>
-    <div id="meta">
-      <div>{{ event.space }}</div>
-      <div>{{ event.area_names|join(', ') }}</div>
-    </div>
-  </li>
-{% endfor %}
-</ul>
-
+<div class="width-container">
+  <ul class="event-list">
+  {% for event in events %}
+    <li class="event row">
+      <div class="event-date column col-2">
+        <div class="day">24</div>
+        <div class="monthyear">
+          <div class="month">AUG</div>
+          <div class="year">2014</div>
+        </div>
+        {# event.start #}
+      </div>
+      <div class="event-info column col-8">
+        <a class="event-name" href="{{ url('event_one', slug=event.slug) }}">{{ event.title }}</a>
+        <div class="event-description"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non vehicula libero, eu sodales velit.</p>{{ event.description }}</div>
+      </div>
+      <div class="event-meta column col-2">
+        <div>{{ event.space }}</div>
+        <div>{{ event.area_names|join(', ') }}</div>
+      </div>
+    </li>
+  {% endfor %}
+  </ul>
+</div>
 {% endblock %}
