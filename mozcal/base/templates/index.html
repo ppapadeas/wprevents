@@ -1,14 +1,11 @@
+{% set page_title = 'Mozilla Events' %}
 <!DOCTYPE html>
 <html LANG="{{ LANG }}" dir="{{ DIR }}">
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-    <title>{% block page_title %}Mozilla Events{% endblock %}</title>
+    <title>{{ page_title }}</title>
 
-    {% block site_css %}
-      {% compress css %}
-
-      {% endcompress %}
-    {% endblock %}
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
     {{ browserid_css() }}
   </head>
