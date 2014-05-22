@@ -18,6 +18,3 @@ tmp/*
 *~
 *.mo
 .vagrant
-mozcal/**/*.css
-mozcal/**/*.js
-mozcal/**/*.map
