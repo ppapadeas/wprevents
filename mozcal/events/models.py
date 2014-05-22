@@ -96,8 +96,8 @@ class Event(models.Model):
   description = models.TextField(blank=True)
   details = models.TextField(blank=True)
 
-  start = models.DateTimeField()
-  end = models.DateTimeField()
+  start = models.DateTimeField(default=datetime.now)
+  end = models.DateTimeField(default=datetime.now)
 
   space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted', on_delete=models.SET_NULL)
   owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
