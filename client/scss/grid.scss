@@ -1,0 +1,30 @@
+// 12-column grid system
+
+$columns-count: 12;
+
+.column {
+  float: left;
+  position: relative;
+  padding-left: 20px;
+}
+
+.column:only-child {
+  padding-right: 20px;
+}
+
+.column:last-child {
+  padding-right: 20px;
+}
+
+.col-1  { width: percentage(1 / $columns-count); }
+.col-2  { width: percentage(2 / $columns-count); }
+.col-3  { width: percentage(3 / $columns-count); }
+.col-4  { width: percentage(4 / $columns-count); }
+.col-5  { width: percentage(5 / $columns-count); }
+.col-6  { width: percentage(6 / $columns-count); }
+.col-7  { width: percentage(7 / $columns-count); }
+.col-8  { width: percentage(8 / $columns-count); }
+.col-9  { width: percentage(9 / $columns-count); }
+.col-10 { width: percentage(10 / $columns-count); }
+.col-11 { width: percentage(11 / $columns-count); }
+.col-12 { width: percentage(12 / $columns-count); }

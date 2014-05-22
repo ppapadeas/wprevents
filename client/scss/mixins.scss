@@ -143,3 +143,10 @@
        -o-animation-iteration-count: $iteration;
           animation-iteration-count: $iteration;
 }
+
+// Styles
+// ----------------------------------------------------
+
+@mixin border-radius($radius: 0.25em) {
+  border-radius: $radius;
+}

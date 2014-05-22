@@ -2,32 +2,36 @@
 
 {% block content %}
 <div class="width-container">
-  <form>
-    <input type="text" name="search">
+  <div class="billboard filters-container">
+    <form id="filters-form">
+      <div class="column col-5">
+        <input type="text" name="search" placeholder="Filter using any keyword" id="keyword-filter">
+      </div>
 
-    <select name="space">
-      <option value="">All</option>
-      {% for space in spaces %}
-      <option value="{{ space.slug }}">{{ space.name }}</option>
-      {% endfor %}
-    </select>
+      <div class="column col-5 select-fields">
+        <select name="space">
+          <option value="" default>All spaces</option>
+          {% for space in spaces %}
+          <option value="{{ space.slug }}">{{ space.name }}</option>
+          {% endfor %}
+        </select>
 
-    <select name="area">
-      <option value="">All</option>
-      {% for area in areas %}
-      <option value="{{ area.slug }}">{{ area.name }}</option>
-      {% endfor %}
-    </select>
+        <select name="area">
+          <option value="" default>All types</option>
+          {% for area in areas %}
+          <option value="{{ area.slug }}">{{ area.name }}</option>
+          {% endfor %}
+        </select>
 
-    <select name="period">
-      <option value="1">Upcoming</option>
-      <option value="2">This month</option>
-      <option value="3">This week</option>
-      <option value="4">Past events</option>
-    </select>
+        <input type="text" name="start-date" placeholder="mm/dd/yy">
+        <input type="text" name="end-date" placeholder="mm/dd/yy">
+      </div>
 
-    <input type="submit" value="Filter">
-  </form>
+      <div class="column col-2">
+        <input type="submit" value="Search" class="button fill-width filter-submit-button">
+      </div>
+    </form>
+  </div>
 </div>
 
 

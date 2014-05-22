@@ -1,0 +1,59 @@
+// General buttons
+
+.button,
+.button:link,
+.button:visited {
+    display: inline-block;
+    @include border-radius;
+    box-shadow: $buttonShadow;
+    background-color: $buttonBlue;
+    @include gradient($buttonBlue, $buttonBlueDark);
+    color: $buttonTextColor;
+    text-align: center;
+    font-size: $fontSizeDefault;
+    font-weight: bold;
+    padding: ($baseLine / 4) ($baseLine / 2);
+    line-height: 1.1;
+    text-decoration: none;
+    min-width: 80px;
+    border: 0;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    @include transition(all linear .25s);
+
+    &:hover,
+    &.hover,
+    &:focus,
+    &.focus {
+        @include box-shadow($buttonShadowHover);
+        color: $buttonTextColor;
+        text-decoration: none;
+        @include transition(all linear .25s);
+    }
+
+    &:focus,
+    &.focus {
+        outline-color: $textColorSecondary;
+        @include box-shadow($buttonShadowFocus);
+    }
+
+    &:active,
+    &.active {
+        @include box-shadow($buttonShadowActive);
+        color: $buttonTextColor;
+        text-decoration: none;
+        @include transition(none);
+    }
+
+    &.insensitive,
+    &.insensitive:hover,
+    &.insensitive:focus {
+        background-color: #9ca3aa;
+        @include gradient(#bfc7cd, #9ca3aa);
+        @include box-shadow($buttonShadow);
+        color: #eee;
+    }
+
+    &.fill-width {
+        width: 100%;
+    }
+}

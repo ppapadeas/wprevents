@@ -1,0 +1,53 @@
+textarea,
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    height: $baseLine;
+    background: #fafafa;
+    border-color: #dbdbdb;
+    border-style: solid;
+    border-width: 1px;
+    @include box-shadow(0 2px 1px rgba(0,0,0,0.1) inset);
+    padding: ($baseLine / 6)  ($baseLine / 3);
+    border-radius: 3px;
+    @include transition(all linear .1s);
+}
+
+textarea { height: auto; }
+
+textarea:focus,
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=text]:focus {
+    border-color: #bbb;
+    @include box-shadow(0 2px 1px rgba(0,0,0,0.1) inset, 0 0 8px 0 rgba(103,167,208,0.6));
+    @include transition(all linear .1s);
+}
+
+.field {
+    margin-bottom: $baseLine / 3;
+}
+
+.errorlist {
+    margin: 0;
+    color: #c00;
+
+    li {
+        list-style-type: none;
+        margin: 0;
+    }
+}
+
+.field-error {
+    input[type=email],
+    input[type=password],
+    input[type=text] {
+        border-color: rgb(175,50,50);
+        @include box-shadow(0 2px 1px rgba(0,0,0,0.1) inset, 0 0 8px 0 rgba(175,50,50,.6));
+    }
+}
+
+.super-priority-field {
+    display: none;
+    visibility: hidden;
+}

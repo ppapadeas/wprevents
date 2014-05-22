@@ -1,0 +1,22 @@
+.filters-container {
+  margin-top: 300px;
+  padding-top: $baseLine;
+  padding-bottom: $baseLine;
+
+  #keyword-filter {
+    width: 100%;
+  }
+
+  .select-fields {
+    & > * {
+      width: 22%;
+      float: left;
+      margin-left: 4%;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+}
