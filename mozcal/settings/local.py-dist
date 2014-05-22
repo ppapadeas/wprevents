@@ -37,9 +37,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # Users allowed to log in with BrowserID (see mozcal.base.auth)
-PRIVILEGED_USERS = (
-    # ('user', 'john.doe@mozilla.org'),
-)
+PRIVILEGED_USERS = ['john.doe@mozilla.org']
 
 # Debugging displays nice error messages, but leaks memory. Set this to False
 # on all server instances and True only for development.
@@ -88,4 +86,4 @@ ENGAGE_ROBOTS = True
 
 # Uncomment this line if you are running a local development install without
 # HTTPS to disable HTTPS-only cookies.
-#SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
