@@ -4,9 +4,7 @@ var mapbox = require('mapbox.js');
 
 var MapView = Backbone.View.extend({
   initialize: function() {
-    var map = L.mapbox.map('map', 'examples.map-i86nkdio');
-
-    map.setView([40, -74.50], 9);
+    var map = L.mapbox.map('map', 'wavecaller.iacp9hm4');
   }
 });
 
