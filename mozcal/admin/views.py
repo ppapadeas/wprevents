@@ -9,6 +9,12 @@ from .forms import EventForm, SpaceForm, FunctionalAreaForm
 from .utils import as_csv
 
 
+
+@permission_required('events.can_administrate_events')
+def home(request):
+  return render(request, 'admin.html')
+
+
 # EVENTS
 
 @permission_required('events.can_administrate_events')

@@ -3,6 +3,8 @@ from django.conf.urls.defaults import include, url, patterns
 from . import views
 
 urlpatterns = patterns('',
+  url(r'^$', views.home, name='admin_home'),
+
   url(r'^events/', include([
     url(r'^$', views.events_list, name='event_all'),
     url(r'^new$', views.event_edit, name='events_new_event'),
