@@ -7,6 +7,11 @@ from django.db import models
 from uuslug import uuslug as slugify
 
 class FunctionalArea(models.Model):
+  class Meta:
+    permissions = (
+      ('can_administrate_functional_areas', 'Can administrate functional areas'),
+    )
+
   name = models.CharField(max_length=120, blank=False)
   slug = models.SlugField(max_length=50, blank=False)
   color = models.CharField(max_length=7, blank=False, default="#fff")
@@ -16,6 +21,11 @@ class FunctionalArea(models.Model):
 
 
 class Space(models.Model):
+  class Meta:
+    permissions = (
+      ('can_administrate_spaces', 'Can administrate spaces'),
+    )
+
   COUNTRIES = settings.COUNTRIES.items()
 
   name = models.CharField(max_length=120)
@@ -72,6 +82,9 @@ class EventManager(models.Manager):
 class Event(models.Model):
   class Meta:
     ordering = ['-start']
+    permissions = (
+      ('can_administrate_events', 'Can administrate'),
+    )
 
   objects = EventManager()
 
