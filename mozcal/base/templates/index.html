@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ settings.STATIC_URL }}css/main.css">
     <link rel="stylesheet" href="//mozorg.cdn.mozilla.net/media/css/tabzilla-min.css" />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css' rel='stylesheet' />
 
     {{ browserid_css() }}
   </head>
@@ -40,6 +41,8 @@
       <div class="logo-nav width-container">
         <h1 class="logo"><span class="metabold">mozilla</span> events</h1>
       </div>
+
+      <div id="map"></div>
 
       {% block pageheader %}{% endblock %}
 
