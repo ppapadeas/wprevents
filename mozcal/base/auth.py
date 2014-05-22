@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django_browserid.auth import BrowserIDBackend
 from django_browserid.base import get_audience
 
-from mozcal.base.utils import get_or_create_instance
+from utils import get_or_create_instance
 
 
 class BrowserIDBackend(BrowserIDBackend):
