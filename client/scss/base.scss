@@ -23,6 +23,11 @@ body {
   background: url('#{$mozCdnUrl}media/img/sandstone/bg-gradient-sand.png') repeat-x 0 0, url('#{$mozCdnUrl}media/img/sandstone/bg-sand.png') repeat 0 0;
 }
 
+#inner-wrapper {
+  position: relative;
+  z-index: 10;
+}
+
 a {
   color: $linkBlue;
 
