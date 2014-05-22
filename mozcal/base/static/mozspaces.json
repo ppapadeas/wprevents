@@ -1,0 +1,208 @@
+{
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "properties": {
+            "id": "mountain-view",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-122.062805, 37.388944]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "auckland",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [174.777106, -36.866596]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "beijing",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [116.43405, 39.909901]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "berlin",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [13.418735, 52.512408]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "london",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-0.1271, 51.5103]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "paris",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [2.34121, 48.871951]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "portland",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-122.6827999, 45.5236536]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "san-francisco",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-122.38889, 37.78955]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "taipei",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [121.56705, 25.03265]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "tokyo",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [139.727765, 35.665208]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "toronto",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-79.3943, 43.64715]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "id": "vancouver",
+            "marker-color": "#B70900",
+            "marker-size": "large",
+            "icon": {
+                "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+                "iconSize": [35, 90],
+                "iconAnchor": [17.5, 45],
+                "popupAnchor": [0, -46]
+            }
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-123.1091763, 49.2824945]
+        }
+    }]
+}
