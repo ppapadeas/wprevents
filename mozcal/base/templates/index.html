@@ -5,36 +5,42 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <title>{{ page_title }}</title>
 
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="{{ settings.STATIC_URL }}css/main.css">
+    <link rel="stylesheet" href="//mozorg.cdn.mozilla.net/media/css/tabzilla-min.css" />
 
     {{ browserid_css() }}
   </head>
   <body data-mobile-cookie="{{ settings.MOBILE_COOKIE }}">
-
     {{ browserid_info() }}
 
-    <!-- Sign In & Sign Out -->
-    <div class="large-10 small-10 columns" id="login-box">
-      <div class="account anonymous nomenu logout">
-        {% if not user.is_authenticated() %}
-          <span id="login-menu-locator">
-            {{ browserid_login(text='Sign in') }}
-          </span>
-          or
-          <a href="#">Join</a>
-        {% else %}
-          <div class="show-for-small">
-            {{ browserid_logout(text='Sign out') }}
-          </div>
-        {% endif %}
+    <header class="masthead">
+      <div class="width-container">
+        <!-- Universal Mozilla tab -->
+        <a href="https://www.mozilla.org/" id="tabzilla">mozilla</a>
+
+        <!-- Sign In & Sign Out -->
+        <div id="login-box">
+          {% if not user.is_authenticated() %}
+            <span id="login-menu-locator">
+              {{ browserid_login(text='Sign in') }}
+            </span>
+            or
+            <a href="#">Join</a>
+          {% else %}
+            <div class="show-for-small">
+              {{ browserid_logout(text='Sign out') }}
+            </div>
+          {% endif %}
+        </div>
       </div>
-    </div>
+    </header>
 
     {% block pageheader %}{% endblock %}
 
     {% block content %}{% endblock %}
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="//mozorg.cdn.mozilla.net/tabzilla/tabzilla.js"></script>
     {{ browserid_js() }}
   </body>
 </html>

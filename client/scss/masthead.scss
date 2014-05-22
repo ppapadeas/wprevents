@@ -1,0 +1,11 @@
+.masthead {
+  @include clearfix;
+
+  #login-box {
+    float: right;
+
+    .persona-button {
+      top: 8px;
+    }
+  }
+}

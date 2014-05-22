@@ -1,0 +1,31 @@
+* {
+  // box-sizing on all elements
+  @include prefix(box-sizing, border-box);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: $font-family-default;
+  font-size: $font-size-default;
+  color: $text-color-default;
+  line-height: $line-height-default;
+  @include gradient(#D7D3C8, #F6F4EC);
+  border-top: 2px solid #fff;
+}
+
+a {
+  color: $link-color;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+.width-container {
+  max-width: $max-page-width;
+  margin: 0 auto;
+}

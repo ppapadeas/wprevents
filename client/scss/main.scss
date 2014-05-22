@@ -1,3 +1,6 @@
-body {
-  background-color: blue;
-}
+@import "mixins";
+@import "variables";
+@import "normalize";
+
+@import "base";
+@import "masthead";
