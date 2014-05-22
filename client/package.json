@@ -11,5 +11,11 @@
     "url": "https://github.com/sork/mozcal/"
   },
   "author": "",
-  "license": "MPL"
+  "license": "MPL",
+  "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-browserify": "^0.5.0",
+    "gulp-ruby-sass": "^0.5.0",
+    "gulp-size": "^0.3.1"
+  }
 }
