@@ -89,7 +89,8 @@ def event_dedupe(request, slug=None):
 
 @permission_required('events.can_administrate_spaces')
 def spaces_list(request):
-  spaces = Space.objects.all()
+  order_by = request.GET.get('order_by', 'name')
+  spaces = Space.objects.all().order_by(order_by)
 
   if request.GET.get('format') == 'csv':
     return as_csv(request, Space.objects.all(), ['name', 'address', 'address2', 'city', 'country', 'lat', 'lon', 'photo_url'], fileName='spaces.csv')
@@ -120,7 +121,8 @@ def space_delete(request):
 
 @permission_required('events.can_administrate_functional_areas')
 def area_list(request):
-  areas = FunctionalArea.objects.all()
+  order_by = request.GET.get('order_by', 'name')
+  areas = FunctionalArea.objects.all().order_by(order_by)
 
   if request.GET.get('format') == 'csv':
     return as_csv(request, FunctionalArea.objects.all(), ['name', 'slug', 'color'], fileName='areas.csv')

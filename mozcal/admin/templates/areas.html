@@ -1,3 +1,5 @@
+{% from 'macros/order_by.html' import order_by %}
+
 {% extends 'admin.html' %}
 
 {% set active_tab = 'areas' %}
@@ -10,8 +12,8 @@
 {% block tablecontent %}
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Slug</th>
+      <th>Name {{ order_by('name') }}</th>
+      <th>Slug {{ order_by('slug') }}</th>
       <th>Color</th>
       <th>Actions</th>
     </tr>

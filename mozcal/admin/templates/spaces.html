@@ -1,3 +1,5 @@
+{% from 'macros/order_by.html' import order_by %}
+
 {% extends 'admin.html' %}
 
 {% set active_tab = 'spaces' %}
@@ -10,8 +12,8 @@
 {% block tablecontent %}
   <thead>
     <tr>
-      <th>Space name</th>
-      <th>Address</th>
+      <th>Space name {{ order_by('name') }}</th>
+      <th>Address {{ order_by('address') }}</th>
       <th>Coordinates</th>
       <th>Photo</th>
       <th>Actions</th>
