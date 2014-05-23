@@ -27,13 +27,13 @@
       <td>{{ event.area_names|join(', ') }}</td>
       <td class="actions">
 
-        <a class="button insensitive" href="{{ url('event_edit', slug=event.slug) }}">e</a>
-        <a class="button insensitive" href="{{ url('event_dedupe', slug=event.slug) }}">d</a>
+        <a href="{{ url('event_edit', slug=event.slug) }}">edit</a>
+        <a href="{{ url('event_dedupe', slug=event.slug) }}">dupe</a>
 
         <form action="{{ url('event_delete') }}" method="post">
           {{ csrf() }}
           <input type="hidden" name="id" value="{{ event.id }}">
-          <input type="submit" value="x" class="button negative">
+          <input type="submit" value="delete" class="delete-item">
         </form>
       </td>
     </tr>

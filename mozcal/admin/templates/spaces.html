@@ -26,12 +26,12 @@
       <td>{{ space.lat }} {{ space.lon }}</td>
       <td>{{ space.photo }}</td>
       <td class="actions">
-        <a class="button insensitive" href="{{ url('space_edit', slug=space.slug) }}">e</a>
+        <a href="{{ url('space_edit', slug=space.slug) }}">edit</a>
 
         <form action="{{ url('space_delete') }}" method="post">
           {{ csrf() }}
           <input type="hidden" name="id" value="{{ space.id }}">
-          <input class="button negative" type="submit" value="x">
+          <input type="submit" value="delete" class="delete-item">
         </form>
       </td>
     </tr>
