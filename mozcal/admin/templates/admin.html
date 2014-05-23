@@ -22,6 +22,14 @@
         </div>
         {% endblock %}
 
+        <nav class="main-tabs">
+          <ul>
+            <li class="tab{% if active_tab == 'events' %} active{% endif %}"><a href="/admin/events">Events</a></li>
+            <li class="tab{% if active_tab == 'spaces' %} active{% endif %}"><a href="/admin/spaces">Spaces</a></li>
+            <li class="tab{% if active_tab == 'areas' %} active{% endif %}"><a href="/admin/areas">Areas</a></li>
+          </ul>
+        </nav>
+
         <div class="billboard">
         {% block content %}{% endblock %}
         </div>

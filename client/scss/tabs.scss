@@ -1,0 +1,45 @@
+.main-tabs {
+  @include clearfix;
+  margin-left: 20px;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  .tab {
+    display: block;
+    float: left;
+    min-width: 60px;
+    background: rgba(#fff, 0.5);
+    text-align: center;
+
+    &:not(.active):hover {
+      background: rgba(#fff, 0.7);
+    }
+
+    a {
+      text-decoration: none;
+      display: block;
+      line-height: $baseLine * 2;
+      padding: 0 20px;
+    }
+
+    &.active {
+      background: #fff;
+    }
+
+    &:first-of-type {
+      border-radius: $radiusDefault 0 0 0;
+    }
+
+    &:last-of-type {
+      border-radius: 0 $radiusDefault 0 0;
+    }
+
+    &.active a {
+      color: $textColorPrimary;
+    }
+  }
+}
