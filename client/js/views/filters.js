@@ -1,11 +1,14 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
+var Pikaday = require('pikaday');
 
 var FiltersView = Backbone.View.extend({
   events: {
-    "change #space-filter": "spaceChanged",
-    "change #area-filter": "areaChanged",
-    "keyup #keyword-filter": "lazyKeywordChanged",
+    "change #space-filter": "refresh",
+    "change #area-filter": "refresh",
+    "keyup #keyword-filter": "lazyRefresh",
+    "change #start-date-filter": "refresh",
+    "change #end-date-filter": "refresh",
 
     "keydown #keyword-filter": "preventSubmitOnEnter",
     "keydown #start-date-filter": "preventSubmitOnEnter",
@@ -14,14 +17,10 @@ var FiltersView = Backbone.View.extend({
 
   initialize: function() {
     this.$filters = this.$('.js-filter');
-  },
 
-  spaceChanged: function() {
-    this.refresh();
-  },
-
-  areaChanged: function() {
-    this.refresh();
+    this.$('.js-datepicker').each(function() {
+      new Pikaday({ field: this });
+    });
   },
 
   preventSubmitOnEnter: function(e) {
@@ -31,7 +30,11 @@ var FiltersView = Backbone.View.extend({
     }
   },
 
-  lazyKeywordChanged: _.debounce(function() {
+  refresh: function() {
+    this.trigger('change', this.getCurrentFilters());
+  },
+
+  lazyRefresh: _.debounce(function() {
     this.refresh();
   }, 400),
 
@@ -53,10 +56,6 @@ var FiltersView = Backbone.View.extend({
     });
 
     return filters;
-  },
-
-  refresh: function() {
-    this.trigger('change', this.getCurrentFilters());
   }
 });
 
