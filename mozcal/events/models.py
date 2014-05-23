@@ -135,8 +135,8 @@ class Event(models.Model):
 
   @property
   def start_date(self):
-    return self.start.strftime('%Y-%d-%m')
+    return self.start.strftime('%Y-%m-%d')
 
   @property
   def end_date(self):
-    return self.end.strftime('%Y-%d-%m')
+    return self.end.strftime('%Y-%m-%d')
