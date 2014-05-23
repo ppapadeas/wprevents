@@ -39,4 +39,20 @@
     </tr>
     {% endfor %}
   </tbody>
+</table>
+
+<div class="pagination">
+  <span class="step-links">
+    {% for i in paginator.page_range %}
+      {% if i != current_page %}
+        <a href="?page={{ i }}">{{ i }}</a>
+      {% else %}
+        {{ i }}
+      {% endif %}
+
+      {% if i != paginator.page_range[-1] %}|{% endif %}
+    {% endfor %}
+  </span>
+</div>
+
 {% endblock %}

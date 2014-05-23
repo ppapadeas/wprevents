@@ -29,7 +29,8 @@ def events_list(request):
     events = paginator.page(page)
   except PageNotAnInteger:
     # If page is not an integer, deliver first page.
-    events = paginator.page(1)
+    page = 1
+    events = paginator.page(page)
   except EmptyPage:
     # If page is out of range (e.g. 9999), deliver last page of results.
     events = paginator.page(paginator.num_pages)
@@ -37,7 +38,11 @@ def events_list(request):
   if request.GET.get('format') == 'csv':
     return as_csv(request, Event.objects.all(), ['title', 'space', 'start', 'end', 'area_names'], fileName='events.csv')
 
-  return render(request, 'events.html', { 'events': events })
+  return render(request, 'events.html', {
+    'events': events,
+    'paginator': events.paginator,
+    'current_page': int(page)
+  })
 
 
 #@see https://github.com/mozilla/remo/blob/master/remo/events/views.py#L148
