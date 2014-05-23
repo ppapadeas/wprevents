@@ -11,8 +11,8 @@ var FiltersView = Backbone.View.extend({
     "change #end-date-filter": "refresh",
 
     "keydown #keyword-filter": "preventSubmitOnEnter",
-    "keydown #start-date-filter": "preventSubmitOnEnter",
-    "keydown #end-date-filter": "preventSubmitOnEnter",
+    "keydown #start-date-filter": "onDateKeydown",
+    "keydown #end-date-filter": "onDateKeydown",
   },
 
   initialize: function() {
@@ -24,10 +24,22 @@ var FiltersView = Backbone.View.extend({
   },
 
   preventSubmitOnEnter: function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) { // Enter key
       e.preventDefault();
       return false;
     }
+  },
+
+  clearOnBackspace: function(e) {
+    if (e.keyCode == 8) { // Backspace key
+      $(e.target).val('').blur();
+      this.refresh();
+    }
+  },
+
+  onDateKeydown: function(e) {
+    this.preventSubmitOnEnter(e);
+    this.clearOnBackspace(e);
   },
 
   refresh: function() {
