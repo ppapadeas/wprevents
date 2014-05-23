@@ -5,7 +5,7 @@ var mapbox = require('mapbox.js');
 var MapView = Backbone.View.extend({
   initialize: function() {
     var token = 'mozilla-webprod.e91ef8b3';
-    var map = this.map = L.mapbox.map('map').setView([28, 0], 2);
+    var map = this.map = L.mapbox.map(this.el.id).setView([28, 0], 2);
     var mapLayer = L.mapbox.tileLayer(token,{
         detectRetina: true
     });
