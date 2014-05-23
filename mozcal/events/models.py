@@ -46,8 +46,6 @@ class Space(models.Model):
     return '%s' % self.name
 
   def save(self, *args, **kwargs):
-    # Create unique slug
-    # @see https://github.com/un33k/django-uuslug
     if not self.slug:
       self.slug = slugify(self.name, instance=self)
     super(Space, self).save(*args, **kwargs)
@@ -102,15 +100,12 @@ class Event(models.Model):
   space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted', on_delete=models.SET_NULL)
   owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
 
-  # TODO: single or multiple areas for each event?
   areas = models.ManyToManyField(FunctionalArea, blank=True)
 
   def __unicode__(self):
     return '#%s %s' % (self.id, self.title)
 
   def save(self, *args, **kwargs):
-    # Create unique slug
-    # @see https://github.com/un33k/django-uuslug
     if not self.slug:
       self.slug = slugify(self.title, instance=self)
     super(Event, self).save(*args, **kwargs)
