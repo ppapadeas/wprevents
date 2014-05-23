@@ -14,7 +14,7 @@ class FunctionalArea(models.Model):
 
   name = models.CharField(max_length=120, blank=False)
   slug = models.SlugField(max_length=50, blank=False)
-  color = models.CharField(max_length=7, blank=False, default="#fff")
+  color = models.CharField(max_length=7, blank=False, default="blue")
 
   def __unicode__(self):
     return self.name

@@ -51,8 +51,12 @@
         <div class="event-description"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non vehicula libero, eu sodales velit.</p>{{ event.description }}</div>
       </div>
       <div class="event-meta column col-2">
-        <div>{{ event.space }}</div>
-        <div>{{ event.area_names|join(', ') }}</div>
+        <div class="event-space">{{ event.space }}</div>
+        <div class="event-areas count-{{ event.areas.all().count() }}">
+          {% for area in event.areas.all() %}
+          <div class="event-area {{ area.color }}">{{ area.name }}</div>
+          {% endfor %}
+        </div>
       </div>
     </li>
   {% endfor %}

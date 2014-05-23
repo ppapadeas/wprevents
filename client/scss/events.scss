@@ -82,4 +82,53 @@ li.event {
       font-size: 22px;
     }
   }
+
+  .event-space {
+    font-size: $fontSizeSmaller;
+    text-align: center;
+    font-weight: bold;
+    color: $textColorSecondary;
+  }
+}
+
+.event-areas {
+  font-size: $fontSizeSmallest;
+  @include clearfix;
+  margin-top: 2px;
+
+  .event-area {
+    float: left;
+    color: #fff;
+    overflow: hidden;
+    height: $baseLine;
+    text-align: center;
+    @include transition(200ms width ease);
+  }
+
+  &[class*=" count-"]:hover .event-area {
+    width: 0%;
+  }
+
+  &[class*=" count-"]:hover .event-area:hover {
+    width: 100%;
+  }
+
+  &.count-1 .event-area { width: percentage(1/1); }
+  &.count-2 .event-area { width: percentage(1/2); }
+  &.count-3 .event-area { width: percentage(1/3); }
+  &.count-4 .event-area { width: percentage(1/4); }
+  &.count-5 .event-area { width: percentage(1/5); }
+  &.count-6 .event-area { width: percentage(1/6); }
+  &.count-7 .event-area { width: percentage(1/7); }
+  &.count-8 .event-area { width: percentage(1/8); }
+  &.count-9 .event-area { width: percentage(1/9); }
+  &.count-10 .event-area { width: percentage(1/10); }
+
+  .event-area.blue { background: $flat-blue-1; }
+  .event-area.red { background: $flat-red-1; }
+  .event-area.orange { background: $flat-orange-1; }
+  .event-area.green { background: $flat-green-3; }
+  .event-area.yellow { background: $flat-yellow-1; }
+  .event-area.purple { background: $flat-purple-1; }
+  .event-area.gray { background: $flat-gray-3; }
 }
