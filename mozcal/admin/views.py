@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 from mozcal.base.utils import get_or_create_instance
 from mozcal.events.models import Event, Space, FunctionalArea
@@ -19,7 +20,19 @@ def home(request):
 
 @permission_required('events.can_administrate_events')
 def events_list(request):
-  events = Event.objects.all()
+  event_list = Event.objects.all()
+  paginator = Paginator(event_list, 2) # Mockup/spec: 22 items per page
+
+  page = request.GET.get('page')
+
+  try:
+    events = paginator.page(page)
+  except PageNotAnInteger:
+    # If page is not an integer, deliver first page.
+    events = paginator.page(1)
+  except EmptyPage:
+    # If page is out of range (e.g. 9999), deliver last page of results.
+    events = paginator.page(paginator.num_pages)
 
   if request.GET.get('format') == 'csv':
     return as_csv(request, Event.objects.all(), ['title', 'space', 'start', 'end', 'area_names'], fileName='events.csv')
