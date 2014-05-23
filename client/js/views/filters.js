@@ -16,6 +16,8 @@ var FiltersView = Backbone.View.extend({
   },
 
   initialize: function() {
+    this.currentFilters = {};
+
     this.$filters = this.$('.js-filter');
 
     this.$('.js-datepicker').each(function() {
@@ -42,15 +44,11 @@ var FiltersView = Backbone.View.extend({
     this.clearOnBackspace(e);
   },
 
-  refresh: function() {
-    this.trigger('change', this.getCurrentFilters());
-  },
-
   lazyRefresh: _.debounce(function() {
     this.refresh();
   }, 400),
 
-  getCurrentFilters: function() {
+  refresh: function() {
     var filters = {};
 
     this.$filters.each(function() {
@@ -67,7 +65,10 @@ var FiltersView = Backbone.View.extend({
       }
     });
 
-    return filters;
+    if (!_.isEqual(filters, this.currentFilters)) {
+      this.currentFilters = filters;
+      this.trigger('change', filters);
+    }
   }
 });
 
