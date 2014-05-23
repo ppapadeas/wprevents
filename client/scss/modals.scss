@@ -1,0 +1,102 @@
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(#000, .25);
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+}
+
+.modal {
+  margin: 200px auto 0;
+  border-radius: $radiusDefault;
+  background: #fff;
+  max-width: 700px;
+  padding: $baseLine ($baseLine * 1.5);
+  width: 90%;
+
+  h3 {
+    font-size: $fontSizeLargest;
+    margin: 0 0 $baseLine 0;
+  }
+}
+
+.modal form {
+  .row {
+    margin: ($baseLine) 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  label {
+    float: left;
+    width: 15%;
+    font-weight: bold;
+  }
+
+  .field {
+    float: left;
+    width: 85%;
+  }
+
+  input,
+  select {
+    width: 50%;
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+  }
+
+  input[type="submit"] {
+    width: inherit;
+  }
+
+  .start-date,
+  .end-date,
+  .start-time,
+  .end-time {
+    width: 40%;
+    float: left;
+
+    label {
+      width: 37.5%;
+    }
+
+    .field {
+      width: 62.5%;
+    }
+  }
+
+  .end-date,
+  .end-time {
+    margin-left: 20%;
+  }
+
+  .start-time input,
+  .end-time input {
+    width: 100%;
+  }
+
+  .start-date input,
+  .end-date input {
+    width: 70%;
+  }
+
+  .date-picker-icon {
+    float: right;
+    height: 27px;
+    width: 25px;
+    background: url('#{$staticUrl}calendar.png');
+    opacity: 0.8;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

@@ -2,7 +2,7 @@ textarea,
 input[type="email"],
 input[type="password"],
 input[type="text"] {
-    height: $baseLine;
+    height: $baseLine + ($baseLine / 3);
     background: #fafafa;
     border-color: #dbdbdb;
     border-style: solid;
