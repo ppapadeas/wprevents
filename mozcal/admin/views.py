@@ -20,8 +20,10 @@ def home(request):
 
 @permission_required('events.can_administrate_events')
 def events_list(request):
-  event_list = Event.objects.all()
-  paginator = Paginator(event_list, 2) # Mockup/spec: 22 items per page
+  order_by = request.GET.get('order_by', '-start')
+
+  event_list = Event.objects.all().order_by(order_by)
+  paginator = Paginator(event_list, 20) # Mockup/spec: 22 items per page
 
   page = request.GET.get('page')
 

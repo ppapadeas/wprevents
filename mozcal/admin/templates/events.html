@@ -1,5 +1,9 @@
 {% extends 'admin.html' %}
 
+{% macro order_by(field_name) %}
+  <a href="?order_by={{field_name}}">&#9650;</a> <a href="?order_by=-{{field_name}}">&#9660;</a>
+{% endmacro %}
+
 {% set active_tab = 'events' %}
 
 {% block actions %}
@@ -10,9 +14,9 @@
 {% block tablecontent %}
   <thead>
     <tr>
-      <th>Event name</th>
-      <th>Space</th>
-      <th>Date</th>
+      <th>Event name {{ order_by('title') }}</th>
+      <th>Space {{ order_by('space__name') }}</th>
+      <th>Date {{ order_by('start') }}</th>
       <th>Area</th>
       <th>Actions</th>
     </tr>
