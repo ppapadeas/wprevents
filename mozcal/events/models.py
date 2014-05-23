@@ -115,7 +115,6 @@ class Event(models.Model):
       self.slug = slugify(self.title, instance=self)
     super(Event, self).save(*args, **kwargs)
 
-
   def get_duplicate_candidates(self, q=''):
     event_day = datetime.date(self.start)
     day_after_event = datetime.date(self.end) + timedelta(days=1)
@@ -124,11 +123,17 @@ class Event(models.Model):
 
     return duplicate_candidates
 
-
   def remove_duplicate(self, id):
     Event.objects.filter(id=id).delete()
-
 
   @property
   def area_names(self):
     return [area.name for area in self.areas.all()]
+
+  @property
+  def start_day(self):
+    return self.start.strftime('%d')
+
+  @property
+  def start_month(self):
+    return self.start.strftime('%b')

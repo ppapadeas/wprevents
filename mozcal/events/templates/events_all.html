@@ -39,10 +39,10 @@
   {% for event in events %}
     <li class="event row">
       <div class="event-date column col-2">
-        <div class="day">24</div>
+        <div class="day">{{ event.start_day }}</div>
         <div class="monthyear">
-          <div class="month">AUG</div>
-          <div class="year">2014</div>
+          <div class="month">{{ event.start_month }}</div>
+          <div class="year">{{ event.start.year }}</div>
         </div>
         {# event.start #}
       </div>
