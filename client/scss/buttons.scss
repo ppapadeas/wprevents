@@ -52,4 +52,20 @@
         @include box-shadow($buttonShadow);
         color: #eee;
     }
+
+    &.negative,
+    &.negative:link,
+    &.negative:visited {
+        background-color: #a91300;
+        @include gradient(#da5132, #a91300);
+    }
+
+    &.negative:hover {
+        @include gradient(lighten(#da5132, 5%), lighten(#a91300, 5%));
+        @include box-shadow(#da5132);
+    }
+
+    &.negative:focus {
+        @include box-shadow(#da5132);
+    }
 }

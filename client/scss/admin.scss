@@ -3,3 +3,45 @@
 .main-actions {
   float: right;
 }
+
+.admin-table {
+  margin-top: $baseLine;
+
+  th {
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    // background: rgba(#000, 0.05);
+  }
+
+  thead th {
+    padding-bottom: $baseLine / 2;
+  }
+
+  tbody tr {
+    border-top: 1px solid rgba(#000, 0.1);
+    height: $baseLine * 2;
+
+    &:nth-child(even) {
+      background: #fafafa;
+    }
+  }
+
+  tbody td.actions {
+    width: 100px;
+  }
+
+  tbody td.actions .button {
+    float: left;
+    width: 30%;
+    min-width: 0;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+
+    &:not(:first-child) {
+      margin-left: 5%;
+    }
+  }
+}

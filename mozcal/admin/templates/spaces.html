@@ -25,13 +25,13 @@
       <td>{{ space.address }}, {{ space.city }}, {{ space.get_country_display() }}</td>
       <td>{{ space.lat }} {{ space.lon }}</td>
       <td>{{ space.photo }}</td>
-      <td>
-        <a href="{{ url('space_edit', slug=space.slug) }}">e</a>
+      <td class="actions">
+        <a class="button insensitive" href="{{ url('space_edit', slug=space.slug) }}">e</a>
 
         <form action="{{ url('space_delete') }}" method="post">
           {{ csrf() }}
           <input type="hidden" name="id" value="{{ space.id }}">
-          <input type="submit" value="x">
+          <input class="button negative" type="submit" value="x">
         </form>
       </td>
     </tr>

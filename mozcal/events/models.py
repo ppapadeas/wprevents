@@ -132,3 +132,11 @@ class Event(models.Model):
   @property
   def start_month(self):
     return self.start.strftime('%b')
+
+  @property
+  def start_date(self):
+    return self.start.strftime('%Y-%d-%m')
+
+  @property
+  def end_date(self):
+    return self.end.strftime('%Y-%d-%m')

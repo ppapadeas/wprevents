@@ -23,13 +23,13 @@
       <td>{{ area.name }}</td>
       <td>{{ area.slug }}</td>
       <td>{{ area.color }}</td>
-      <td>
-        <a href="{{ url('area_edit', slug=area.slug) }}">e</a>
+      <td class="actions">
+        <a class="button insensitive" href="{{ url('area_edit', slug=area.slug) }}">e</a>
 
         <form action="{{ url('area_delete') }}" method="post">
           {{ csrf() }}
           <input type="hidden" name="id" value="{{ area.id }}">
-          <input type="submit" value="x">
+          <input class="button negative" type="submit" value="x">
         </form>
       </td>
     </tr>
