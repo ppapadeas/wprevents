@@ -1,12 +1,37 @@
 {% extends 'index.html' %}
 
-{% block pageheader %}
-<h1>Administration</h1>
-
-<a href="{{ url('event_all')}}">Events</a> | <a href="{{ url('space_all') }}">Spaces</a> | <a href="{{ url('area_all') }}")>Areas</a>
-
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ settings.STATIC_URL }}css/admin.css">
 {% endblock %}
 
-{% block content %}
+{% block page %}
+  <div id="outer-wrapper">
 
+    <div id="inner-wrapper">
+
+      {% include "includes/masthead.html" %}
+
+      <div class="logo-nav width-container">
+        <h1 class="logo"><span class="metabold">mozilla</span> events</h1>
+      </div>
+
+      <div class="width-container">
+        {% block pageheader %}
+        <div class="page-header">
+          <h2>Administration</h2>
+        </div>
+        {% endblock %}
+
+        <div class="billboard">
+        {% block content %}{% endblock %}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <!-- insert admin-related scripts here -->
 {% endblock %}

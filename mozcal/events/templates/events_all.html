@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'main.html' %}
 
 {% block content %}
 <div class="width-container">
@@ -48,7 +48,13 @@
       </div>
       <div class="event-info column col-8">
         <a class="event-name" href="{{ url('event_one', slug=event.slug) }}">{{ event.title }}</a>
-        <div class="event-description"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non vehicula libero, eu sodales velit.</p>{{ event.description }}</div>
+        <div class="event-description">
+          {% if event.description %}
+          <p>{{ event.description }}</p>
+          {% else %}
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non vehicula libero, eu sodales velit.</p>
+          {% endif %}
+        </div>
       </div>
       <div class="event-meta column col-2">
         <div class="event-space">{{ event.space }}</div>

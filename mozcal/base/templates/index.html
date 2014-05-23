@@ -5,58 +5,28 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <title>{{ page_title }}</title>
 
-    <link rel="stylesheet" type="text/css" href="{{ settings.STATIC_URL }}css/main.css">
     <link rel="stylesheet" href="//mozorg.cdn.mozilla.net/media/css/tabzilla-min.css" />
+
+    {% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ settings.STATIC_URL }}css/main.css">
     <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css' rel='stylesheet' />
+    {% endblock %}
 
     {{ browserid_css() }}
   </head>
   <body data-mobile-cookie="{{ settings.MOBILE_COOKIE }}">
     {{ browserid_info() }}
 
-    <div id="outer-wrapper">
+    {% block page %}
+    {% endblock %}
 
-      <div id="map"></div>
-
-      <div id="inner-wrapper">
-
-        <header class="masthead">
-          <div class="width-container">
-            <!-- Universal Mozilla tab -->
-            <a href="https://www.mozilla.org/" id="tabzilla">mozilla</a>
-
-            <!-- Sign In & Sign Out -->
-            <div id="login-box">
-              {% if not user.is_authenticated() %}
-                <span id="login-menu-locator">
-                  {{ browserid_login(text='Sign in') }}
-                </span>
-                or
-                <a href="#">Join</a>
-              {% else %}
-                <div class="show-for-small">
-                  {{ browserid_logout(text='Sign out') }}
-                </div>
-              {% endif %}
-            </div>
-          </div>
-        </header>
-
-        <div class="logo-nav width-container">
-          <h1 class="logo"><span class="metabold">mozilla</span> events</h1>
-        </div>
-
-        {% block pageheader %}{% endblock %}
-
-        {% block content %}{% endblock %}
-
-      </div>
-
-    </div>
-
+    <!-- common to all pages -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="//mozorg.cdn.mozilla.net/tabzilla/tabzilla.js"></script>
     {{ browserid_js() }}
-    <script src="{{ settings.STATIC_URL }}js/app.js"></script>
+
+    {% block scripts %}
+      <script src="{{ settings.STATIC_URL }}js/app.js"></script>
+    {% endblock %}
   </body>
 </html>

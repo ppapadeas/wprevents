@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block page %}
+  <div id="outer-wrapper">
+
+    <div id="map"></div>
+
+    <div id="inner-wrapper">
+
+      {% include "includes/masthead.html" %}
+
+      <div class="logo-nav width-container">
+        <h1 class="logo"><span class="metabold">mozilla</span> events</h1>
+      </div>
+
+      {% block pageheader %}{% endblock %}
+
+      {% block content %}{% endblock %}
+
+    </div>
+
+  </div>
+{% endblock %}

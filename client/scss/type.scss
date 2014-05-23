@@ -47,3 +47,33 @@ $static-url: '/static/fonts/';
 .metanormal { font-family: 'MetaNormal'; }
 .metabold { font-family: 'MetaBold'; }
 .metablack { font-family: 'MetaBlack'; }
+
+.large {
+  font-size: 72px;
+  letter-spacing: -3px;
+  line-height: 100%;
+}
+h1 {
+  font-size: 48px;
+  letter-spacing: -2px;
+  line-height: 100%;
+}
+h2 {
+  font-size: 32px;
+  letter-spacing: -1px;
+  line-height: 100%;
+}
+h3 {
+  font-size: 28px;
+  letter-spacing: -0.5px;
+  line-height: 100%;
+}
+h4 {
+  font-size: 24px;
+  letter-spacing: -0.25px;
+  line-height: 100%;
+}
+.small, small {
+  font-size: 12px;
+  line-height: 100%;
+}

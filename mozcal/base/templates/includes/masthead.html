@@ -1,0 +1,21 @@
+<header class="masthead">
+  <div class="width-container">
+    <!-- Universal Mozilla tab -->
+    <a href="https://www.mozilla.org/" id="tabzilla">mozilla</a>
+
+    <!-- Sign In & Sign Out -->
+    <div id="login-box">
+      {% if not user.is_authenticated() %}
+        <span id="login-menu-locator">
+          {{ browserid_login(text='Sign in') }}
+        </span>
+        or
+        <a href="#">Join</a>
+      {% else %}
+        <div class="show-for-small">
+          {{ browserid_logout(text='Sign out') }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</header>
