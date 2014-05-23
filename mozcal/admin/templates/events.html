@@ -1,8 +1,6 @@
-{% extends 'admin.html' %}
+{% from 'macros/order_by.html' import order_by %}
 
-{% macro order_by(field_name) %}
-  <a href="?order_by={{field_name}}">&#9650;</a> <a href="?order_by=-{{field_name}}">&#9660;</a>
-{% endmacro %}
+{% extends 'admin.html' %}
 
 {% set active_tab = 'events' %}
 
