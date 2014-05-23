@@ -33,15 +33,60 @@
   "pk": 3,
   "model": "events.event",
   "fields": {
-    "end": "2014-11-27T17:00:00",
+    "end": "2014-10-12T17:00:00",
     "description": "",
     "title": "WebGL meetup",
     "created": "2014-05-14T07:50:11",
     "modified": "2014-05-14T07:50:11",
-    "start": "2014-11-27T15:00:00",
+    "start": "2014-10-12T15:00:00",
     "areas": [4, 5],
     "slug": "webgl-meetup",
     "space": 1
+  }
+},
+{
+  "pk": 4,
+  "model": "events.event",
+  "fields": {
+    "end": "2014-11-27T17:00:00",
+    "description": "",
+    "title": "Firefox enthusiasts",
+    "created": "2014-05-14T07:50:11",
+    "modified": "2014-05-14T07:50:11",
+    "start": "2014-11-27T15:00:00",
+    "areas": [2, 3],
+    "slug": "firefox-enthusiasts",
+    "space": 2
+  }
+},
+{
+  "pk": 5,
+  "model": "events.event",
+  "fields": {
+    "end": "2014-12-01T17:00:00",
+    "description": "",
+    "title": "Ubuntu Party",
+    "created": "2014-09-14T07:50:11",
+    "modified": "2014-09-14T07:50:11",
+    "start": "2014-12-01T15:00:00",
+    "areas": [1, 4],
+    "slug": "ubuntu-party",
+    "space": 2
+  }
+},
+{
+  "pk": 6,
+  "model": "events.event",
+  "fields": {
+    "end": "2014-11-12T17:00:00",
+    "description": "",
+    "title": "Training Session",
+    "created": "2014-02-14T07:50:11",
+    "modified": "2014-02-14T07:50:11",
+    "start": "2014-11-12T15:00:00",
+    "areas": [3],
+    "slug": "training-session",
+    "space": 3
   }
 },
 {
