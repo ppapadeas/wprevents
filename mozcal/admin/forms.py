@@ -13,9 +13,8 @@ class EventForm(ModelForm):
     model = Event
     fields = ['title', 'space', 'start', 'end', 'areas', 'description', 'details']
 
-  start = forms.SplitDateTimeField()
-  end = forms.SplitDateTimeField()
-
+  start = forms.SplitDateTimeField(input_date_formats=['%y/%m/%d'], input_time_formats=['%H:%M'])
+  end = forms.SplitDateTimeField(input_date_formats=['%y/%m/%d'], input_time_formats=['%H:%M'])
 
 class SpaceForm(ModelForm):
   class Meta:

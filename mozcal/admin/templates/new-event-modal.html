@@ -21,14 +21,14 @@
         <div class="start-date">
           <label for="date_start">Start date</label>
           <div class="field">
-            <input type="text" name="start-date" placeholder="yy/dd/mm">
+            <input type="text" name="start_0" value="{{ form.data.start_0 }}" placeholder="yy/dd/mm">
             <div class="date-picker-icon"></div>
           </div>
         </div>
         <div class="end-date">
           <label for="time_start">End date</label>
           <div class="field">
-            <input type="text" name="end-date" placeholder="yy/dd/mm">
+            <input type="text" name="end_0" value="{{ form.data.end_0 }}" placeholder="yy/dd/mm">
             <div class="date-picker-icon"></div>
           </div>
         </div>
@@ -37,13 +37,13 @@
         <div class="start-time">
           <label for="time_start">Start time</label>
           <div class="field">
-            <input type="text" name="start-time" placeholder="12:00">
+            <input type="text" name="start_1" value="{{ form.data.start_1 }}" placeholder="12:00">
           </div>
         </div>
         <div class="end-time">
           <label for="time_start">End time</label>
           <div class="field">
-            <input type="text" name="end-time" placeholder="13:00">
+            <input type="text" name="end_1" value="{{ form.data.end_1 }}" placeholder="13:00">
           </div>
         </div>
       </div>

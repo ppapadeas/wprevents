@@ -5,26 +5,26 @@
   <div class="billboard filters-container">
     <form id="filters-form">
       <div class="column col-5">
-        <input type="text" name="search" placeholder="Filter using any keyword" id="keyword-filter">
+        <input type="text" name="search" placeholder="Filter using any keyword" id="keyword-filter" class="js-filter">
       </div>
 
       <div class="column col-5 select-fields">
-        <select name="space">
+        <select name="space" id="space-filter" class="js-filter">
           <option value="" default>All spaces</option>
           {% for space in spaces %}
           <option value="{{ space.slug }}">{{ space.name }}</option>
           {% endfor %}
         </select>
 
-        <select name="area">
+        <select name="area" id="area-filter" class="js-filter">
           <option value="" default>All types</option>
           {% for area in areas %}
           <option value="{{ area.slug }}">{{ area.name }}</option>
           {% endfor %}
         </select>
 
-        <input type="text" name="start-date" placeholder="mm/dd/yy">
-        <input type="text" name="end-date" placeholder="mm/dd/yy">
+        <input type="text" name="start-date" id="start-date-filter" class="js-filter js-datepicker" placeholder="Start date">
+        <input type="text" name="end-date" id="end-date-filter" class="js-filter js-datepicker" placeholder="End date">
       </div>
 
       <div class="column col-2">
