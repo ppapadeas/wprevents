@@ -62,3 +62,7 @@ a {
   color: $textColorSecondary;
   @include clearfix;
 }
+
+.fill-width {
+  width: 100%;
+}

@@ -52,8 +52,4 @@
         @include box-shadow($buttonShadow);
         color: #eee;
     }
-
-    &.fill-width {
-        width: 100%;
-    }
 }

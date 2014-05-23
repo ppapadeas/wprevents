@@ -18,7 +18,7 @@
       <div class="width-container">
         {% block pageheader %}
         <div class="page-header">
-          <h2>Administration</h2>
+          <h2 class="oslight">Administration</h2>
         </div>
         {% endblock %}
 
@@ -31,7 +31,26 @@
         </nav>
 
         <div class="billboard">
-        {% block content %}{% endblock %}
+          <div class="column col-12">
+            {% block content %}
+
+            <div class="row">
+              <div class="main-actions">
+              {% block actions %}
+              {% endblock %}
+              </div>
+            </div>
+
+            <div class="row">
+              <table class="fill-width">
+              {% block tablecontent %}
+
+              {% endblock %}
+              </table>
+            </div>
+
+            {% endblock %}
+          </div>
         </div>
       </div>
 

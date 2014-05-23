@@ -2,16 +2,12 @@
 
 {% set active_tab = 'areas' %}
 
-{% block content %}
+{% block actions %}
+  <a class="button" href="?format=csv">Export CSV</a>
+  <a class="button" href="{{ url('areas_new_area') }}">New area</a>
+{% endblock %}
 
-<h1>Functional Areas</h1>
-
-<div>
-  <a href="?format=csv">Export CSV</a>
-  <a href="{{ url('areas_new_area') }}">New area</a>
-</div>
-
-<table>
+{% block tablecontent %}
   <thead>
     <tr>
       <th>Name</th>
@@ -39,6 +35,4 @@
     </tr>
     {% endfor %}
   </tbody>
-</table>
-
 {% endblock %}
