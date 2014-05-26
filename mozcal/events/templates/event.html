@@ -1,34 +1,66 @@
-<div>
-  <div id="date">
-    {{ event.start }}
+{% extends "main.html" %}
+
+{% block content %}
+<div class="width-container">
+  <header class="event-header row">
+    <div class="column col-10 billboard">
+      <div class="event-date pull-left">
+        <div class="day">{{ event.start_day }}</div>
+        <div class="monthyear">
+          <div class="month">{{ event.start_month }}</div>
+          <div class="year">{{ event.start.year }}</div>
+        </div>
+      </div>
+
+      <h2 class="oslight pull-left">{{ event.title }}</h2>
+
+      <div class="event-meta pull-left">
+        <div class="event-space">{{ event.space }}</div>
+        <div class="event-areas count-{{ event.areas.all().count() }}">
+          {% for area in event.areas.all() %}
+          <div class="event-area {{ area.color }}">{{ area.name }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="event-content">
+    <div class="space-photo"><img src="http://placehold.it/1000x150">{{ event.photo }}</div>
+
+    <div class="billboard row">
+      <div class="column col-12">
+        <div>
+          <h4>Description</h4>
+          <div class="event-desription">
+            {{ event.description }}
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh.</p>
+          </div>
+
+          <h4>Details</h4>
+          <div class="event-details">
+            {{ event.details }}
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh. Nulla sodales vehicula arcu sit amet vulputate. Nulla vulputate posuere massa. Phasellus fringilla posuere dapibus. Etiam sed lectus elit. Morbi vitae elementum orci. Nunc ultricies sem eu sapien mollis, vel bibendum libero gravida. Sed porttitor ante quis lacus suscipit accumsan. Etiam rutrum felis eget euismod molestie. Aliquam vitae ornare augue. Vestibulum nisi eros, egestas at felis at, feugiat viverra lorem. Donec suscipit nibh id turpis sagittis posuere. Cras consectetur leo quis aliquam lacinia. Fusce hendrerit euismod ornare. Proin blandit aliquam metus.</p>
+            <ul>
+              <li>Maecenas auctor rhoncus orci</li>
+              <li>Consectetur adipiscing elit</li>
+              <li>Ut placerat lorem a ligula</li>
+              <li>Ac luctus nibh</li>
+            </ul>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh.</p>
+          </div>
+        </div>
+
+        <div class="button-group pull-right">
+          <a href="#" class="button">iCal</a>
+          <a href="#" class="button">Facebook</a>
+          <a href="#" class="button">Twitter</a>
+          <a href="#" class="button">Google+</a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h1>{{ event.title }}</h1>
-
-  <div id="meta">
-    <div>{{ event.space }}</div>
-    <div>{{ event.area_names|join(', ') }}</div>
-  </div>
 </div>
-
-
-<div>
-  <div>{{ event.photo }}</div>
-
-  <div>
-    <h2>Description</h2>
-
-    <div>{{ event.description }}</div>
-
-    <h2>Details</h2>
-
-    <div>{{ event.details }}</div>
-  </div>
-
-  <div>
-    <button>iCal</button>
-    <button>Facebook</button>
-    <button>Twitter</button>
-    <button>Google+</button>
-  </div>
-</div>
+{% endblock %}

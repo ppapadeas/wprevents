@@ -50,45 +50,6 @@ li.event {
       font-size: $fontSizeSmall;
     }
   }
-
-  .event-date {
-    @include clearfix;
-    padding-top: 3px;
-
-    .day,
-    .monthyear {
-      float: left;
-      width: 50%;
-      font-weight: 600;
-      color: $textColorLight;
-      text-align: center;
-    }
-
-    .day {
-      font-size: 48px;
-      line-height: 48px;
-    }
-
-    .monthyear {
-      line-height: 1;
-    }
-
-    .month {
-      font-size: 24px;
-      text-transform: uppercase;
-    }
-
-    .year {
-      font-size: 22px;
-    }
-  }
-
-  .event-space {
-    font-size: $fontSizeSmaller;
-    text-align: center;
-    font-weight: bold;
-    color: $textColorSecondary;
-  }
 }
 
 .event-areas {
@@ -131,4 +92,81 @@ li.event {
   .event-area.yellow { background: $flat-yellow-1; }
   .event-area.purple { background: $flat-purple-1; }
   .event-area.gray { background: $flat-gray-3; }
+}
+
+.event-header {
+  margin-top: $baseLine * 4;
+
+  .event-date {
+    width: 120px;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 10px 20px 0 20px;
+  }
+
+  .event-meta {
+    float: right;
+  }
+}
+
+.event-list,
+.event-header {
+  .event-date {
+    @include clearfix;
+    padding-top: 3px;
+
+    .day,
+    .monthyear {
+      float: left;
+      width: 50%;
+      font-weight: 600;
+      color: $textColorLight;
+      text-align: center;
+    }
+
+    .day {
+      font-size: 48px;
+      line-height: 48px;
+    }
+
+    .monthyear {
+      line-height: 1;
+    }
+
+    .month {
+      font-size: 24px;
+      text-transform: uppercase;
+    }
+
+    .year {
+      font-size: 22px;
+    }
+  }
+
+  .event-space {
+    font-size: $fontSizeSmaller;
+    text-align: center;
+    font-weight: bold;
+    color: $textColorSecondary;
+  }
+}
+
+.event-content {
+  .space-photo img {
+    display: block;
+  }
+
+  h4 {
+    margin-top: 0;
+  }
+
+  h4 + h4 {
+    margin-top: 1.33em;
+  }
+
+  .button-group {
+    margin-top: $baseLine;
+  }
 }
