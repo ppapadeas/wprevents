@@ -1,13 +1,20 @@
 .modal-container.disabled {
+  pointer-events: none;
 
   &:after {
-    background: rgba(#000, .0);
-    z-index: -10;
+    opacity: 0;
   }
 
 }
 
 .modal-container {
+  position: absolute !important;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  cursor: pointer;
 
   &:after {
     content: '';
@@ -18,7 +25,14 @@
     height: 100%;
     width: 100%;
     z-index: 500;
+    opacity: 1;
+    @include transition(opacity 200ms linear);
   }
+}
+
+@-webkit-keyframes fadeIn {
+  0% { opacity: 0; };
+  100% { opacity: 1; };
 }
 
 .modal {
@@ -30,6 +44,7 @@
   max-width: 700px;
   padding: $baseLine ($baseLine * 1.5);
   width: 90%;
+  @include animation(fadeIn 200ms linear);
 
   h3 {
     font-size: $fontSizeLargest;

@@ -8,6 +8,17 @@ var ModalView = Backbone.View.extend({
 
   initialize: function() {
     this.$container = $('.modal-container');
+    this.$container.on('click', this.onClickContainer.bind(this));
+  },
+
+  onClickContainer: function(e) {
+    var $target = $(e.target);
+    var modal = this.$container.find('.modal')[0];
+
+    if (!$target.parents('.modal-container').length > 0) {
+      this.close();
+    }
+
   },
 
   load: function(path) {
@@ -19,6 +30,7 @@ var ModalView = Backbone.View.extend({
 
   close: function() {
     this.$container.addClass('disabled');
+    this.$container.html('');
   }
 });
 
