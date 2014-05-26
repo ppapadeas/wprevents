@@ -12,11 +12,11 @@
     display: block;
     float: left;
     min-width: 60px;
-    background: rgba(#fff, 0.5);
+    background: rgba(#fff, 0.8);
     text-align: center;
 
     &:not(.active):hover {
-      background: rgba(#fff, 0.7);
+      background: rgba(#fff, 0.9);
     }
 
     a {
