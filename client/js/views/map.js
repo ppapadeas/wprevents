@@ -5,7 +5,16 @@ var mapbox = require('mapbox.js');
 var MapView = Backbone.View.extend({
   initialize: function() {
     var token = 'mozilla-webprod.e91ef8b3';
-    var map = this.map = L.mapbox.map(this.el.id).setView([28, 0], 2);
+    var map = this.map = L.mapbox.map(this.el.id);//.setView([0, 0], 2);
+    // Bounds order is [South West, North East]
+    var bounds = [[-45, -130], [45, 130]];
+    map.fitBounds(bounds);
+    map.setZoom(2);
+
+    var windowHeight = $(window).height();
+    var boundingBoxHeight = 766;
+    map.panBy([0, (windowHeight - boundingBoxHeight) / 2]);
+
     var mapLayer = L.mapbox.tileLayer(token,{
         detectRetina: true
     });
