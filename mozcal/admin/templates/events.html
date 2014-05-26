@@ -12,9 +12,9 @@
 {% block tablecontent %}
   <thead>
     <tr>
-      <th>Event name {{ order_by('title') }}</th>
-      <th>Space {{ order_by('space__name') }}</th>
-      <th>Date {{ order_by('start') }}</th>
+      <th>Event name <span class="sorting">{{ order_by('title') }}</span></th>
+      <th>Space <span class="sorting">{{ order_by('space__name') }}</span></th>
+      <th>Date <span class="sorting">{{ order_by('start') }}</span></th>
       <th>Area</th>
       <th>Actions</th>
     </tr>

@@ -61,4 +61,16 @@
     }
   }
 
+  .sorting {
+    padding-left: 5px;
+  }
+
+  .sorting a {
+    font-size: $fontSizeSmallest;
+    color: $textColorLight;
+
+    &:hover {
+      color: $textColorTertiary;
+    }
+  }
 }

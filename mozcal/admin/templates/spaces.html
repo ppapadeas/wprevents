@@ -12,8 +12,8 @@
 {% block tablecontent %}
   <thead>
     <tr>
-      <th>Space name {{ order_by('name') }}</th>
-      <th>Address {{ order_by('address') }}</th>
+      <th>Space name <span class="sorting">{{ order_by('name') }}</span></th>
+      <th>Address <span class="sorting">{{ order_by('address') }}</span></th>
       <th>Coordinates</th>
       <th>Photo</th>
       <th>Actions</th>

@@ -12,8 +12,8 @@
 {% block tablecontent %}
   <thead>
     <tr>
-      <th>Name {{ order_by('name') }}</th>
-      <th>Slug {{ order_by('slug') }}</th>
+      <th>Name <span class="sorting">{{ order_by('name') }}</span></th>
+      <th>Slug <span class="sorting">{{ order_by('slug') }}</span></th>
       <th>Color</th>
       <th>Actions</th>
     </tr>
