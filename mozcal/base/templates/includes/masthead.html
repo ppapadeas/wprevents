@@ -12,9 +12,7 @@
         or
         <a href="#">Join</a>
       {% else %}
-        <div class="show-for-small">
-          {{ browserid_logout(text='Sign out') }}
-        </div>
+        {{ browserid_logout(text='Sign out') }}
       {% endif %}
     </div>
   </div>
