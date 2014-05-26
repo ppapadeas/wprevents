@@ -98,7 +98,7 @@ li.event {
   margin-top: $baseLine * 4;
 
   .event-date {
-    width: 120px;
+    width: 130px;
   }
 
   h2 {
@@ -150,6 +150,10 @@ li.event {
     text-align: center;
     font-weight: bold;
     color: $textColorSecondary;
+  }
+
+  .event-areas {
+    width: 115px;
   }
 }
 
