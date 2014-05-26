@@ -6,7 +6,7 @@
 
 {% block actions %}
   <a class="button" href="?format=csv">Export CSV</a>
-  <a class="button" href="{{ url('events_new_event') }}">New event</a>
+  <a class="button js-new-event" href="{{ url('events_new_event') }}">New event</a>
 {% endblock %}
 
 {% block tablecontent %}
@@ -29,8 +29,8 @@
       <td>{{ event.area_names|join(', ') }}</td>
       <td class="actions">
 
-        <a href="{{ url('event_edit', slug=event.slug) }}">edit</a>
-        <a href="{{ url('event_dedupe', slug=event.slug) }}">dupe</a>
+        <a href="{{ url('event_edit', slug=event.slug) }}" class="js-edit-event">edit</a>
+        <a href="{{ url('event_dedupe', slug=event.slug) }}" class="js-dedupe-event">dupe</a>
 
         <form action="{{ url('event_delete') }}" method="post">
           {{ csrf() }}
@@ -55,6 +55,9 @@
       {% if i != paginator.page_range[-1] %}|{% endif %}
     {% endfor %}
   </span>
+</div>
+
+<div class="modal-container disabled">
 </div>
 
 {% endblock %}
