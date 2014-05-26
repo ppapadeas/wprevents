@@ -3,6 +3,7 @@
   padding-top: $baseLine;
   padding-bottom: $baseLine;
   margin-bottom: $baseLine;
+  font-size: $fontSizeSmall;
 
   #keyword-filter {
     width: 100%;
@@ -18,6 +19,13 @@
         margin-left: 0;
       }
     }
+  }
+
+  select {
+    height: $baseLine + ($baseLine / 3);
+    padding: ($baseLine / 6)  ($baseLine / 3);
+    background: transparent;
+    border: 1px solid #d3d3d3;
   }
 }
 
