@@ -1,6 +1,8 @@
 from tastypie.resources import ModelResource
 from models import Event
 
+from mozcal.base.serializers import MozcalSerializer
+
 
 class EventResource(ModelResource):
   class Meta:
@@ -9,3 +11,5 @@ class EventResource(ModelResource):
       "title": ('startswith',),
     }
     allowed_methods = ['get']
+
+    serializer = MozcalSerializer(formats=['json', 'csv'])
