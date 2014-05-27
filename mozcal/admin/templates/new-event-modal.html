@@ -1,7 +1,7 @@
 <div class="modal new-event-modal">
   <h3 class="oslight">
-    {% if event.title %}
-      {{ event.title }}
+    {% if form.title.value() %}
+      {{ form.title.value() }}
     {% else %}
       New event
     {% endif %}
@@ -13,7 +13,7 @@
     <div class="row">
       <label>Title</label>
       <div class="field">
-        <input type="text" name="title" value="{{ event.title }}" placeholder="The name of the event">
+        <input type="text" name="title" value="{{ form.title.value() }}" placeholder="The name of the event">
       </div>
     </div>
     <div class="row">
@@ -26,14 +26,14 @@
       <div class="start-date">
         <label for="date_start">Start date</label>
         <div class="field">
-          <input type="text" name="start_0" value="{{ form.data.start_0 }}" placeholder="yy/dd/mm">
+          <input type="text" name="start_date" value="{{ form.start_date.value() }}" placeholder="yy/dd/mm">
           <div class="date-picker-icon"></div>
         </div>
       </div>
       <div class="end-date">
         <label for="time_start">End date</label>
         <div class="field">
-          <input type="text" name="end_0" value="{{ form.data.end_0 }}" placeholder="yy/dd/mm">
+          <input type="text" name="end_date" value="{{ form.end_date.value() }}" placeholder="yy/dd/mm">
           <div class="date-picker-icon"></div>
         </div>
       </div>
@@ -42,13 +42,13 @@
       <div class="start-time">
         <label for="time_start">Start time</label>
         <div class="field">
-          <input type="text" name="start_1" value="{{ form.data.start_1 }}" placeholder="12:00">
+          <input type="text" name="start_time" value="{{ form.start_time.value() }}" placeholder="12:00">
         </div>
       </div>
       <div class="end-time">
         <label for="time_start">End time</label>
         <div class="field">
-          <input type="text" name="end_1" value="{{ form.data.end_1 }}" placeholder="13:00">
+          <input type="text" name="end_time" value="{{ form.end_time.value() }}" placeholder="13:00">
         </div>
       </div>
     </div>
@@ -61,13 +61,13 @@
     <div class="row">
       <label>Description</label>
       <div class="field">
-        <textarea name="description" placeholder="Describe what the event is about">{{ event.description }}</textarea>
+        <textarea name="description" placeholder="Describe what the event is about">{{ form.description.value() }}</textarea>
       </div>
     </div>
     <div class="row">
       <label>Details</label>
       <div class="field">
-        <textarea name="details" placeholder="Give more details about the venue">{{ event.details }}</textarea>
+        <textarea name="details" placeholder="Give more details about the venue">{{ form.details.value() }}</textarea>
       </div>
     </div>
     <div class="row">
