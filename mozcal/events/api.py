@@ -11,5 +11,7 @@ class EventResource(ModelResource):
       "title": ('startswith',),
     }
     allowed_methods = ['get']
+    include_resource_uri = False
+    include_absolute_url = False
 
     serializer = MozcalSerializer(formats=['json', 'csv'])
