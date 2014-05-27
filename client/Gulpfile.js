@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var browserify = require('gulp-browserify');
 var sass = require('gulp-ruby-sass');
 var size = require('gulp-size');
+var uglify = require('gulp-uglify');
 
 
 var staticDir = '../mozcal/base/static';
@@ -20,6 +21,7 @@ gulp.task('scripts', function() {
     .pipe(browserify({
       debug: true
     }))
+    // .pipe(uglify())
     .on('error', logError)
     .pipe(size({ showFiles: true }))
     .pipe(gulp.dest(staticDir + '/js'));
@@ -28,6 +30,7 @@ gulp.task('scripts', function() {
     .pipe(browserify({
       debug: true
     }))
+    // .pipe(uglify())
     .on('error', logError)
     .pipe(size({ showFiles: true }))
     .pipe(gulp.dest(staticDir + '/js'));
