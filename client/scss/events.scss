@@ -154,6 +154,12 @@ li.event {
 }
 
 .event-content {
+  clear: both;
+
+  .space-photo {
+    clear: both;
+  }
+
   .space-photo img {
     display: block;
     max-width: 100%;
