@@ -2,19 +2,19 @@
 
 {% block content %}
 <div class="width-container">
-  <header class="event-header row">
-    <div class="column col-10 billboard">
-      <div class="event-date pull-left">
+  <header class="event-header billboard">
+      <div class="event-date column col-2">
         <div class="day">{{ event.start_day }}</div>
         <div class="monthyear">
           <div class="month">{{ event.start_month }}</div>
           <div class="year">{{ event.start.year }}</div>
         </div>
       </div>
+      <div class="column col-6">
+        <h2 class="oslight">{{ event.title }}</h2>
+      </div>
 
-      <h2 class="oslight pull-left">{{ event.title }}</h2>
-
-      <div class="event-meta pull-left">
+      <div class="event-meta column col-2">
         <div class="event-space">{{ event.space }}</div>
         <div class="event-areas count-{{ event.areas.all().count() }}">
           {% for area in event.areas.all() %}
@@ -22,12 +22,11 @@
           {% endfor %}
         </div>
       </div>
-    </div>
   </header>
 
 
   <div class="event-content">
-    <div class="space-photo"><img src="http://placehold.it/1000x150">{{ event.photo }}</div>
+    <div class="space-photo"><img src="http://placehold.it/980x150">{{ event.photo }}</div>
 
     <div class="billboard row">
       <div class="column col-12">

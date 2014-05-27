@@ -43,8 +43,16 @@ a {
 }
 
 .width-container {
-  max-width: $maxPageWidth;
+  width: $maxPageWidth;
   margin: 0 auto;
+
+  @media screen and (max-width: $mediumBreakPoint) {
+    width: 740px;
+  }
+
+  @media screen and (max-width: $smallBreakPoint) {
+    width: 320px;
+  }
 }
 
 .logo-nav {
@@ -66,8 +74,7 @@ a {
 }
 
 .billboard {
-  padding-top: $baseLine;
-  padding-bottom: $baseLine;
+  padding: $baseLine 20px;
   margin-bottom: $baseLine * 2;
   @include box-shadow(0 0 0 1px #fff inset);
   background: #fff;

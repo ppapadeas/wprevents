@@ -1,7 +1,5 @@
 .filters-container {
   margin-top: 300px;
-  padding-top: $baseLine;
-  padding-bottom: $baseLine;
   margin-bottom: $baseLine;
   font-size: $fontSizeSmall;
 
@@ -37,7 +35,7 @@
 
 li.event {
   background: #fff;
-  padding: ($baseLine / 2) 0;
+  padding: ($baseLine / 2) 20px;
 
   &:nth-child(even) {
     background: darken(#fff, 3%);
@@ -105,18 +103,11 @@ li.event {
 
 .event-header {
   margin-top: $baseLine * 4;
-
-  .event-date {
-    width: 130px;
-  }
+  float: left;
 
   h2 {
     margin: 0;
-    padding: 10px 20px 0 20px;
-  }
-
-  .event-meta {
-    float: right;
+    padding-top: 10px;
   }
 }
 
@@ -160,15 +151,12 @@ li.event {
     font-weight: bold;
     color: $textColorSecondary;
   }
-
-  .event-areas {
-    width: 115px;
-  }
 }
 
 .event-content {
   .space-photo img {
     display: block;
+    max-width: 100%;
   }
 
   h4 {
