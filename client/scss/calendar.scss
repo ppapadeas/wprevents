@@ -1,0 +1,142 @@
+$calBorderColor: #ddd;
+$calCellBackground: #f2f2f2;
+$eventBoxHeight: 20px;
+
+.cal-nav {
+  .current-month {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: $fontSizeLarger;
+    font-weight: bold;
+  }
+
+  .next-month {
+    text-align: right;
+  }
+}
+
+#cal {
+  margin-top: $baseLine;
+
+  tr {
+    border-top: 1px solid $calBorderColor;
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    &:nth-child(even) td {
+      background: $calCellBackground;
+    }
+  }
+
+  td {
+    width: percentage(1 / 7);
+    height: 130px;
+    border-left: 1px solid $calBorderColor;
+    padding: 10px 5px;
+    vertical-align: middle;
+    position: relative;
+
+    &:first-child {
+      border-left: 0;
+    }
+  }
+
+  .cell-content {
+    // height: 110px;
+    @include clearfix;
+    display: table;
+  }
+
+  td .day {
+    height: 100%;
+    // float: left;
+    font-size: $fontSizeSmall;
+    color: $textColorSecondary;
+    width: 10px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  td .content {
+    padding-left: 5px;
+    font-size: $fontSizeSmaller;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  ul.grid {
+    @include clearfix;
+
+    li {
+      float: left;
+      height: $eventBoxHeight;
+      overflow: hidden;
+      margin-left: 3px;
+
+      a {
+        width: 30px;
+      }
+
+      & + li {
+        margin-top: 0;
+      }
+
+      &:nth-child(3n+1) {
+        margin-left: 0;
+      }
+
+      &:nth-child(n+4) {
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .event-box {
+    border-radius: $radiusDefault / 2;
+    background: $linkSkyBlue;
+
+    a {
+      padding: 3px 8px;
+      line-height: $fontSizeSmall;
+      height: $eventBoxHeight;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100px;
+      color: #fff;
+      display: block;
+    }
+
+    &:hover {
+      background: $linkBlue;
+    }
+
+    & + li {
+      margin-top: 5px;
+    }
+  }
+
+  li.event-box {
+    list-style-type: none !important;
+  }
+
+  .event-box.tooltip {
+    overflow: visible;
+    width: auto;
+    pointer-events: none;
+    font-size: $fontSizeSmaller;
+    background: $linkBlue;
+    z-index: 1000;
+
+    a {
+      width: auto;
+      text-overflow: normal;
+    }
+  }
+}

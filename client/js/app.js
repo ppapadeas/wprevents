@@ -6,12 +6,13 @@ Backbone.$ = $;
 var MapView = require('./views/map');
 var FiltersView = require('./views/filters');
 var EventListView = require('./views/eventlist');
-
+var CalendarView = require('./views/calendar');
 
 var App = function() {
   var map = new MapView({ el: '#map' });
   var filters = new FiltersView({ el: '.filters-container' });
   var list = new EventListView({ el: '.event-list' });
+  var calendar = new CalendarView({ el: '#cal' });
 
   filters.on('change', function(filters) {
     list.update(filters);
