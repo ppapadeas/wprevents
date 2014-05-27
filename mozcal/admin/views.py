@@ -65,7 +65,9 @@ def event_edit(request, slug=None):
 def event_delete(request):
   event = Event.objects.get(id=request.POST.get('id'))
 
-  event.delete()
+  if event:
+    event.delete()
+
   return HttpResponseRedirect('/admin/events')
 
 
@@ -113,7 +115,9 @@ def space_edit(request, slug=None):
 def space_delete(request):
   space = Space.objects.get(id=request.POST.get('id'))
 
-  space.delete()
+  if space:
+    space.delete()
+
   return HttpResponseRedirect('/admin/spaces')
 
 
