@@ -6,6 +6,7 @@ from django.db import models
 
 from uuslug import uuslug as slugify
 
+
 class FunctionalArea(models.Model):
   class Meta:
     permissions = (
@@ -51,8 +52,6 @@ class Space(models.Model):
     super(Space, self).save(*args, **kwargs)
 
 
-# @see http://www.dabapps.com/blog/higher-level-query-api-django-orm/
-# @see http://stackoverflow.com/questions/2163151/custom-queryset-and-manager-without-breaking-dry
 class EventManager(models.Manager):
   def past_events(self):
     return self.filter(end__lte=datetime.now())
