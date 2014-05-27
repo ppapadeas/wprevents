@@ -8,3 +8,4 @@ class EventResource(ModelResource):
     filtering = {
       "title": ('startswith',),
     }
+    allowed_methods = ['get']
