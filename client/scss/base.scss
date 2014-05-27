@@ -15,7 +15,6 @@ body {
   font-size: $fontSizeDefault;
   color: $textColorPrimary;
   line-height: $baseLine;
-  background: url('#{$mozCdnUrl}media/img/sandstone/bg-gradient-sand.png') repeat-x 0 0, url('#{$mozCdnUrl}media/img/sandstone/bg-sand.png') repeat 0 0;
 }
 
 #outer-wrapper {
@@ -26,6 +25,7 @@ body {
   padding-bottom: 100px;
   border-top: 2px solid #fff;
   position: relative;
+  background: url('#{$mozCdnUrl}media/img/sandstone/bg-gradient-sand.png') repeat-x 0 0, url('#{$mozCdnUrl}media/img/sandstone/bg-sand.png') repeat 0 0;
 
   & > * {
     position: relative;
