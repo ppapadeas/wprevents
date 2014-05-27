@@ -23,7 +23,16 @@
     height: $baseLine + ($baseLine / 3);
     padding: ($baseLine / 6)  ($baseLine / 3);
     background: transparent;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #b2b2b2;
+  }
+
+  input:disabled {
+    border-color: #eee;
+    @include box-shadow(none);
+  }
+
+  input:disabled::-webkit-input-placeholder {
+    color: #ccc;
   }
 }
 

@@ -23,8 +23,8 @@
           {% endfor %}
         </select>
 
-        <input type="text" name="start-date" id="start-date-filter" class="js-filter js-datepicker" placeholder="Start date">
-        <input type="text" name="end-date" id="end-date-filter" class="js-filter js-datepicker" placeholder="End date">
+        <input type="text" name="start-date" id="start-date-filter" class="js-filter js-datepicker" placeholder="Start date"{% if period_disabled %} disabled{% endif %}>
+        <input type="text" name="end-date" id="end-date-filter" class="js-filter js-datepicker" placeholder="End date"{% if period_disabled %} disabled{% endif %}>
       </div>
     </form>
   </div>

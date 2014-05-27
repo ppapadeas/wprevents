@@ -4,7 +4,7 @@ input[type="password"],
 input[type="text"] {
     height: $baseLine + ($baseLine / 3);
     background: #fafafa;
-    border-color: #dbdbdb;
+    border-color: #b2b2b2;
     border-style: solid;
     border-width: 1px;
     @include box-shadow(0 2px 1px rgba(0,0,0,0.1) inset);
