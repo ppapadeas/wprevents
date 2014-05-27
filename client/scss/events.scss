@@ -72,6 +72,7 @@ li.event {
   font-size: $fontSizeSmallest;
   @include clearfix;
   margin-top: 2px;
+  @include prefix(text-shadow, $textShadowDefault);
 
   .event-area {
     float: left;

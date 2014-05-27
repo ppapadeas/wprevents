@@ -111,6 +111,7 @@ $eventBoxHeight: 20px;
       width: 100px;
       color: #fff;
       display: block;
+      @include prefix(text-shadow, $textShadowDefault);
     }
 
     &:hover {
