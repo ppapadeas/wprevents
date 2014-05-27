@@ -7,7 +7,6 @@ def one(request, slug):
 
   return render(request, 'event.html', { 'event': event })
 
-
 def all(request):
   search_string = request.GET.get('search', '')
   space_name = request.GET.get('space', '')
@@ -18,8 +17,11 @@ def all(request):
   spaces = Space.objects.all()
   areas = FunctionalArea.objects.all()
 
-  return render(request, 'events_all.html', {
+  return render(request, 'list.html', {
     'events': events,
     'spaces': spaces,
     'areas': areas
   })
+
+def calendar(request):
+  return render(request, 'calendar.html')
