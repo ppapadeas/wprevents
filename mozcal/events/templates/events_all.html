@@ -4,11 +4,11 @@
 <div class="width-container">
   <div class="billboard filters-container">
     <form id="filters-form">
-      <div class="column col-5">
+      <div class="column col-6">
         <input type="text" name="search" placeholder="Filter using any keyword" id="keyword-filter" class="js-filter">
       </div>
 
-      <div class="column col-5 select-fields">
+      <div class="column col-6 select-fields">
         <select name="space" id="space-filter" class="js-filter">
           <option value="" default>All spaces</option>
           {% for space in spaces %}
@@ -25,10 +25,6 @@
 
         <input type="text" name="start-date" id="start-date-filter" class="js-filter js-datepicker" placeholder="Start date">
         <input type="text" name="end-date" id="end-date-filter" class="js-filter js-datepicker" placeholder="End date">
-      </div>
-
-      <div class="column col-2">
-        <input type="submit" value="Search" class="button fill-width filter-submit-button">
       </div>
     </form>
   </div>
