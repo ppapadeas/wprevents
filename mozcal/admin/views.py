@@ -50,6 +50,7 @@ def events_list(request):
 #@see https://github.com/mozilla/remo/blob/master/remo/events/views.py#L148
 @permission_required('events.can_administrate_events')
 def event_edit(request, slug=None):
+  slug = request.POST.get('slug') or slug
   event, created = get_or_create_instance(Event, slug=slug)
   form = EventForm(request.POST or None, instance=event)
 
