@@ -13,15 +13,15 @@ Installation
     * If you don't have virtualenv(wrapper) you can install them: `pip install virtualenvwrapper`
 4. Upgrade pip: `pip install -U pip`
 5. `pip install -r requirements/compiled.txt`
-. `cp wprevents/settings/local.py-dist wprevents/settings/local.py`
-. Update the PRIVILEGED_USERS variable in `wprevents/settings/local.py` with your email
-. Assuming you have MySQL installed, start the MySQL service and create a database in the mysql console: `create database wprevents;`
-. `./manage.py update_product_details`
-. `./manage.py syncdb`
-. `./manage.py runserver`
-. Make sure you have [node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
-. `cd client`
-. `npm install`
-. `npm install -g gulp`
-. `gulp build-prod`
-. Open a browser to http://localhost:8000/
+6. `cp wprevents/settings/local.py-dist wprevents/settings/local.py`
+7. Update the PRIVILEGED_USERS variable in `wprevents/settings/local.py` with your email
+8. Assuming you have MySQL installed, start the MySQL service and create a database in the mysql console: `create database wprevents;`
+9. `./manage.py update_product_details`
+10. `./manage.py syncdb`
+11. `./manage.py runserver`
+12. Make sure you have [node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
+13. `cd client`
+14. `npm install`
+15. `npm install -g gulp`
+16. `gulp build-prod`
+17. Open a browser to http://localhost:8000/
