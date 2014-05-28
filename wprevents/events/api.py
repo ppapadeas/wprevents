@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from tastypie import fields
 from tastypie.resources import ModelResource
 
 from wprevents.base.serializers import CustomSerializer
