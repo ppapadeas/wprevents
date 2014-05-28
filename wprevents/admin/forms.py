@@ -14,10 +14,6 @@ DATE_FORMAT = '%y-%m-%d'
 TIME_FORMAT = '%H:%M'
 
 class EventForm(ModelForm):
-  class Meta:
-    model = Event
-    fields = ['title', 'space', 'start', 'end', 'areas', 'description', 'details']
-
   start = forms.DateTimeField(required=False)
   end = forms.DateTimeField(required=False)
 
@@ -25,6 +21,10 @@ class EventForm(ModelForm):
   start_time = forms.TimeField(input_formats=[TIME_FORMAT], required=True)
   end_date = forms.DateField(input_formats=[DATE_FORMAT], required=True)
   end_time = forms.TimeField(input_formats=[TIME_FORMAT], required=True)
+
+  class Meta:
+    model = Event
+    fields = ['title', 'space', 'start', 'end', 'areas', 'description', 'details']
 
   def __init__(self, *args, **kwargs):
     super(EventForm, self).__init__(*args, **kwargs)

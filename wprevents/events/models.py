@@ -8,25 +8,20 @@ from uuslug import uuslug as slugify
 
 
 class FunctionalArea(models.Model):
+  name = models.CharField(max_length=120, blank=False)
+  slug = models.SlugField(max_length=50, blank=False)
+  color = models.CharField(max_length=7, blank=False, default="blue")
+
   class Meta:
     permissions = (
       ('can_administrate_functional_areas', 'Can administrate functional areas'),
     )
-
-  name = models.CharField(max_length=120, blank=False)
-  slug = models.SlugField(max_length=50, blank=False)
-  color = models.CharField(max_length=7, blank=False, default="blue")
 
   def __unicode__(self):
     return self.name
 
 
 class Space(models.Model):
-  class Meta:
-    permissions = (
-      ('can_administrate_spaces', 'Can administrate spaces'),
-    )
-
   COUNTRIES = settings.COUNTRIES.items()
 
   name = models.CharField(max_length=120)
@@ -42,6 +37,11 @@ class Space(models.Model):
   lon = models.FloatField(null=True)
 
   photo_url = models.URLField(max_length=300, null=True, blank=True)
+
+  class Meta:
+    permissions = (
+      ('can_administrate_spaces', 'Can administrate spaces'),
+    )
 
   def __unicode__(self):
     return '%s' % self.name
@@ -77,12 +77,6 @@ class EventManager(models.Manager):
 
 
 class Event(models.Model):
-  class Meta:
-    ordering = ['-start']
-    permissions = (
-      ('can_administrate_events', 'Can administrate'),
-    )
-
   objects = EventManager()
 
   created = models.DateTimeField(auto_now_add=True)
@@ -100,6 +94,12 @@ class Event(models.Model):
   owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
 
   areas = models.ManyToManyField(FunctionalArea, blank=True)
+
+  class Meta:
+    ordering = ['-start']
+    permissions = (
+      ('can_administrate_events', 'Can administrate'),
+    )
 
   def __unicode__(self):
     return '#%s %s' % (self.id, self.title)
