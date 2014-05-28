@@ -53,6 +53,9 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_URL = 'http://localhost:8000'
 
+# Use default BrowserID verification class
+BROWSERID_VERIFY_CLASS = 'django_browserid.views.Verify'
+
 # Do not create user on login
 BROWSERID_CREATE_USER = False
 
