@@ -38,6 +38,7 @@ class EventResource(CustomResource):
 
   def dehydrate(self, bundle):
     bundle.data['space'] = bundle.obj.space.name
+    bundle.data['functional_areas'] = ','.join(bundle.obj.area_names)
     return bundle
 
 
