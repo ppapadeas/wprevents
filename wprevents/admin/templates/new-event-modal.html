@@ -63,7 +63,11 @@
           <ul>
             {% for i, choice in form.areas.field.choices %}
             <li>
-              <label for="area-{{ i }}-checkbox"><input type="checkbox" id="area-{{ i }}-checkbox">{{ choice }}</label>
+              {% set checked = '' %}
+              {% if i in form.areas.value() %}
+                {% set checked = ' checked' %}
+              {% endif %}
+              <label for="area-{{ i }}-checkbox"><input type="checkbox" id="area-{{ i }}-checkbox"{{ checked }}>{{ choice }}</label>
             </li>
             {% endfor %}
           </ul>
