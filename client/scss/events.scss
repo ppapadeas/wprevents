@@ -131,9 +131,9 @@ li.event {
     .monthyear {
       float: left;
       width: 50%;
-      font-weight: 600;
       color: $textColorLight;
       text-align: center;
+      font-family: 'Open Sans Semibold';
     }
 
     .day {
@@ -143,15 +143,18 @@ li.event {
 
     .monthyear {
       line-height: 1;
+      padding-top: 2px;
+      // font-weight: bold;
     }
 
     .month {
-      font-size: 24px;
+      font-size: 22px;
       text-transform: uppercase;
     }
 
     .year {
-      font-size: 22px;
+      font-size: 20px;
+      padding-top: 1px;
     }
   }
 
