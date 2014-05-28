@@ -61,40 +61,14 @@
         </select>
         <div class="areas-dropdown hidden">
           <ul>
+            {% for i, choice in form.areas.field.choices %}
             <li>
-              <label for="area-1-checkbox"><input type="checkbox" id="area-1-checkbox">Accessibility</label>
+              <label for="area-{{ i }}-checkbox"><input type="checkbox" id="area-{{ i }}-checkbox">{{ choice }}</label>
             </li>
-            <li>
-              <label for="area-2-checkbox"><input type="checkbox" id="area-2-checkbox">L10n</label>
-            </li>
-            <li>
-              <label for="area-3-checkbox"><input type="checkbox" id="area-3-checkbox">Public Relations</label>
-            </li>
-            <li>
-              <label for="area-4-checkbox"><input type="checkbox" id="area-4-checkbox">Security</label>
-            </li>
-            <li>
-              <label for="area-5-checkbox"><input type="checkbox" id="area-5-checkbox">Community</label>
-            </li>
-            <li>
-              <label for="area-6-checkbox"><input type="checkbox" id="area-6-checkbox">WebGL</label>
-            </li>
-            <li>
-              <label for="area-7-checkbox"><input type="checkbox" id="area-7-checkbox">Firefox OS</label>
-            </li>
-            <li>
-              <label for="area-8-checkbox"><input type="checkbox" id="area-8-checkbox">Mobile</label>
-            </li>
-            <li>
-              <label for="area-9-checkbox"><input type="checkbox" id="area-9-checkbox">QA</label>
-            </li>
-            <li>
-              <label for="area-10-checkbox"><input type="checkbox" id="area-10-checkbox">Webdev</label>
-            </li>
+            {% endfor %}
           </ul>
         </div>
-        {# form.areas #}
-       </div>
+      </div>
     </div>
     <div class="row">
       <label>Description</label>
