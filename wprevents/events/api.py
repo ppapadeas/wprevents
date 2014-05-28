@@ -1,14 +1,16 @@
 from datetime import datetime
+
+from tastypie import fields
 from tastypie.resources import ModelResource
+
+from wprevents.base.serializers import CustomSerializer
 from models import Event, Space, FunctionalArea
 
-from wprevents.base.serializers import MozcalSerializer
 
-
-class MozcalResource(ModelResource):
+class CustomResource(ModelResource):
   def create_response(self, request, data, **response_kwargs):
     """Add HTTP header to specify the filename of CSV exports."""
-    response = super(MozcalResource, self).create_response(request, data, **response_kwargs)
+    response = super(CustomResource, self).create_response(request, data, **response_kwargs)
 
     if self.determine_format(request) == 'text/csv':
       today = datetime.now().date()
@@ -20,11 +22,10 @@ class MozcalResource(ModelResource):
 
     return response
 
-
-class EventResource(MozcalResource):
+class EventResource(CustomResource):
   class Meta:
     queryset = Event.objects.all()
-    fields = ['title', 'space', 'start', 'end', 'area_names']
+    fields = ['title', 'start', 'end']
     filtering = {
       "title": ('startswith',),
     }
@@ -33,10 +34,14 @@ class EventResource(MozcalResource):
     include_resource_uri = False
     include_absolute_url = False
 
-    serializer = MozcalSerializer(formats=['json', 'csv'])
+    serializer = CustomSerializer(formats=['json', 'csv'])
+
+  def dehydrate(self, bundle):
+    bundle.data['space'] = bundle.obj.space.name
+    return bundle
 
 
-class SpaceResource(MozcalResource):
+class SpaceResource(CustomResource):
   class Meta:
     queryset = Space.objects.all()
     fields = ['name', 'address', 'address2', 'city', 'country', 'lat', 'lon', 'photo_url']
@@ -45,10 +50,10 @@ class SpaceResource(MozcalResource):
     include_resource_uri = False
     include_absolute_url = False
 
-    serializer = MozcalSerializer(formats=['csv'])
+    serializer = CustomSerializer(formats=['csv'])
 
 
-class FunctionalAreaResource(MozcalResource):
+class FunctionalAreaResource(CustomResource):
   class Meta:
     queryset = FunctionalArea.objects.all()
     fields = ['name', 'slug', 'color']
@@ -57,4 +62,4 @@ class FunctionalAreaResource(MozcalResource):
     include_resource_uri = False
     include_absolute_url = False
 
-    serializer = MozcalSerializer(formats=['csv'])
+    serializer = CustomSerializer(formats=['csv'])

@@ -94,7 +94,7 @@ class CSVUnicodeWriter(object):
       self.writerow(row)
 
 
-class MozcalSerializer(Serializer):
+class CustomSerializer(Serializer):
   """Extend tastypie's serializer to export to CSV format."""
   formats = ['json', 'jsonp', 'xml', 'yaml', 'html', 'csv']
   content_types = {
