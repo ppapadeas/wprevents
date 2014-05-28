@@ -6,7 +6,6 @@ Backbone.$ = $;
 var EventModalView = require('./views/eventmodal');
 var DedupeModalView = require('./views/dedupemodal');
 
-
 $(function() {
 
   // 'New event' button
@@ -29,5 +28,5 @@ $(function() {
 
     var modal = new DedupeModalView({ url: $(this).attr('href') });
   });
-  
+
 });
