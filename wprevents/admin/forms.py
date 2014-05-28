@@ -10,7 +10,7 @@ from tower import ugettext as _
 from wprevents.events.models import Event, Space, FunctionalArea
 
 
-DATE_FORMAT = '%y-%m-%d'
+DATE_FORMAT = '%Y-%m-%d'
 TIME_FORMAT = '%H:%M'
 
 class EventForm(ModelForm):
