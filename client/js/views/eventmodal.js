@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var Pikaday = require('pikaday');
 
 var ModalView = require('./modal');
 var AreaSelectView = require('./areaselect');
@@ -14,7 +15,10 @@ var EventModalView = ModalView.extend({
 
     this.load(options.url).done(function() {
       var areaSelect = new AreaSelectView({ el: $('.js-area-select') });
-    });
+      this.$('.js-datepicker').each(function() {
+        new Pikaday({ field: this });
+      });
+    }.bind(this));
   }
 });
 
