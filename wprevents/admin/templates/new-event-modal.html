@@ -67,7 +67,7 @@
               {% if i in form.areas.value() %}
                 {% set checked = ' checked' %}
               {% endif %}
-              <label for="area-{{ i }}-checkbox"><input type="checkbox" id="area-{{ i }}-checkbox"{{ checked }}>{{ choice }}</label>
+              <label for="area-{{ i }}-checkbox"><input type="checkbox" name="areas" value="{{ i }}" id="area-{{ i }}-checkbox"{{ checked }}>{{ choice }}</label>
             </li>
             {% endfor %}
           </ul>
