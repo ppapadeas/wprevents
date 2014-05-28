@@ -7,8 +7,6 @@ from wprevents.base.utils import get_or_create_instance
 from wprevents.events.models import Event, Space, FunctionalArea
 
 from .forms import EventForm, SpaceForm, FunctionalAreaForm
-from .utils import as_csv
-
 
 
 @permission_required('events.can_administrate_events')
@@ -36,9 +34,6 @@ def events_list(request):
   except EmptyPage:
     # If page is out of range (e.g. 9999), deliver last page of results.
     events = paginator.page(paginator.num_pages)
-
-  if request.GET.get('format') == 'csv':
-    return as_csv(request, Event.objects.all(), ['title', 'space', 'start', 'end', 'area_names'], fileName='events.csv')
 
   return render(request, 'events.html', {
     'events': events,
@@ -95,9 +90,6 @@ def spaces_list(request):
   order_by = request.GET.get('order_by', 'name')
   spaces = Space.objects.all().order_by(order_by)
 
-  if request.GET.get('format') == 'csv':
-    return as_csv(request, Space.objects.all(), ['name', 'address', 'address2', 'city', 'country', 'lat', 'lon', 'photo_url'], fileName='spaces.csv')
-
   return render(request, 'spaces.html', { 'spaces': spaces })
 
 @permission_required('events.can_administrate_spaces')
@@ -128,9 +120,6 @@ def space_delete(request):
 def area_list(request):
   order_by = request.GET.get('order_by', 'name')
   areas = FunctionalArea.objects.all().order_by(order_by)
-
-  if request.GET.get('format') == 'csv':
-    return as_csv(request, FunctionalArea.objects.all(), ['name', 'slug', 'color'], fileName='areas.csv')
 
   return render(request, 'areas.html', { 'areas': areas })
 

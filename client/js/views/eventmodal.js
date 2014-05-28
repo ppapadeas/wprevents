@@ -1,6 +1,7 @@
 var _ = require('underscore');
 
 var ModalView = require('./modal');
+var AreaSelectView = require('./areaselect');
 
 
 var EventModalView = ModalView.extend({
@@ -11,7 +12,9 @@ var EventModalView = ModalView.extend({
   initialize: function(options) {
     ModalView.prototype.initialize.call(this);
 
-    this.load(options.url);
+    this.load(options.url).done(function() {
+      var areaSelect = new AreaSelectView({ el: $('.js-area-select') });
+    });
   }
 });
 

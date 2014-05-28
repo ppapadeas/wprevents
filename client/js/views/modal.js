@@ -22,7 +22,7 @@ var ModalView = Backbone.View.extend({
   },
 
   load: function(path) {
-    $.get(path).done(function(html) {
+    return $.get(path).done(function(html) {
       this.$container.removeClass('disabled');
       this.$container.append(html);
     }.bind(this));
