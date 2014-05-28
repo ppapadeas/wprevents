@@ -7,11 +7,11 @@ var FiltersView = Backbone.View.extend({
     "change #space-filter": "refresh",
     "change #area-filter": "refresh",
     "keyup #keyword-filter": "lazyRefresh",
-    "change #start-date-filter": "refresh",
     "change #end-date-filter": "refresh",
 
     "keydown #keyword-filter": "preventSubmitOnEnter",
     "keydown #start-date-filter": "onDateKeydown",
+    "change #start-date-filter": "onStartDateChange",
     "keydown #end-date-filter": "onDateKeydown",
   },
 
@@ -20,9 +20,15 @@ var FiltersView = Backbone.View.extend({
 
     this.$filters = this.$('.js-filter');
 
-    this.$('.js-datepicker').each(function() {
-      new Pikaday({ field: this });
-    });
+    this.datePickers = [];
+
+    this.$('.js-datepicker').each(function(i, el) {
+      var picker = new Pikaday({ field: el });
+      this.datePickers.push(picker);
+    }.bind(this));
+
+    this.startDate = this.datePickers[0];
+    this.endDate = this.datePickers[1];
   },
 
   preventSubmitOnEnter: function(e) {
@@ -37,6 +43,18 @@ var FiltersView = Backbone.View.extend({
       $(e.target).val('').blur();
       this.refresh();
     }
+  },
+
+  onStartDateChange: function(e) {
+    var date = this.startDate.getDate();
+
+    // set end date to start date
+    // only if end date hasn't yet been set
+    if (this.endDate.getDate() === null) {
+      this.endDate.setDate(date);
+    }
+
+    this.refresh();
   },
 
   onDateKeydown: function(e) {
