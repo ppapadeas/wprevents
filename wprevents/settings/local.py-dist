@@ -1,15 +1,12 @@
 # This is an example settings/local.py file.
 # These settings overrides what's in settings/base.py
 
-from . import base
-
-# To extend any settings from settings/base.py here's an example:
-#INSTALLED_APPS = base.INSTALLED_APPS + ['debug_toolbar']
+from base import *
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'playdoh_app',
+        'NAME': 'wprevents',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '',
@@ -36,7 +33,7 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-# Users allowed to log in with BrowserID (see mozcal.base.auth)
+# Users allowed to log in with BrowserID (see wprevents.base.auth)
 PRIVILEGED_USERS = ['john.doe@mozilla.org']
 
 # Debugging displays nice error messages, but leaks memory. Set this to False
@@ -58,7 +55,7 @@ HMAC_KEYS = {
 }
 
 from django_sha2 import get_password_hashers
-PASSWORD_HASHERS = get_password_hashers(base.BASE_PASSWORD_HASHERS, HMAC_KEYS)
+PASSWORD_HASHERS = get_password_hashers(BASE_PASSWORD_HASHERS, HMAC_KEYS)
 
 # Make this unique, and don't share it with anybody.  It cannot be blank.
 SECRET_KEY = ''

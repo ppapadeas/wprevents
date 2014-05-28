@@ -3,8 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from mozcal.base.utils import get_or_create_instance
-from mozcal.events.models import Event, Space, FunctionalArea
+from wprevents.base.utils import get_or_create_instance
+from wprevents.events.models import Event, Space, FunctionalArea
 
 from .forms import EventForm, SpaceForm, FunctionalAreaForm
 from .utils import as_csv

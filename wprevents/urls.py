@@ -12,11 +12,11 @@ patch()
 
 urlpatterns = patterns('',
   (r'', include('django_browserid.urls')),
-  (r'', include('mozcal.events.urls')),
+  (r'', include('wprevents.events.urls')),
 
   # API
-  url(r'^api/', include('mozcal.api.urls')),
-  (r'^admin/', include('mozcal.admin.urls')),
+  url(r'^api/', include('wprevents.api.urls')),
+  (r'^admin/', include('wprevents.admin.urls')),
 
 
   # Generate a robots.txt

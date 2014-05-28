@@ -7,7 +7,7 @@ from django.utils.translation import get_language
 from product_details import product_details
 from tower import ugettext as _
 
-from mozcal.events.models import Event, Space, FunctionalArea
+from wprevents.events.models import Event, Space, FunctionalArea
 
 
 DATE_FORMAT = '%y-%m-%d'

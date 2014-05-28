@@ -7,7 +7,7 @@ from funfactory.settings_base import *
 # If you did not install Playdoh with the funfactory installer script
 # you may need to edit this value. See the docs about installing from a
 # clone.
-PROJECT_MODULE = 'mozcal'
+PROJECT_MODULE = 'wprevents'
 
 # Defines the views served for root URLs.
 ROOT_URLCONF = '%s.urls' % PROJECT_MODULE
@@ -20,9 +20,6 @@ INSTALLED_APPS = list(INSTALLED_APPS) + [
 
     'django_browserid',
     'tastypie',
-
-    'debug_toolbar',
-    'django_extensions',
 ]
 
 # Note! If you intend to add `south` to INSTALLED_APPS,
@@ -41,14 +38,13 @@ JINGO_EXCLUDE_APPS = (
     'admin',
     'registration',
     'browserid',
-    'debug_toolbar',
 )
 
 # BrowserID configuration
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     # 'django_browserid.auth.BrowserIDBackend',
-    'mozcal.base.auth.BrowserIDBackend',
+    'wprevents.base.auth.BrowserIDBackend',
 )
 
 SITE_URL = 'http://localhost:8000'

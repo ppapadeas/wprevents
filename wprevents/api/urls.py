@@ -2,7 +2,7 @@ from django.conf.urls.defaults import include, patterns, url
 
 from tastypie.api import Api
 
-from mozcal.events.api import EventResource
+from wprevents.events.api import EventResource
 
 
 v1_api = Api(api_name='v1')

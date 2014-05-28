@@ -5,7 +5,7 @@ var size = require('gulp-size');
 var uglify = require('gulp-uglify');
 
 
-var staticDir = '../mozcal/base/static';
+var staticDir = '../wprevents/base/static';
 
 function logError(error) {
   console.error('\nError:', error.plugin);

@@ -6,7 +6,7 @@ from django_browserid.auth import BrowserIDBackend
 from django_browserid.base import get_audience
 
 from utils import get_or_create_instance
-from mozcal.events.models import Event, Space, FunctionalArea
+from wprevents.events.models import Event, Space, FunctionalArea
 
 
 def add_permission(user, Model, codename):
