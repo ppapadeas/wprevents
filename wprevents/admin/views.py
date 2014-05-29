@@ -82,6 +82,10 @@ def event_dedupe(request, slug=None):
     'events': events
   })
 
+@permission_required('events.can_administrate_events')
+def event_import_ical(request):
+  return render(request, 'event_import.html')
+
 
 # SPACES
 

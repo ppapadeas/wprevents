@@ -5,6 +5,7 @@
 {% set active_tab = 'events' %}
 
 {% block actions %}
+  <a class="button" href="{{ url('event_import_ical') }}">Import iCal</a>
   <a class="button" href="{{ url("api_dispatch_list", resource_name="event", api_name='v1') }}?format=csv">Export CSV</a>
   <a class="button js-new-event" href="{{ url('events_new_event') }}">New event</a>
 {% endblock %}

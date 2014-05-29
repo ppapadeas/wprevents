@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^$', views.events_list, name='event_all'),
     url(r'^new$', views.event_edit, name='events_new_event'),
     url(r'^delete$', views.event_delete, name='event_delete'),
+    url(r'^import$', views.event_import_ical, name='event_import_ical'),
 
     url(r'^(?P<slug>[a-z0-9-]+)/', include([
       url(r'^edit', views.event_edit, name='event_edit'),
