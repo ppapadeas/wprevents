@@ -5,7 +5,7 @@
 {% set active_tab = 'areas' %}
 
 {% block actions %}
-  <a class="button" href="{{ url("api_dispatch_list", resource_name="functionalarea", api_name='v1') }}?format=csv">Export CSV</a>
+  <a class="button" href="{{ url("api_dispatch_list", resource_name="functionalarea", api_name='v1') }}?format=csv&limit=0">Export CSV</a>
   <a class="button" href="{{ url('areas_new_area') }}">New area</a>
 {% endblock %}
 
