@@ -16,7 +16,7 @@ def import_ical(url):
 
   cal = Calendar.from_ical(data)
 
-  bulk_create_events(cal)
+  return bulk_create_events(cal)
 
 
 def bulk_create_events(cal):
@@ -41,4 +41,4 @@ def bulk_create_events(cal):
 
     events.append(event)
 
-  Event.objects.bulk_create(events)
+  return Event.objects.bulk_create(events)

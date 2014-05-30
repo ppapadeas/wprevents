@@ -86,7 +86,9 @@ def event_dedupe(request, slug=None):
 @permission_required('events.can_administrate_events')
 def event_import_ical(request):
   if request.method == 'POST':
-    import_ical(request.POST.get('url'))
+    events = import_ical(request.POST.get('url'))
+
+    return render(request, 'event_import.html', { 'events': events })
 
   return render(request, 'event_import.html')
 
