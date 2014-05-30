@@ -54,7 +54,7 @@
         </div>
 
         <div class="button-group pull-right">
-          <a href="#" class="button">iCal</a>
+          <a href="{{ url("api_dispatch_detail", api_name='v1', resource_name="event", pk=event.id) }}?format=ical" class="button">iCal</a>
           <a href="#" class="button">Facebook</a>
           <a href="#" class="button">Twitter</a>
           <a href="#" class="button">Google+</a>
