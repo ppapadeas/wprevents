@@ -4,3 +4,6 @@
 [submodule "vendor-local/src/django-tastypie"]
 	path = vendor-local/src/django-tastypie
 	url = git://github.com/toastdriven/django-tastypie.git
+[submodule "vendor-local/src/icalendar"]
+	path = vendor-local/src/icalendar
+	url = git@github.com:collective/icalendar.git
