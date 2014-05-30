@@ -30,8 +30,8 @@
       <td>{{ event.area_names|join(', ') }}</td>
       <td class="actions">
 
-        <a href="{{ url('event_edit', slug=event.slug) }}" class="js-edit-event">edit</a>
-        <a href="{{ url('event_dedupe', slug=event.slug) }}" class="js-dedupe-event">dupe</a>
+        <a href="{{ url('event_edit', id=event.id) }}" class="js-edit-event">edit</a>
+        <a href="{{ url('event_dedupe', id=event.id) }}" class="js-dedupe-event">dupe</a>
 
         <form action="{{ url('event_delete') }}" method="post">
           {{ csrf() }}

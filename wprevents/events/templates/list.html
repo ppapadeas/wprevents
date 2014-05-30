@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="event-info column col-8">
-        <a class="event-name" href="{{ url('event_one', slug=event.slug) }}">{{ event.title }}</a>
+        <a class="event-name" href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a>
         <div class="event-description">
           {% if event.description %}
           <p>{{ event.description }}</p>

@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404
 
 from wprevents.events.models import Event, Space, FunctionalArea
 
-def one(request, slug):
-  event = get_object_or_404(Event, slug=slug)
+def one(request, id, slug):
+  event = get_object_or_404(Event, id=id)
 
   return render(request, 'event.html', { 'event': event })
 

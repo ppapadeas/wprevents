@@ -26,7 +26,7 @@
       <td>{{ area.slug }}</td>
       <td>{{ area.color }}</td>
       <td class="actions">
-        <a href="{{ url('area_edit', slug=area.slug) }}">edit</a>
+        <a href="{{ url('area_edit', id=area.id) }}">edit</a>
 
         <form action="{{ url('area_delete') }}" method="post">
           {{ csrf() }}

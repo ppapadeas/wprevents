@@ -45,9 +45,9 @@ def events_list(request):
 
 #@see https://github.com/mozilla/remo/blob/master/remo/events/views.py#L148
 @permission_required('events.can_administrate_events')
-def event_edit(request, slug=None):
-  slug = request.POST.get('slug') or slug
-  event, created = get_or_create_instance(Event, slug=slug)
+def event_edit(request, id=None):
+  id = request.POST.get('id') or id
+  event, created = get_or_create_instance(Event, id=id)
   form = EventForm(request.POST or None, instance=event)
 
   if request.method == 'POST':
@@ -69,12 +69,12 @@ def event_delete(request):
 
 
 @permission_required('events.can_administrate_events')
-def event_dedupe(request, slug=None):
-  event = Event.objects.get(slug=slug)
+def event_dedupe(request, id=None):
+  event = Event.objects.get(id=id)
 
   if request.method == 'POST':
     event.remove_duplicate(request.POST.get('duplicate_id'))
-    return HttpResponseRedirect('/admin/events/'+ event.slug +'/dedupe')
+    return HttpResponseRedirect('/admin/events/'+ event.id +'/dedupe')
 
   events = event.get_duplicate_candidates(request.GET.get('q', ''))
 
@@ -103,8 +103,8 @@ def spaces_list(request):
   return render(request, 'spaces.html', { 'spaces': spaces })
 
 @permission_required('events.can_administrate_spaces')
-def space_edit(request, slug=None):
-  space, created = get_or_create_instance(Space, slug=slug)
+def space_edit(request, id=None):
+  space, created = get_or_create_instance(Space, id=id)
   form = SpaceForm(request.POST or None, instance=space)
 
   if request.method == 'POST':
@@ -134,8 +134,8 @@ def area_list(request):
   return render(request, 'areas.html', { 'areas': areas })
 
 @permission_required('events.can_administrate_functional_areas')
-def area_edit(request, slug=None):
-  area, created = get_or_create_instance(FunctionalArea, slug=slug)
+def area_edit(request, id=None):
+  area, created = get_or_create_instance(FunctionalArea, id=id)
   form = FunctionalAreaForm(request.POST or None, instance=area)
 
   if request.method == 'POST':

@@ -28,7 +28,7 @@
       <td>{{ space.lat }} {{ space.lon }}</td>
       <td>{{ space.photo }}</td>
       <td class="actions">
-        <a href="{{ url('space_edit', slug=space.slug) }}">edit</a>
+        <a href="{{ url('space_edit', id=space.id) }}">edit</a>
 
         <form action="{{ url('space_delete') }}" method="post">
           {{ csrf() }}
