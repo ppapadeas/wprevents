@@ -1,6 +1,7 @@
-from django.conf import settings
 from datetime import datetime, timedelta
 
+from django.utils import text
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -110,7 +111,7 @@ class Event(models.Model):
     super(Event, self).save(*args, **kwargs)
 
   def define_slug(self):
-    self.slug = slugify(self.title, instance=self)
+    self.slug = text.slugify(self.title)
 
   def get_duplicate_candidates(self, q=''):
     event_day = datetime.date(self.start)

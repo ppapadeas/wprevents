@@ -26,7 +26,7 @@ def bulk_create_events(cal):
   for ical_event in cal.walk('VEVENT'):
     start = timezone.make_naive(ical_event.get('dtstart').dt, default_timezone)
     end = timezone.make_naive(ical_event.get('dtend').dt, default_timezone)
-    title = ical_event.get('summary').encode('utf-8')
+    title = ical_event.get('summary')
 
     event = Event(
       start = start,
