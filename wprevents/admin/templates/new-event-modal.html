@@ -10,7 +10,7 @@
   <form method="post" action="/admin/events/new">
     {{ csrf() }}
     {{ form.errors }}
-    <input type="hidden" name="slug" value="{{ event.slug }}">
+    <input type="hidden" name="id" value="{{ event.id }}">
     <div class="row">
       <label>Title</label>
       <div class="field">
