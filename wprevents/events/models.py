@@ -83,7 +83,7 @@ class Event(models.Model):
   modified = models.DateTimeField(auto_now=True)
 
   title = models.CharField(max_length=120)
-  slug = models.SlugField(max_length=50, blank=True)
+  slug = models.SlugField(max_length=120, blank=True)
   description = models.TextField(blank=True)
   details = models.TextField(blank=True)
 
