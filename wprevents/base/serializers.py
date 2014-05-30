@@ -2,6 +2,10 @@ import codecs
 import csv
 import cStringIO
 
+from django.conf import settings
+from django.template import Context
+from django.template.loader import get_template
+from django.utils import timezone
 from tastypie.serializers import Serializer
 
 
@@ -96,14 +100,15 @@ class CSVUnicodeWriter(object):
 
 class CustomSerializer(Serializer):
   """Extend tastypie's serializer to export to CSV format."""
-  formats = ['json', 'jsonp', 'xml', 'yaml', 'html', 'csv']
+  formats = ['json', 'jsonp', 'xml', 'yaml', 'html', 'csv', 'ical']
   content_types = {
     'json': 'application/json',
     'jsonp': 'text/javascript',
     'xml': 'application/xml',
     'yaml': 'text/yaml',
     'html': 'text/html',
-    'csv': 'text/csv'
+    'csv': 'text/csv',
+    'ical': 'text/calendar'
   }
 
   def to_csv(self, data, options=None):
@@ -133,3 +138,18 @@ class CustomSerializer(Serializer):
     raw_data.seek(0)
 
     return raw_data
+
+  def to_ical(self, data, options=None):
+    options = options or {}
+    event = data.obj
+
+    date_now = timezone.now()
+    ical = get_template('single_event_ical_template.ics')
+
+    context = Context({
+      'event': event,
+      'date_now': date_now,
+      'host': settings.SITE_URL
+    })
+
+    return ical.render(context)

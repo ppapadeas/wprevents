@@ -24,7 +24,7 @@ class CustomResource(ModelResource):
 class EventResource(CustomResource):
   class Meta:
     queryset = Event.objects.all()
-    fields = ['title', 'start', 'end']
+    fields = ['id', 'title', 'slug', 'start', 'end', 'city', 'country', 'description']
     filtering = {
       "title": ('startswith',),
     }
@@ -33,7 +33,7 @@ class EventResource(CustomResource):
     include_resource_uri = False
     include_absolute_url = False
 
-    serializer = CustomSerializer(formats=['json', 'csv'])
+    serializer = CustomSerializer(formats=['json', 'csv', 'ical'])
 
   def dehydrate(self, bundle):
     bundle.data['space'] = bundle.obj.space.name
