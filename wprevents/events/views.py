@@ -12,7 +12,7 @@ def all(request):
   space_name = request.GET.get('space', '')
   area_name = request.GET.get('area', '')
 
-  events = Event.objects.search(space_name, area_name, search_string)
+  events = Event.objects.all()
 
   spaces = Space.objects.all()
   areas = FunctionalArea.objects.all()
