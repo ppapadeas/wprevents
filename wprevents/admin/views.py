@@ -7,6 +7,7 @@ from wprevents.base.utils import get_or_create_instance
 from wprevents.events.models import Event, Space, FunctionalArea
 
 from .forms import EventForm, SpaceForm, FunctionalAreaForm
+from utils import import_ical
 
 
 @permission_required('events.can_administrate_events')
@@ -84,6 +85,9 @@ def event_dedupe(request, slug=None):
 
 @permission_required('events.can_administrate_events')
 def event_import_ical(request):
+  if request.method == 'POST':
+    import_ical(request.POST.get('url'))
+
   return render(request, 'event_import.html')
 
 

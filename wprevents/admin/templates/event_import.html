@@ -1,2 +1,7 @@
 <h1>Import events in iCalendar format</h1>
 
+<form method="POST">
+  {{ csrf() }}
+  <input type="text" name="url" size="70" placeholder="http://">
+  <input type="submit" value="import">
+</form>
