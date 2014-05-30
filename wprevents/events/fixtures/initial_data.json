@@ -175,5 +175,19 @@
     "lat": 48.8721388,
     "lon": 2.3411542
   }
+},
+{
+  "pk": 4,
+  "model": "events.space",
+  "fields": {
+    "name": "Air Mozilla",
+    "slug": "air-mozilla",
+    "address": "Cyberspace",
+    "city": "Cyberspace",
+    "country": "us",
+    "postal_code": "94041",
+    "lat": 37.3874349,
+    "lon": -122.0609917
+  }
 }
 ]
