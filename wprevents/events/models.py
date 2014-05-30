@@ -106,8 +106,11 @@ class Event(models.Model):
 
   def save(self, *args, **kwargs):
     if not self.slug:
-      self.slug = slugify(self.title, instance=self)
+      self.define_slug()
     super(Event, self).save(*args, **kwargs)
+
+  def define_slug(self):
+    self.slug = slugify(self.title, instance=self)
 
   def get_duplicate_candidates(self, q=''):
     event_day = datetime.date(self.start)
