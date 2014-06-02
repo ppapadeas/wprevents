@@ -113,7 +113,11 @@ class Event(models.Model):
     super(Event, self).save(*args, **kwargs)
 
   def define_slug(self):
-    self.slug = text.slugify(self.title)[:EVENT_TITLE_LENGTH]
+    slug = text.slugify(self.title)
+    # Fix an issue with slugify('MozBird_MakerParty')
+    slug = slug.replace('_', '-')
+
+    self.slug = slug[:EVENT_TITLE_LENGTH]
 
   def get_duplicate_candidates(self, q=''):
     event_day = datetime.date(self.start)
