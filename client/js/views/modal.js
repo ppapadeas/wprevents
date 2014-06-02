@@ -8,7 +8,7 @@ var ModalView = Backbone.View.extend({
 
   initialize: function() {
     this.$container = $('.modal-container');
-    this.$container.on('click', this.onClickContainer.bind(this));
+    this.$container.on('mousedown', this.onClickContainer.bind(this));
   },
 
   onClickContainer: function(e) {
