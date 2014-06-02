@@ -13,6 +13,15 @@ class ImportIcalError(Exception):
 
 
 def import_ical(url):
+  data = fetch_url(url)
+  data = filter_chars(data)
+  cal = parse_data(data)
+  events = bulk_create_events(cal)
+
+  return events
+
+
+def fetch_url(url):
   try:
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
@@ -22,14 +31,23 @@ def import_ical(url):
     raise ImportIcalError('Incorrect URL.')
 
   data = response.read().decode('utf-8')
-  data = data.replace(u"", "") # Temp fix for Mozilla remo ics file
 
+  return data
+
+
+def filter_chars(data):
+  data.replace(u"", "") # Temp fix for Mozilla remo ics file
+
+  return data
+
+
+def parse_data(data):
   try:
     cal = Calendar.from_ical(data)
   except ValueError:
     raise ImportIcalError('Error parsing icalendar file. The file may contain invalid characters.')
 
-  return bulk_create_events(cal)
+  return cal
 
 
 def bulk_create_events(cal):
