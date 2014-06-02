@@ -74,3 +74,12 @@
     }
   }
 }
+
+.pagination {
+  text-align: center;
+  padding-top: $baseLine / 2;
+
+  .step-links {
+    display: inline-block;
+  }
+}
