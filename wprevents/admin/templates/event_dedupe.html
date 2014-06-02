@@ -1,39 +1,37 @@
-{% extends 'admin.html' %}
+<div class="modal dedupe-event-modal js-modal">
+  <h3 class="oslight">
+    Deduplicate {{ event.title }}
+  </h3>
 
-{% block content %}
+  {{ event.title }} in {{ event.space.name }} scheduled for {{ event.start }} is a duplicate of:
 
-<h2>Deduplicate {{ event.title }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Event name</th>
+        <th>Space</th>
+        <th>Date</th>
+        <th>Area</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-{{ event.title }} in {{ event.space.name }} scheduled for {{ event.start }} is a duplicate of:
-
-<table>
-  <thead>
-    <tr>
-      <th>Event name</th>
-      <th>Space</th>
-      <th>Date</th>
-      <th>Area</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    {% for event in events %}
-    <tr>
-      <td>{{ event.title }}</td>
-      <td>{{ event.space }}</td>
-      <td>{{ event.start.strftime('%Y-%m-%d') }}</td>
-      <td>{{ event.area_names|join(', ') }}</td>
-      <td>
-        <form method="post">
-          {{ csrf() }}
-          <input type="hidden" name="duplicate_id" value="{{ event.id }}">
-          <input type="submit" value="dupe">
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-{% endblock %}
+    <tbody>
+      {% for event in events %}
+      <tr>
+        <td>{{ event.title }}</td>
+        <td>{{ event.space }}</td>
+        <td>{{ event.start.strftime('%Y-%m-%d') }}</td>
+        <td>{{ event.area_names|join(', ') }}</td>
+        <td>
+          <form method="post">
+            {{ csrf() }}
+            <input type="hidden" name="duplicate_id" value="{{ event.id }}">
+            <input type="submit" value="dupe">
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

@@ -14,6 +14,7 @@ DATE_FORMAT = '%Y-%m-%d'
 TIME_FORMAT = '%H:%M'
 
 class EventForm(ModelForm):
+  title =  forms.CharField(error_messages={'required': 'Title is required'})
   start = forms.DateTimeField(required=False)
   end = forms.DateTimeField(required=False)
 

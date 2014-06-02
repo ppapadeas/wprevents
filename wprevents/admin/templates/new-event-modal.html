@@ -1,4 +1,4 @@
-<div class="modal new-event-modal">
+<div class="modal new-event-modal js-modal">
   <h3 class="oslight">
     {% if form.title.value() %}
       {{ form.title.value() }}
@@ -9,7 +9,7 @@
 
   <form method="post" action="/admin/events/new">
     {{ csrf() }}
-    {{ form.errors }}
+    <ul class="errorlist js-errors"></ul>
     <input type="hidden" name="id" value="{{ event.id }}">
     <div class="row">
       <label>Title</label>
@@ -87,7 +87,7 @@
       </div>
     </div>
     <div class="row">
-      <input type="submit" value="Save event" class="button pull-right">
+      <input type="submit" value="Save event" class="button pull-right js-button">
     </div>
   </form>
 </div>

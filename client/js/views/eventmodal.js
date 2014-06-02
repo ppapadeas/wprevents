@@ -1,24 +1,22 @@
 var _ = require('underscore');
 var Pikaday = require('pikaday');
 
-var ModalView = require('./modal');
+var FormModalView = require('./formmodal');
 var AreaSelectView = require('./areaselect');
 
 
-var EventModalView = ModalView.extend({
-  events: _.extend({}, ModalView.prototype.events, {
+var EventModalView = FormModalView.extend({
+  events: _.extend({}, FormModalView.prototype.events, {
 
   }),
 
   initialize: function(options) {
-    ModalView.prototype.initialize.call(this);
+    FormModalView.prototype.initialize.call(this);
 
-    this.load(options.url).done(function() {
-      var areaSelect = new AreaSelectView({ el: $('.js-area-select') });
-      this.$('.js-datepicker').each(function() {
-        new Pikaday({ field: this });
-      });
-    }.bind(this));
+    this.areaSelect = new AreaSelectView({ el: $('.js-area-select') });
+    this.$('.js-datepicker').each(function() {
+      new Pikaday({ field: this });
+    });
   }
 });
 

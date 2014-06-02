@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from wprevents.base.utils import get_or_create_instance
+from wprevents.base.decorators import json_view, ajax_required
 from wprevents.events.models import Event, Space, FunctionalArea
 
 from .forms import EventForm, SpaceForm, FunctionalAreaForm
@@ -44,8 +45,9 @@ def events_list(request):
   })
 
 
-#@see https://github.com/mozilla/remo/blob/master/remo/events/views.py#L148
 @permission_required('events.can_administrate_events')
+@ajax_required
+@json_view
 def event_edit(request, id=None):
   id = request.POST.get('id') or id
   event, created = get_or_create_instance(Event, id=id)
@@ -54,12 +56,18 @@ def event_edit(request, id=None):
   if request.method == 'POST':
     if form.is_valid():
       form.save()
-      return HttpResponseRedirect('/admin/events')
+      return { 'status': 'success' }
+    else:
+      return { 'status': 'error',
+               'errors': dict(form.errors.iteritems()) }
 
   return render(request, 'event_form.html', { 'event': event, 'form': form })
 
 
+
 @permission_required('events.can_administrate_events')
+@ajax_required
+@json_view
 def event_delete(request):
   event = Event.objects.get(id=request.POST.get('id'))
 
@@ -70,6 +78,8 @@ def event_delete(request):
 
 
 @permission_required('events.can_administrate_events')
+@ajax_required
+@json_view
 def event_dedupe(request, id=None):
   event = Event.objects.get(id=id)
 
