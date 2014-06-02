@@ -89,8 +89,12 @@ def event_import_ical(request):
     error = ''
 
     try:
-      events = import_ical(request.POST.get('url'))
-      return render(request, 'event_import.html', { 'events': events })
+      url = request.POST.get('url')
+      events = import_ical(url)
+      return render(request, 'event_import.html', {
+        'events': events,
+        'source': url
+      })
     except ImportIcalError as e:
       error = e;
 
