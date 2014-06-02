@@ -31,10 +31,10 @@ def fetch_url(url):
   try:
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
-  except urllib2.URLError:
-    raise Error('Incorrect URL.')
-  except ValueError:
-    raise Error('Incorrect URL.')
+  except urllib2.URLError, e:
+    raise Error('URL: error' + str(e.reason))
+  except urllib2.HTTPError, e:
+    raise Error('HTTP error: ' + str(e.code))
 
   data = response.read().decode('utf-8')
 
