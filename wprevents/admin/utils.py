@@ -12,10 +12,16 @@ class ImportIcalError(Exception):
   pass
 
 
-def import_ical(url):
-  data = fetch_url(url)
-  data = filter_chars(data)
-  cal = parse_data(data)
+def import_ical_url(url):
+  return read_data(fetch_url(url))
+
+
+def import_ical_file(ical_file):
+  return read_data(ical_file.read())
+
+
+def read_data(data):
+  cal = parse_data(filter_chars(data))
   events = bulk_create_events(cal)
 
   return events
@@ -36,7 +42,7 @@ def fetch_url(url):
 
 
 def filter_chars(data):
-  data.replace(u"", "") # Temp fix for Mozilla remo ics file
+  data = data.replace(u"", "") # Temp fix for Mozilla remo ics file
 
   return data
 

@@ -1,9 +1,22 @@
 <h1>Import events in iCalendar format</h1>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
   {{ csrf() }}
-  <input type="text" name="url" size="70" placeholder="http://">
-  <input type="submit" value="import">
+  <div>
+    <label for="url">URL:</label>
+    <input type="text" name="url" id="url" size="70" placeholder="http://">
+  </div>
+  <input type="submit" value="Import from URL">
+</form>
+
+
+<form method="POST" enctype="multipart/form-data">
+  {{ csrf() }}
+  <div>
+    <label for="file">File:</label>
+    <input type="file" name="file">
+  </div>
+  <input type="submit" value="Import from file">
 </form>
 
 <div>
