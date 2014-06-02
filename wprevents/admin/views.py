@@ -39,7 +39,8 @@ def events_list(request):
   return render(request, 'events.html', {
     'events': events,
     'paginator': events.paginator,
-    'current_page': int(page)
+    'current_page': int(page),
+    'order_by': order_by
   })
 
 

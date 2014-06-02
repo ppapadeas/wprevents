@@ -48,7 +48,7 @@
   <span class="step-links">
     {% for i in paginator.page_range %}
       {% if i != current_page %}
-        <a href="?page={{ i }}">{{ i }}</a>
+        <a href="?page={{ i }}&order_by={{ order_by }}">{{ i }}</a>
       {% else %}
         {{ i }}
       {% endif %}
