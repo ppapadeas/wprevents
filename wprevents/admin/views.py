@@ -7,7 +7,7 @@ from wprevents.base.utils import get_or_create_instance
 from wprevents.events.models import Event, Space, FunctionalArea
 
 from .forms import EventForm, SpaceForm, FunctionalAreaForm
-from utils import import_ical_url, import_ical_file, ImportIcalError
+import import_ical
 
 
 @permission_required('events.can_administrate_events')
@@ -95,18 +95,18 @@ def event_import_ical(request):
       events = []
 
       if url:
-        events = import_ical_url(url)
+        events = import_ical.from_url(url)
         source = url
 
       if cal_file:
-        events = import_ical_file(cal_file)
+        events = import_ical.from_file(cal_file)
         source = cal_file
 
       return render(request, 'event_import.html', {
         'events': events,
         'source': source
       })
-    except ImportIcalError as e:
+    except import_ical.Error as e:
       error = e;
 
     return render(request, 'event_import.html', { 'error': error })

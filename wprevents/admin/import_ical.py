@@ -8,19 +8,19 @@ from wprevents.events.models import Event, Space, EVENT_TITLE_LENGTH
 default_timezone = timezone.get_default_timezone()
 
 
-class ImportIcalError(Exception):
+class Error(Exception):
   pass
 
 
-def import_ical_url(url):
-  return read_data(fetch_url(url))
+def from_url(url):
+  return analyze_data(fetch_url(url))
 
 
-def import_ical_file(ical_file):
-  return read_data(ical_file.read())
+def from_file(ical_file):
+  return analyze_data(ical_file.read())
 
 
-def read_data(data):
+def analyze_data(data):
   cal = parse_data(filter_chars(data))
   events = bulk_create_events(cal)
 
@@ -32,9 +32,9 @@ def fetch_url(url):
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
   except urllib2.URLError:
-    raise ImportIcalError('Incorrect URL.')
+    raise Error('Incorrect URL.')
   except ValueError:
-    raise ImportIcalError('Incorrect URL.')
+    raise Error('Incorrect URL.')
 
   data = response.read().decode('utf-8')
 
@@ -51,7 +51,7 @@ def parse_data(data):
   try:
     cal = Calendar.from_ical(data)
   except ValueError:
-    raise ImportIcalError('Error parsing icalendar file. The file may contain invalid characters.')
+    raise Error('Error parsing icalendar file. The file may contain invalid characters.')
 
   return cal
 
