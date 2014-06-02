@@ -3,7 +3,7 @@ import urllib2
 from django.utils import timezone
 from icalendar import Calendar
 
-from wprevents.events.models import Event, Space
+from wprevents.events.models import Event, Space, EVENT_TITLE_LENGTH
 
 default_timezone = timezone.get_default_timezone()
 
@@ -32,7 +32,7 @@ def bulk_create_events(cal):
       start = start,
       end = end,
       space = air_mozilla_space,
-      title = title,
+      title = title[:EVENT_TITLE_LENGTH], # Truncate to avoid potential errors
       description = ical_event.get('description').encode('utf-8')
     )
     # Generate slug because django's bulk_create() does not call Event.save(),

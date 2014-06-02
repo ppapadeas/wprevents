@@ -77,14 +77,16 @@ class EventManager(models.Manager):
     return events
 
 
+EVENT_TITLE_LENGTH = 120
+
 class Event(models.Model):
   objects = EventManager()
 
   created = models.DateTimeField(auto_now_add=True)
   modified = models.DateTimeField(auto_now=True)
 
-  title = models.CharField(max_length=120)
-  slug = models.SlugField(max_length=120, blank=True)
+  title = models.CharField(max_length=EVENT_TITLE_LENGTH)
+  slug = models.SlugField(max_length=EVENT_TITLE_LENGTH, blank=True)
   description = models.TextField(blank=True)
   details = models.TextField(blank=True)
 
@@ -111,7 +113,7 @@ class Event(models.Model):
     super(Event, self).save(*args, **kwargs)
 
   def define_slug(self):
-    self.slug = text.slugify(self.title)
+    self.slug = text.slugify(self.title)[:EVENT_TITLE_LENGTH]
 
   def get_duplicate_candidates(self, q=''):
     event_day = datetime.date(self.start)
