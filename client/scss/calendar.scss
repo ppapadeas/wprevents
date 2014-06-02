@@ -15,9 +15,7 @@ $eventBoxHeight: 20px;
   }
 }
 
-#cal {
-  margin-top: $baseLine;
-
+.cal {
   tr {
     border-top: 1px solid $calBorderColor;
 
@@ -139,5 +137,52 @@ $eventBoxHeight: 20px;
       width: auto;
       text-overflow: normal;
     }
+  }
+}
+
+.calendar-wrapper {
+  position: relative;
+  padding-top: $baseLine;
+  overflow: hidden;
+}
+
+.month-wrapper {
+  &.sliding {
+    position: absolute;
+    top: $baseLine;
+    left: 0;
+    -webkit-transition: 500ms -webkit-transform ease;
+  }
+
+  &.forward.origin {
+    @include transform(translate3d(0, 0, 0));
+  }
+
+  &.sliding.forward.origin {
+    @include transform(translate3d(-100%, 0, 0));
+  }
+
+  &.forward.destination {
+    @include transform(translate3d(100%, 0, 0));
+  }
+
+  &.sliding.forward.destination {
+    @include transform(translate3d(0%, 0, 0));
+  }
+
+  &.backward.origin {
+    @include transform(translate3d(0, 0, 0));
+  }
+
+  &.sliding.backward.origin {
+    @include transform(translate3d(100%, 0, 0));
+  }
+
+  &.backward.destination {
+    @include transform(translate3d(-100%, 0, 0));
+  }
+
+  &.sliding.backward.destination {
+    @include transform(translate3d(0%, 0, 0));
   }
 }
