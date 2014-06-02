@@ -152,6 +152,10 @@ $eventBoxHeight: 20px;
     top: $baseLine;
     left: 0;
     -webkit-transition: 500ms -webkit-transform ease;
+    -moz-transition: 500ms -moz-transform ease;
+    -ms-transition: 500ms -ms-transform ease;
+    -o-transition: 500ms -o-transform ease;
+    transition: 500ms transform ease;
   }
 
   &.forward.origin {
