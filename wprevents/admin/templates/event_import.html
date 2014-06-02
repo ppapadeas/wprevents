@@ -9,7 +9,7 @@
 <div>
   {% if error %}
     {{ error }}
-  {% else %}
+  {% elif events|length > 0 %}
     Successfully imported {{ events|length }} event(s) from {{ source }}
   {% endif %}
 </div>
