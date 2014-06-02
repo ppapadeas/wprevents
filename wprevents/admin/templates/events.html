@@ -1,4 +1,4 @@
-{% from 'macros/order_by.html' import order_by %}
+{% from 'macros/order_by_links.html' import order_by_links %}
 
 {% extends 'admin.html' %}
 
@@ -13,9 +13,9 @@
 {% block tablecontent %}
   <thead>
     <tr>
-      <th>Event name <span class="sorting">{{ order_by('title') }}</span></th>
-      <th>Space <span class="sorting">{{ order_by('space__name') }}</span></th>
-      <th>Date <span class="sorting">{{ order_by('start') }}</span></th>
+      <th>Event name <span class="sorting">{{ order_by_links('title') }}</span></th>
+      <th>Space <span class="sorting">{{ order_by_links('space__name') }}</span></th>
+      <th>Date <span class="sorting">{{ order_by_links('start') }}</span></th>
       <th>Area</th>
       <th>Actions</th>
     </tr>
