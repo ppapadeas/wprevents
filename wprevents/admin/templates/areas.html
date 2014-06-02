@@ -1,4 +1,4 @@
-{% from 'macros/order_by.html' import order_by %}
+{% from 'macros/order_by_links.html' import order_by_links %}
 
 {% extends 'admin.html' %}
 
@@ -12,8 +12,8 @@
 {% block tablecontent %}
   <thead>
     <tr>
-      <th>Name <span class="sorting">{{ order_by('name') }}</span></th>
-      <th>Slug <span class="sorting">{{ order_by('slug') }}</span></th>
+      <th>Name <span class="sorting">{{ order_by_links('name') }}</span></th>
+      <th>Slug <span class="sorting">{{ order_by_links('slug') }}</span></th>
       <th>Color</th>
       <th>Actions</th>
     </tr>
