@@ -74,7 +74,11 @@ def event_delete(request):
   if event:
     event.delete()
 
-  return HttpResponseRedirect('/admin/events')
+  query_string = request.META.get('QUERY_STRING', '')
+  query_string = '?' + query_string if query_string else ''
+  redirect_to = '/admin/events/' + query_string
+
+  return HttpResponseRedirect(redirect_to)
 
 
 @permission_required('events.can_administrate_events')

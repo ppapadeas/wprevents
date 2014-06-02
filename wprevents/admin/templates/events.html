@@ -33,7 +33,7 @@
         <a href="{{ url('event_edit', id=event.id) }}" class="js-edit-event">edit</a>
         <a href="{{ url('event_dedupe', id=event.id) }}" class="js-dedupe-event">dupe</a>
 
-        <form action="{{ url('event_delete') }}" method="post">
+        <form action="{{ url('event_delete') }}?page={{ current_page }}&order_by={{ order_by }}" method="post">
           {{ csrf() }}
           <input type="hidden" name="id" value="{{ event.id }}">
           <input type="submit" value="delete" class="delete-item">
