@@ -5,3 +5,9 @@
   <input type="text" name="url" size="70" placeholder="http://">
   <input type="submit" value="import">
 </form>
+
+<div>
+  {% if error %}
+    {{ error }}
+  {% endif %}
+</div>

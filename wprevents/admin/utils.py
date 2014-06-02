@@ -8,13 +8,26 @@ from wprevents.events.models import Event, Space, EVENT_TITLE_LENGTH
 default_timezone = timezone.get_default_timezone()
 
 
+class ImportIcalError(Exception):
+  pass
+
+
 def import_ical(url):
-  request = urllib2.Request(url)
-  response = urllib2.urlopen(request)
+  try:
+    request = urllib2.Request(url)
+    response = urllib2.urlopen(request)
+  except urllib2.URLError:
+    raise ImportIcalError('Incorrect URL.')
+  except ValueError:
+    raise ImportIcalError('Incorrect URL.')
+
   data = response.read().decode('utf-8')
   data = data.replace(u"", "") # Temp fix for Mozilla remo ics file
 
-  cal = Calendar.from_ical(data)
+  try:
+    cal = Calendar.from_ical(data)
+  except ValueError:
+    raise ImportIcalError('Error parsing icalendar file. The file may contain invalid characters.')
 
   return bulk_create_events(cal)
 
