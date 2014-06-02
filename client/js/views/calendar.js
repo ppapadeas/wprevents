@@ -75,8 +75,8 @@ var CalendarView = Backbone.View.extend({
   },
 
   updateHeader: function(data) {
-    this.$prev.text(data.previousMonth);
-    this.$next.text(data.nextMonth);
+    this.$prev.find('span').text(data.previousMonth);
+    this.$next.find('span').text(data.nextMonth);
     this.$title.text(data.currentMonth);
   },
 
