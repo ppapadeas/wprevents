@@ -24,7 +24,7 @@
   <tbody>
     {% for event in events %}
     <tr>
-      <td><a href="#linkToEventPage?">{{ event.title }}</a></td>
+      <td><a href="#linkToEventPage?" title="{{ event.title }}">{{ event.title }}</a></td>
       <td>{{ event.space }}</td>
       <td>{{ event.start_date }} - {{ event.end_date }}</td>
       <td>{{ event.area_names|join(', ') }}</td>
