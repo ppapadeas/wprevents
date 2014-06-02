@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from tastypie.resources import ModelResource
 
@@ -12,7 +12,7 @@ class CustomResource(ModelResource):
     response = super(CustomResource, self).create_response(request, data, **response_kwargs)
 
     if self.determine_format(request) == 'text/csv':
-      today = datetime.now().date()
+      today = timezone.now().date()
 
       # Compute resource name from class name, ie. 'EventResource' -> 'event'
       resource_name = self.__class__.__name__[:-8].lower()

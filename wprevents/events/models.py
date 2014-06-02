@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from django.utils import text
+from django.utils import text, timezone
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -55,13 +55,13 @@ class Space(models.Model):
 
 class EventManager(models.Manager):
   def past_events(self):
-    return self.filter(end__lte=datetime.now())
+    return self.filter(end__lte=timezone.now())
 
   def upcoming_events(self):
-    return self.filter(start__gte=datetime.now())
+    return self.filter(start__gte=timezone.now())
 
   def current_events(self):
-    now = datetime.now()
+    now = timezone.now()
 
     return self.filter(start__lte=now).filter(end__gte=now)
 
@@ -90,8 +90,8 @@ class Event(models.Model):
   description = models.TextField(blank=True)
   details = models.TextField(blank=True)
 
-  start = models.DateTimeField(default=datetime.now)
-  end = models.DateTimeField(default=datetime.now)
+  start = models.DateTimeField(default=timezone.now)
+  end = models.DateTimeField(default=timezone.now)
 
   space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted', on_delete=models.SET_NULL)
   owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
