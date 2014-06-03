@@ -1,0 +1,29 @@
+{% for event in events %}
+  <li class="event row">
+    <div class="event-date column col-2">
+      <div class="day">{{ event.start_day }}</div>
+      <div class="monthyear">
+        <div class="month">{{ event.start_month }}</div>
+        <div class="year">{{ event.start.year }}</div>
+      </div>
+    </div>
+    <div class="event-info column col-8">
+      <a class="event-name" href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a>
+      <div class="event-description">
+        {% if event.description %}
+        <p>{{ event.description }}</p>
+        {% else %}
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non vehicula libero, eu sodales velit.</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="event-meta column col-2">
+      <div class="event-space">{{ event.space }}</div>
+      <div class="event-areas count-{{ event.areas.all().count() }}">
+        {% for area in event.areas.all() %}
+        <div class="event-area {{ area.color }}">{{ area.name }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </li>
+{% endfor %}

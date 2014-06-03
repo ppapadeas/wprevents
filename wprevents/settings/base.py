@@ -59,6 +59,11 @@ LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL_FAILURE = '/'
 
+# Remove LocaleURLMiddleware since we are not localing our website
+MIDDLEWARE_CLASSES = filter(
+    lambda x: x != 'funfactory.middleware.LocaleURLMiddleware',
+    MIDDLEWARE_CLASSES)
+
 # TEMPLATE_CONTEXT_PROCESSORS += (
 # )
 

@@ -3,12 +3,22 @@ var Backbone = require('backbone');
 var EventListView = Backbone.View.extend({
   initialize: function() {
     this.$events = this.$('.event');
+
+    this.token = $("form [name='csrfmiddlewaretoken'").val();
   },
 
   update: function(filters) {
-    console.log("Filtering event list with:", filters);
-
-    // TODO: XHR to update event list
+    $.ajax({
+      url: "/search",
+      type: "POST",
+      data: filters,
+      beforeSend: function (request) {
+        request.setRequestHeader("X-CSRFToken", this.token);
+      }.bind(this),
+      success: function(html) {
+        this.$el.html(html);
+      }.bind(this)
+    });
   }
 });
 

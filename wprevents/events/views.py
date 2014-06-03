@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
+from wprevents.base.decorators import ajax_required, post_required
 from wprevents.events.models import Event, Space, FunctionalArea
+from wprevents.events.forms import SearchForm
+
 from month_manager import MonthManager
 from utils import sanitize_calendar_input
+
 
 def one(request, id, slug):
   event = get_object_or_404(Event, id=id)
@@ -25,6 +29,23 @@ def all(request):
     'events': events,
     'spaces': spaces,
     'areas': areas
+  })
+
+
+@ajax_required
+@post_required
+def search(request):
+  form = SearchForm(request.POST)
+  events = []
+
+  if form.is_valid():
+    # TODO: also filter by start date, end date
+    events = Event.objects.search(form.cleaned_data['space'],
+                                  form.cleaned_data['area'],
+                                  form.cleaned_data['keyword'])
+
+  return render(request, 'list_content.html', {
+    'events': events
   })
 
 

@@ -4,8 +4,9 @@
 <div class="width-container">
   <div class="billboard filters-container">
     <form id="filters-form">
+      {{ csrf() }}
       <div class="column col-6">
-        <input type="text" name="search" placeholder="Filter using any keyword" id="keyword-filter" class="js-filter">
+        <input type="text" name="keyword" placeholder="Filter using any keyword" id="keyword-filter" class="js-filter">
       </div>
 
       <div class="column col-6 select-fields">
