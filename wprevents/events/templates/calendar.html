@@ -22,6 +22,7 @@
                 <div class="day"><a href="#">{{ day }}</a></div>
                 <div class="content">
                   {% set today_events = month_manager.getEventsForDay(day) %}
+                  {% set class="" %}
                   {% if today_events|length >= 6 %}{% set class=" class=grid" %}{% endif %}
                   <ul{{class}}>
                   {% for event in today_events %}
