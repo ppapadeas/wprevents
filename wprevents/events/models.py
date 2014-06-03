@@ -99,7 +99,6 @@ class Event(models.Model):
   areas = models.ManyToManyField(FunctionalArea, blank=True)
 
   class Meta:
-    ordering = ['-start']
     permissions = (
       ('can_administrate_events', 'Can administrate'),
     )
