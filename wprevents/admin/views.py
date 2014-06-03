@@ -179,7 +179,7 @@ def area_edit(request, id=None):
       form.save()
       return HttpResponseRedirect('/admin/areas')
 
-  return render(request, 'area_form.html', { 'area': area, 'form': form })
+  return render(request, 'area_modal.html', { 'area': area, 'form': form })
 
 @permission_required('events.can_administrate_functional_areas')
 def area_delete(request):

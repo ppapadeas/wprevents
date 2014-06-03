@@ -1,0 +1,38 @@
+<div class="modal area-modal js-modal">
+  <h3 class="oslight">
+    {% if form.name.value() %}
+      {{ form.name.value() }}
+    {% else %}
+      New area
+    {% endif %}
+  </h3>
+
+  <form method="post" action="/admin/areas/new">
+    {{ csrf() }}
+    <ul class="errorlist js-errors"></ul>
+    <div class="row">
+      <label>Name</label>
+      <div class="field">
+        <input type="text" name="name" value="{{ form.name.value() }}" placeholder="Name this area" size="40">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Slug</label>
+      <div class="field">
+        <input type="text" name="slug" value="{{ form.slug.value() }}" placeholder="slug-for-this-area" size="40">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Color</label>
+      <div class="field">
+        <input class="color-picker" type="color" name="color" value="{{ form.color.value() }}">
+      </div>
+    </div>
+
+    <div class="row">
+      <input type="submit" value="Save area" class="button pull-right js-button">
+    </div>
+  </form>
+</div>

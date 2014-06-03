@@ -2,7 +2,7 @@ var _ = require('underscore');
 
 var FormModalView = require('./formmodal');
 
-var SpaceModalView = FormModalView.extend({
+var AreaModalView = FormModalView.extend({
   events: _.extend({}, FormModalView.prototype.events, {
 
   }),
@@ -12,4 +12,4 @@ var SpaceModalView = FormModalView.extend({
   }
 });
 
-module.exports = SpaceModalView;
+module.exports = AreaModalView;
