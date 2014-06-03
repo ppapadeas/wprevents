@@ -92,8 +92,13 @@ var CalendarView = Backbone.View.extend({
   },
 
   updateNav: function($html) {
-    var $newNav = $html.find('.js-cal-nav').html();
-    this.$nav.html($newNav);
+    var $newNav = $html.find('.js-cal-nav');
+
+    this.$nav.replaceWith($newNav);
+    this.$nav = this.$('.js-cal-nav');
+    this.$prev = this.$('.js-prev');
+    this.$next = this.$('.js-next');
+    this.$title = this.$('.js-title');
   },
 
   initEventViews: function() {
