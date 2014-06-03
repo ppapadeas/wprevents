@@ -1,4 +1,4 @@
-<div class="modal new-event-modal js-modal">
+<div class="modal space-modal js-modal">
   <h3 class="oslight">
     {% if form.name.value() %}
       {{ form.name.value() }}
@@ -63,6 +63,16 @@
       <label>Longitude</label>
       <div class="field">
         <input type="text" name="lon" value="{{ form.lon.value() }}" placeholder="-122.0609917">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Photo</label>
+      <div class="field">
+        <div class="photo-preview">
+          <img src="http://placehold.it/980x150">
+        </div>
+        <input type="file" name="photo" value="">
       </div>
     </div>
 

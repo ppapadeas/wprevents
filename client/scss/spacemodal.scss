@@ -1,0 +1,10 @@
+.space-modal {
+  .photo-preview {
+    padding-bottom: $baseLine / 2;
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+  }
+}
