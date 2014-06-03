@@ -7,309 +7,34 @@
   <div class="billboard" id="js-calendar">
     <nav class="cal-nav row">
       <a href="#" class="previous-month column col-3 js-prev">&laquo; <span>June 2014</span></a>
-      <div class="current-month column col-6 js-title">July 2014</div>
+      <div class="current-month column col-6 js-title">{{ month_manager.name }} {{ month_manager.year }}</div>
       <a href="#" class="next-month column col-3 js-next"><span>August 2014</span> &raquo;</a>
     </nav>
     <div class="calendar-wrapper js-wrapper">
       <div class="month-wrapper js-content">
         <table class="fill-width row cal">
+          {% for week in month_manager.matrix %}
           <tr>
-            <td></td>
-            <td></td>
+            {% for day in week %}
             <td>
+              {% if day != 0 %}
               <div class="cell-content">
-                <div class="day"><a href="#">1</a></div>
+                <div class="day"><a href="#">{{ day }}</a></div>
                 <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">Awesome Firefox Presentation</a></li>
-                    <li class="event-box js-event"><a href="#">Another event</a></li>
-                    <li class="event-box js-event"><a href="#">This is an event with a really long name</a></li>
+                  {% set today_events = month_manager.getEventsForDay(day) %}
+                  {% if today_events|length >= 6 %}{% set class=" class=grid" %}{% endif %}
+                  <ul{{class}}>
+                  {% for event in today_events %}
+                    <li class="event-box js-event"><a href="#">{{ event.title }}</a></li>
+                  {% endfor %}
                   </ul>
                 </div>
               </div>
+              {% endif %}
             </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">2</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">Ubuntu Party</a></li>
-                    <li class="event-box js-event"><a href="#">MoCo</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">3</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">The only event that day</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">4</a></div>
-                <div class="content">
-                  <ul class="grid">
-                    <li class="event-box js-event"><a href="#">Awesome Firefox Presentation</a></li>
-                    <li class="event-box js-event"><a href="#">Another event</a></li>
-                    <li class="event-box js-event"><a href="#">This is an event with a really long name</a></li>
-                    <li class="event-box js-event"><a href="#">Awesome Firefox Presentation</a></li>
-                    <li class="event-box js-event"><a href="#">Another event</a></li>
-                    <li class="event-box js-event"><a href="#">This is an event with a really long name</a></li>
-                    <li class="event-box js-event"><a href="#">Awesome Firefox Presentation</a></li>
-                    <li class="event-box js-event"><a href="#">Another event</a></li>
-                    <li class="event-box js-event"><a href="#">This is an event with a really long name</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">5</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
+            {% endfor %}
           </tr>
-
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">6</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">7</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">This is an multiple-day event</a></li>
-                    <li class="event-box js-event"><a href="#">Webgl meetup</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">8</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">9</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">L10n meeting</a></li>
-                    <li class="event-box js-event"><a href="#">Firefox OS Presentation</a></li>
-                    <li class="event-box js-event"><a href="#">Hackathon</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">10</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">Global Game Jam</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">11</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">12</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">13</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">14</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">This is an multiple-day event</a></li>
-                    <li class="event-box js-event"><a href="#">Webgl meetup</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">15</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">16</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">L10n meeting</a></li>
-                    <li class="event-box js-event"><a href="#">Firefox OS Presentation</a></li>
-                    <li class="event-box js-event"><a href="#">Hackathon</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">17</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">Global Game Jam</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">18</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">19</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">20</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">21</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">This is an multiple-day event</a></li>
-                    <li class="event-box js-event"><a href="#">Webgl meetup</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">22</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">23</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">25</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">26</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">Global Game Jam</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">27</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">28</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">This is an multiple-day event</a></li>
-                    <li class="event-box js-event"><a href="#">Webgl meetup</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">29</a></div>
-                <div class="content">
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">30</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">QA meeting</a></li>
-                    <li class="event-box js-event"><a href="#">Mozilla days</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="day"><a href="#">31</a></div>
-                <div class="content">
-                  <ul>
-                    <li class="event-box js-event"><a href="#">Firefox OS Presentation</a></li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-          </tr>
+          {% endfor %}
         </table>
       </div>
     </div>
