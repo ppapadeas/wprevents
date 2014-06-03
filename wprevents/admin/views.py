@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from wprevents.base.utils import get_or_create_instance
+from wprevents.base.utils import get_or_create_instance, save_ajax_form
 from wprevents.base.decorators import json_view, ajax_required
 from wprevents.events.models import Event, Space, FunctionalArea
 
@@ -45,6 +45,8 @@ def events_list(request):
   })
 
 
+
+
 @permission_required('events.can_administrate_events')
 @ajax_required
 @json_view
@@ -54,20 +56,13 @@ def event_edit(request, id=None):
   form = EventForm(request.POST or None, instance=event)
 
   if request.method == 'POST':
-    if form.is_valid():
-      form.save()
-      return { 'status': 'success' }
-    else:
-      return { 'status': 'error',
-               'errors': dict(form.errors.iteritems()) }
+    return save_ajax_form(form)
 
   return render(request, 'event_modal.html', { 'event': event, 'form': form })
 
 
 
 @permission_required('events.can_administrate_events')
-@ajax_required
-@json_view
 def event_delete(request):
   event = Event.objects.get(id=request.POST.get('id'))
 
@@ -83,7 +78,6 @@ def event_delete(request):
 
 @permission_required('events.can_administrate_events')
 @ajax_required
-@json_view
 def event_dedupe(request, id=None):
   event = Event.objects.get(id=id)
 
@@ -139,14 +133,14 @@ def spaces_list(request):
   return render(request, 'spaces.html', { 'spaces': spaces })
 
 @permission_required('events.can_administrate_spaces')
+@ajax_required
+@json_view
 def space_edit(request, id=None):
   space, created = get_or_create_instance(Space, id=id)
   form = SpaceForm(request.POST or None, instance=space)
 
   if request.method == 'POST':
-    if form.is_valid():
-      form.save()
-      return HttpResponseRedirect('/admin/spaces')
+    return save_ajax_form(form)
 
   return render(request, 'space_modal.html', { 'space': space, 'form': form })
 
@@ -170,14 +164,14 @@ def area_list(request):
   return render(request, 'areas.html', { 'areas': areas })
 
 @permission_required('events.can_administrate_functional_areas')
+@ajax_required
+@json_view
 def area_edit(request, id=None):
   area, created = get_or_create_instance(FunctionalArea, id=id)
   form = FunctionalAreaForm(request.POST or None, instance=area)
 
   if request.method == 'POST':
-    if form.is_valid():
-      form.save()
-      return HttpResponseRedirect('/admin/areas')
+    return save_ajax_form(form)
 
   return render(request, 'area_modal.html', { 'area': area, 'form': form })
 
