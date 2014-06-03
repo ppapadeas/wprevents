@@ -11,7 +11,7 @@ var CalendarView = require('./views/calendar');
 var App = function() {
   var map = new MapView({ el: '#map' });
   var filters = new FiltersView({ el: '.filters-container' });
-  var list = new EventListView({ el: '.event-list' });
+  var list = new EventListView({ el: '.js-event-list' });
   var calendar = new CalendarView({ el: '#js-calendar' });
 
   filters.on('change', function(filters) {

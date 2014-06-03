@@ -40,6 +40,15 @@
   padding: 0;
   margin: 0;
   list-style-type: none;
+
+  &.loading {
+    min-height: 130px;
+    background: url('#{$staticUrl}spinner.gif') no-repeat center 50px #fff;
+
+    * {
+      display: none;
+    }
+  }
 }
 
 li.event {

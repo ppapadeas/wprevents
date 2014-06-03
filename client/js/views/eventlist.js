@@ -8,6 +8,9 @@ var EventListView = Backbone.View.extend({
   },
 
   update: function(filters) {
+    this.$el.css('height', this.$el.height());
+    this.$el.addClass('loading');
+
     $.ajax({
       url: "/search?" + $.param(filters),
       type: "GET",
@@ -16,6 +19,8 @@ var EventListView = Backbone.View.extend({
       }.bind(this),
       success: function(html) {
         this.$el.html(html);
+        this.$el.removeClass('loading');
+        this.$el.removeAttr('style');
       }.bind(this)
     });
   }
