@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from wprevents.events.models import Event, Space, FunctionalArea
 from month_manager import MonthManager
-
+from utils import sanitize_calendar_input
 
 def one(request, id, slug):
   event = get_object_or_404(Event, id=id)
@@ -31,18 +31,32 @@ def all(request):
 def calendar(request):
   now = timezone.now()
 
-  try:
-    year = int(request.GET.get('year', now.year))
-    month = int(request.GET.get('month', now.month))
-  except ValueError:
-    year = now.year
-    month = now.month
-
-  month = sorted((1, month, 12))[1] # Clamp month into 1..12 range
+  year, month = sanitize_calendar_input(
+    request.GET.get('year', now.year),
+    request.GET.get('month', now.month),
+    now
+  )
 
   events = Event.objects.filter(start__year=year, start__month=month)
   month_manager = MonthManager(year=year, month=month, events=events)
 
   return render(request, 'calendar.html', {
+    'month_manager': month_manager
+  })
+
+
+def calendar_month(request):
+  now = timezone.now()
+
+  year, month = sanitize_calendar_input(
+    request.GET.get('year', now.year),
+    request.GET.get('month', now.month),
+    now
+  )
+
+  events = Event.objects.filter(start__year=year, start__month=month)
+  month_manager = MonthManager(year=year, month=month, events=events)
+
+  return render(request, 'calendar_content.html', {
     'month_manager': month_manager
   })
