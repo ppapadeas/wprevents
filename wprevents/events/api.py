@@ -36,8 +36,10 @@ class EventResource(CustomResource):
     serializer = CustomSerializer(formats=['json', 'csv', 'ical'])
 
   def dehydrate(self, bundle):
-    bundle.data['space'] = bundle.obj.space.name
+    if bundle.obj.space:
+      bundle.data['space'] = bundle.obj.space.name
     bundle.data['functional_areas'] = ','.join(bundle.obj.area_names)
+
     return bundle
 
 
