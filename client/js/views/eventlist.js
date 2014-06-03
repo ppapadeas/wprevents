@@ -9,9 +9,8 @@ var EventListView = Backbone.View.extend({
 
   update: function(filters) {
     $.ajax({
-      url: "/search",
-      type: "POST",
-      data: filters,
+      url: "/search?" + $.param(filters),
+      type: "GET",
       beforeSend: function (request) {
         request.setRequestHeader("X-CSRFToken", this.token);
       }.bind(this),

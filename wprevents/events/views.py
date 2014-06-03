@@ -33,9 +33,8 @@ def all(request):
 
 
 @ajax_required
-@post_required
 def search(request):
-  form = SearchForm(request.POST)
+  form = SearchForm(request.GET)
   events = []
 
   if form.is_valid():
