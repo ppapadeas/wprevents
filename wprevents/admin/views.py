@@ -136,6 +136,7 @@ def spaces_list(request):
 @ajax_required
 @json_view
 def space_edit(request, id=None):
+  id = request.POST.get('id') or id
   space, created = get_or_create_instance(Space, id=id)
   form = SpaceForm(request.POST or None, instance=space)
 
@@ -167,6 +168,7 @@ def area_list(request):
 @ajax_required
 @json_view
 def area_edit(request, id=None):
+  id = request.POST.get('id') or id
   area, created = get_or_create_instance(FunctionalArea, id=id)
   form = FunctionalAreaForm(request.POST or None, instance=area)
 
