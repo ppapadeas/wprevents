@@ -13,21 +13,35 @@ var CalendarView = Backbone.View.extend({
     this.$title = this.$('.js-title');
     this.$wrapper = this.$('.js-wrapper');
     this.$content = this.$('.js-content');
+    this.$nav = this.$('.js-cal-nav');
 
     this.isSliding = false;
 
     this.initEventViews();
   },
 
+  getMonth: function(year, month) {
+    return $.get('/calendar_month?' + $.param({
+      year: year,
+      month: month
+    }));
+  },
+
   getNextMonth: function() {
-    return this.$content.clone();
+    return this.getMonth(this.$next.data('year'), this.$next.data('month'));
+  },
+
+  getPreviousMonth: function() {
+    return this.getMonth(this.$prev.data('year'), this.$prev.data('month'));
   },
 
   onClickNext: function(e) {
     e.preventDefault();
 
     if (!this.isSliding) {
-      this.slide('forward');
+      this.getNextMonth().done(function(html) {
+        this.slide('forward', html);
+      }.bind(this));
     }
   },
 
@@ -35,12 +49,16 @@ var CalendarView = Backbone.View.extend({
     e.preventDefault();
 
     if (!this.isSliding) {
-      this.slide('backward');
+      this.getPreviousMonth().done(function(html) {
+        this.slide('backward', html);
+      }.bind(this));
     }
   },
 
-  slide: function(direction) {
-    this.$destination = this.getNextMonth();
+  slide: function(direction, html) {
+    var $html = $(html);
+
+    this.$destination = $html.find('.js-content');
     this.$origin = this.$content;
 
     this.$destination.insertAfter(this.$origin);
@@ -52,6 +70,8 @@ var CalendarView = Backbone.View.extend({
 
     this.isSliding = true;
 
+    this.updateNav($html);
+
     setTimeout(function() {
       this.onSlideEnd();
     }.bind(this), 1);
@@ -60,9 +80,6 @@ var CalendarView = Backbone.View.extend({
   onSlideEnd: function() {
     this.$destination.addClass('sliding');
     this.$origin.addClass('sliding');
-
-    var fakeData = { previousMonth: 'May 2014', nextMonth: 'July 2014', currentMonth: 'June 2014' };
-    this.updateHeader(fakeData);
 
     this.$destination.one('webkitTransitionEnd transitionend oTransitionEnd', function() {
       this.$destination.removeClass('sliding forward backward destination origin');
@@ -74,10 +91,9 @@ var CalendarView = Backbone.View.extend({
     }.bind(this));
   },
 
-  updateHeader: function(data) {
-    this.$prev.find('span').text(data.previousMonth);
-    this.$next.find('span').text(data.nextMonth);
-    this.$title.text(data.currentMonth);
+  updateNav: function($html) {
+    var $newNav = $html.find('.js-cal-nav').html();
+    this.$nav.html($newNav);
   },
 
   initEventViews: function() {
