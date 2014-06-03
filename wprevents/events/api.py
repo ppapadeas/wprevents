@@ -5,18 +5,27 @@ from tastypie.resources import ModelResource
 from wprevents.base.serializers import CustomSerializer
 from models import Event, Space, FunctionalArea
 
+def compute_resource_name(resource):
+  """Compute resource name from class name, ie. 'EventResource' -> 'event'"""
+  return resource.__class__.__name__[:-8].lower()
+
 
 class CustomResource(ModelResource):
   def create_response(self, request, data, **response_kwargs):
     """Add HTTP header to specify the filename of CSV exports."""
     response = super(CustomResource, self).create_response(request, data, **response_kwargs)
 
-    if self.determine_format(request) == 'text/csv':
-      today = timezone.now().date()
+    format = self.determine_format(request)
+    extensions = {
+      'text/csv': 'csv',
+      'text/calendar': 'ics'
+    }
 
-      # Compute resource name from class name, ie. 'EventResource' -> 'event'
-      resource_name = self.__class__.__name__[:-8].lower()
-      filename = today.strftime(resource_name +'-export-%Y-%m-%d.csv')
+    if format in extensions:
+      today = timezone.now().date()
+      resource_name = compute_resource_name(self)
+      extension = extensions[format]
+      filename = today.strftime(resource_name +'-export-%Y-%m-%d.'+ extension)
       response['Content-Disposition'] = 'filename="%s"' % filename
 
     return response
