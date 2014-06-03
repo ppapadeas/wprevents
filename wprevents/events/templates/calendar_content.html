@@ -20,7 +20,7 @@
                 {% if today_events|length >= 6 %}{% set class=" class=grid" %}{% endif %}
                 <ul{{class}}>
                 {% for event in today_events %}
-                  <li class="event-box js-event"><a href="#">{{ event.title }}</a></li>
+                  <li class="event-box js-event"><a href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a></li>
                 {% endfor %}
                 </ul>
               </div>
