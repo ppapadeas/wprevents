@@ -4,7 +4,7 @@ var EventListView = Backbone.View.extend({
   initialize: function() {
     this.$events = this.$('.event');
 
-    this.token = $("form [name='csrfmiddlewaretoken'").val();
+    this.token = $("form [name='csrfmiddlewaretoken']").val();
   },
 
   update: function(filters) {
