@@ -1,8 +1,8 @@
 <div class="billboard" id="js-calendar">
   <nav class="cal-nav row js-cal-nav">
-    <a href="#" class="previous-month column col-3 js-prev" data-year="2014" data-month="6">&laquo; <span>June 2014</span></a>
+    <a href="#" class="previous-month column col-3 js-prev" data-year="{{ month_manager.year_of_previous_month }}" data-month="{{ month_manager.previous_month }}">&laquo; <span>{{ month_manager.previous_month_name }} {{ month_manager.year_of_previous_month }}</span></a>
     <div class="current-month column col-6 js-title">{{ month_manager.name }} {{ month_manager.year }}</div>
-    <a href="#" class="next-month column col-3 js-next" data-year="2014" data-month="8"><span>August 2014</span> &raquo;</a>
+    <a href="#" class="next-month column col-3 js-next" data-year="{{ month_manager.year_of_next_month }}" data-month="{{ month_manager.next_month }}"><span>{{ month_manager.next_month_name }} {{ month_manager.year_of_next_month }}</span> &raquo;</a>
   </nav>
   <div class="calendar-wrapper js-wrapper">
     <div class="month-wrapper js-content">
