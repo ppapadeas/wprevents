@@ -5,15 +5,9 @@ var mapbox = require('mapbox.js');
 var MapView = Backbone.View.extend({
   initialize: function() {
     var token = 'mozilla-webprod.e91ef8b3';
-    var map = this.map = L.mapbox.map(this.el.id);//.setView([0, 0], 2);
-    // Bounds order is [South West, North East]
-    var bounds = [[-45, -130], [45, 130]];
-    map.fitBounds(bounds);
-    map.setZoom(2);
+    var map = this.map = L.mapbox.map(this.el.id);
 
-    var windowHeight = $(window).height();
-    var boundingBoxHeight = 766;
-    map.panBy([0, (windowHeight - boundingBoxHeight) / 2]);
+    this.setDefaultState();
 
     var mapLayer = L.mapbox.tileLayer(token,{
         detectRetina: true
@@ -44,13 +38,26 @@ var MapView = Backbone.View.extend({
     }.bind(this));
   },
 
+  setDefaultState: function() {
+    // Bounds order is [South West, North East]
+    var bounds = [[-45, -130], [45, 130]];
+    this.map.fitBounds(bounds);
+    this.map.setZoom(2);
+
+    var windowHeight = $(window).height();
+    var boundingBoxHeight = 766;
+    this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], {
+      animate: false
+    });
+  },
+
   /*
    * Creates spaces markers and then hide them using setFilter()
    */
   initSpacesMarkers: function () {
     var map = this.map;
 
-    map.markerLayer.on('layeradd', function(e) {
+    map.featureLayer.on('layeradd', function(e) {
       var marker = e.layer,
           feature = marker.feature;
 
@@ -58,14 +65,44 @@ var MapView = Backbone.View.extend({
     });
 
     $.getJSON('/static/mozspaces.json', function(mozSpaces) {
-      map.markerLayer.setGeoJSON(mozSpaces);
-    });
+      map.featureLayer.setGeoJSON(mozSpaces);
+      this.trigger('ready');
+    }.bind(this));
   },
 
   hideSpacesMarkers: function() {
-    this.map.markerLayer.setFilter(function () {
+    this.map.featureLayer.setFilter(function () {
       return false;
     });
+  },
+
+  getMarkerOffset: function() {
+    var offset = {};
+    var tabletBreakPoint = 1010;
+    var tabletMode = $(window).width() > tabletBreakPoint ? true : false;
+    var pageWidth =  tabletMode ? 980 : 740;
+    var markerHeight = 45;
+    var rightMargin = tabletMode ? 80 : 60;
+    var topMargin = 20;
+    var headerOffset = $('.js-event-header').offset().top;
+    offset.x = - (pageWidth / 2) + rightMargin;
+    offset.y = (($(window).height() - ((headerOffset + markerHeight) * 2)) / 2) - topMargin;
+
+    return offset;
+  },
+
+  focusSpace: function(id) {
+    this.map.featureLayer.eachLayer(function (marker) {
+      if (marker.feature.properties.id === id) {
+        var markerCoords = this.markerCoords = marker.getLatLng();
+        this.map.setView(markerCoords, 10, {
+          animate: true
+        });
+      }
+    }.bind(this));
+
+    var offset = this.getMarkerOffset();
+    this.map.panBy([offset.x, offset.y]);
   }
 });
 

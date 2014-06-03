@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="width-container">
-  <header class="event-header billboard">
+  <header class="event-header billboard js-event-header">
       <div class="event-date column col-2">
         <div class="day">{{ event.start_day }}</div>
         <div class="monthyear">
@@ -15,7 +15,7 @@
       </div>
 
       <div class="event-meta column col-2">
-        <div class="event-space">{{ event.space }}</div>
+        <div class="event-space js-event-space" data-space="{{ event.space.slug }}">{{ event.space }}</div>
         <div class="event-areas count-{{ event.areas.all().count() }}">
           {% for area in event.areas.all() %}
           <div class="event-area {{ area.color }}">{{ area.name }}</div>

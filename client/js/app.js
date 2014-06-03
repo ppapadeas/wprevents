@@ -17,6 +17,13 @@ var App = function() {
   filters.on('change', function(filters) {
     list.update(filters);
   });
+
+  map.on('ready', function() {
+    var id = $('.js-event-space').data('space');
+    if (id) {
+      map.focusSpace(id);
+    }
+  });
 };
 
 $(function() {

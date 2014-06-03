@@ -139,7 +139,7 @@
   "model": "events.space",
   "fields": {
     "name": "Mountain View",
-    "slug": "moutain-view",
+    "slug": "mountain-view",
     "address": "331 E. Evelyn Avenue",
     "city": "Mountain View",
     "country": "us",
