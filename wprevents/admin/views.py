@@ -61,7 +61,7 @@ def event_edit(request, id=None):
       return { 'status': 'error',
                'errors': dict(form.errors.iteritems()) }
 
-  return render(request, 'event_form.html', { 'event': event, 'form': form })
+  return render(request, 'event_modal.html', { 'event': event, 'form': form })
 
 
 
@@ -148,7 +148,7 @@ def space_edit(request, id=None):
       form.save()
       return HttpResponseRedirect('/admin/spaces')
 
-  return render(request, 'space_form.html', { 'space': space, 'form': form })
+  return render(request, 'space_modal.html', { 'space': space, 'form': form })
 
 @permission_required('events.can_administrate_spaces')
 def space_delete(request):

@@ -1,0 +1,73 @@
+<div class="modal new-event-modal js-modal">
+  <h3 class="oslight">
+    {% if form.name.value() %}
+      {{ form.name.value() }}
+    {% else %}
+      New space
+    {% endif %}
+  </h3>
+
+  <form method="post" action="/admin/events/new">
+    {{ csrf() }}
+    <ul class="errorlist js-errors"></ul>
+    <div class="row">
+      <label>Name</label>
+      <div class="field">
+        <input type="text" name="name" value="{{ form.name.value() }}" placeholder="Name this space">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Adress 1</label>
+      <div class="field">
+        <input type="text" name="address" value="{{ form.address.value() }}" placeholder="331 E. Evelyn Avenue">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Adress 2</label>
+      <div class="field">
+        <input type="text" name="address2" value="{{ form.address2.value() }}" placeholder="Suite 600">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>City</label>
+      <div class="field">
+        <input type="text" name="city" value="{{ form.city.value() }}" placeholder="Mountain View, CA">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Country</label>
+      <div class="field">
+        {{ form.country }}
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Postal Code</label>
+      <div class="field">
+        <input type="text" name="postal_code" value="{{ form.postal_code.value() }}" placeholder="94041">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Latitude</label>
+      <div class="field">
+        <input type="text" name="lat" value="{{ form.lat.value() }}" placeholder="37.3874349">
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Longitude</label>
+      <div class="field">
+        <input type="text" name="lon" value="{{ form.lon.value() }}" placeholder="-122.0609917">
+      </div>
+    </div>
+
+    <div class="row">
+      <input type="submit" value="Save space" class="button pull-right js-button">
+    </div>
+  </form>
+</div>

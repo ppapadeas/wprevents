@@ -6,7 +6,7 @@
 
 {% block actions %}
   <a class="button" href="{{ url("api_dispatch_list", resource_name="space", api_name='v1') }}?format=csv&limit=0">Export CSV</a>
-  <a class="button" href="{{ url('events_new_space') }}">Add space</a>
+  <a class="button js-new-space" href="{{ url('events_new_space') }}">Add space</a>
 {% endblock %}
 
 {% block tablecontent %}
@@ -28,7 +28,7 @@
       <td>{{ space.lat }} {{ space.lon }}</td>
       <td>{{ space.photo }}</td>
       <td class="actions">
-        <a href="{{ url('space_edit', id=space.id) }}">edit</a>
+        <a href="{{ url('space_edit', id=space.id) }}" class="js-edit-space">edit</a>
 
         <form action="{{ url('space_delete') }}" method="post">
           {{ csrf() }}

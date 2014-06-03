@@ -7,6 +7,7 @@ Backbone.$ = $;
 var ModalContainerView = require('./views/modalcontainer');
 var EventModalView = require('./views/eventmodal');
 var DedupeModalView = require('./views/dedupemodal');
+var SpaceModalView = require('./views/spacemodal');
 
 $(function() {
   var container = new ModalContainerView({ el: $('.modal-container') });
@@ -31,6 +32,22 @@ $(function() {
   $('.js-dedupe-event').on('click', function(e) {
     var path = $(this).attr('href');
     var modal = container.setCurrentModal(DedupeModalView, path);
+
+    e.preventDefault();
+  });
+
+  // 'New space' button
+  $('.js-new-space').on('click', function(e) {
+    var path = $(this).attr('href');
+    var modal = container.setCurrentModal(SpaceModalView, path);
+
+    e.preventDefault();
+  });
+
+  // 'Edit space' action
+  $('.js-edit-space').on('click', function(e) {
+    var path = $(this).attr('href');
+    var modal = container.setCurrentModal(SpaceModalView, path);
 
     e.preventDefault();
   });
