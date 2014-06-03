@@ -186,13 +186,20 @@
   }
 }
 
-.modal .errorlist,
-.modal .errorlist ul {
+.modal .errorlist {
   padding: 0;
   margin: 0;
   list-style-type: none;
 }
 
-.modal .errorlist > ul > li {
+.modal .errorlist > li {
   font-weight: bold;
+  background: lighten($flat-red-2, 35%);
+  color: $flat-red-2;
+  padding: ($baseLine / 3) ($baseLine / 2);
+  border-radius: $radiusDefault / 2;
+
+  & + li {
+    margin-top: $baseLine / 3;
+  }
 }
