@@ -2,6 +2,7 @@
 @import "modals";
 @import "eventmodal";
 @import "spacemodal";
+@import "areamodal";
 
 .main-actions {
   float: right;
@@ -81,6 +82,11 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+  }
+
+  .color-swatch {
+    width: 50px;
+    height: 20px;
   }
 }
 

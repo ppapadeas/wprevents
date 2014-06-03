@@ -25,7 +25,7 @@ class EventForm(ModelForm):
 
   class Meta:
     model = Event
-    fields = ['title', 'space', 'start', 'end', 'areas', 'description', 'details']
+    fields = ['id', 'title', 'space', 'start', 'end', 'areas', 'description', 'details']
 
   def __init__(self, *args, **kwargs):
     super(EventForm, self).__init__(*args, **kwargs)
@@ -59,7 +59,7 @@ class EventForm(ModelForm):
 class SpaceForm(ModelForm):
   class Meta:
     model = Space
-    fields = ['name', 'address', 'address2', 'city', 'country', 'postal_code', 'lat', 'lon']
+    fields = ['id', 'name', 'address', 'address2', 'city', 'country', 'postal_code', 'lat', 'lon']
 
   def __init__(self, *args, **kwargs):
     super(SpaceForm, self).__init__(*args, **kwargs)
@@ -79,4 +79,4 @@ class SpaceForm(ModelForm):
 class FunctionalAreaForm(ModelForm):
   class Meta:
     model = FunctionalArea
-    fields = ['name', 'slug', 'color']
+    fields = ['id', 'name', 'slug', 'color']

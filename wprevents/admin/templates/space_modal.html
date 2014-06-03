@@ -9,6 +9,7 @@
 
   <form method="post" action="/admin/spaces/new">
     {{ csrf() }}
+    <input type="hidden" name="id" value="{{ space.id }}">
     <ul class="errorlist js-errors"></ul>
     <div class="row">
       <label>Name</label>

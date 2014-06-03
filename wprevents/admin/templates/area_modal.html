@@ -9,6 +9,7 @@
 
   <form method="post" action="/admin/areas/new">
     {{ csrf() }}
+    <input type="hidden" name="id" value="{{ area.id }}">
     <ul class="errorlist js-errors"></ul>
     <div class="row">
       <label>Name</label>
@@ -26,8 +27,29 @@
 
     <div class="row">
       <label>Color</label>
-      <div class="field">
-        <input class="color-picker" type="color" name="color" value="{{ form.color.value() }}">
+      <div class="field color">
+        <div class="js-color-picker">
+          <input class="js-color-input hidden" type="text" name="color" value="{{ form.color.value() }}">
+          <div class="selected-swatch {{ form.color.value() }} js-button"></div>
+          <div class="color-picker hidden js-dropdown">
+            <ul>
+              <li class="swatch js-swatch red-1" title="Red 1" data-value="red-1"></li>
+              <li class="swatch js-swatch red-2" title="Red 2" data-value="red-2"></li>
+              <li class="swatch js-swatch blue-1" title="Blue 1" data-value="blue-1"></li>
+              <li class="swatch js-swatch blue-2" title="Blue 2" data-value="blue-2"></li>
+              <li class="swatch js-swatch green-1" title="Green 1" data-value="green-1"></li>
+              <li class="swatch js-swatch green-2" title="Green 2" data-value="green-2"></li>
+              <li class="swatch js-swatch orange-1" title="Orange 1" data-value="orange-1"></li>
+              <li class="swatch js-swatch orange-2" title="Orange 2" data-value="orange-2"></li>
+              <li class="swatch js-swatch purple-1" title="Purple 1" data-value="purple-1"></li>
+              <li class="swatch js-swatch purple-2" title="Purple 2" data-value="purple-2"></li>
+              <li class="swatch js-swatch yellow-1" title="Yellow 1" data-value="yellow-1"></li>
+              <li class="swatch js-swatch yellow-2" title="Yellow 2" data-value="yellow-2"></li>
+              <li class="swatch js-swatch gray-1" title="Gray 1" data-value="gray-1"></li>
+              <li class="swatch js-swatch gray-2" title="Gray 2" data-value="gray-2"></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 

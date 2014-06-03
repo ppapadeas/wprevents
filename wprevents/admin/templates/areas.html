@@ -24,7 +24,7 @@
     <tr>
       <td>{{ area.name }}</td>
       <td>{{ area.slug }}</td>
-      <td>{{ area.color }}</td>
+      <td><div class="color-swatch {{ area.color }}"></div></td>
       <td class="actions">
         <a href="{{ url('area_edit', id=area.id) }}" class="js-edit-area">edit</a>
 

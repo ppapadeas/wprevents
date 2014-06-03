@@ -95,7 +95,7 @@
   "fields": {
     "name": "Quality Assurance",
     "slug": "quality-assurance",
-    "color": "orange"
+    "color": "orange-1"
   }
 },
 {
@@ -104,7 +104,7 @@
   "fields": {
     "name": "Localization",
     "slug": "localization",
-    "color": "blue"
+    "color": "blue-1"
   }
 },
 {
@@ -113,7 +113,7 @@
   "fields": {
     "name": "Accessibility",
     "slug": "accessibility",
-    "color": "green"
+    "color": "green-1"
   }
 },
 {
@@ -122,7 +122,7 @@
   "fields": {
     "name": "l10n",
     "slug": "l10n",
-    "color": "red"
+    "color": "red-1"
   }
 },
 {
@@ -131,7 +131,7 @@
   "fields": {
     "name": "Mobile",
     "slug": "mobile",
-    "color": "purple"
+    "color": "purple-1"
   }
 },
 {

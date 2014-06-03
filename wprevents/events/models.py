@@ -11,7 +11,7 @@ from uuslug import uuslug as slugify
 class FunctionalArea(models.Model):
   name = models.CharField(max_length=120, blank=False)
   slug = models.SlugField(max_length=50, blank=False)
-  color = models.CharField(max_length=7, blank=False, default="blue")
+  color = models.CharField(max_length=20, blank=False, default="red-1")
 
   class Meta:
     permissions = (

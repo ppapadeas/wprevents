@@ -180,4 +180,4 @@ def area_delete(request):
   area = FunctionalArea.objects.get(id=request.POST.get('id'))
 
   area.delete()
-  return HttpResponseRedirect('/admin/area')
+  return HttpResponseRedirect('/admin/areas')
