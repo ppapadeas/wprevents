@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
-from wprevents.base.decorators import ajax_required, post_required
+from wprevents.base.decorators import ajax_required
 from wprevents.events.models import Event, Space, FunctionalArea
 from wprevents.events.forms import SearchForm
 
