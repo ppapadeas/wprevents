@@ -53,11 +53,13 @@
           </div>
         </div>
 
+        {% set event_url = 'http://events.mozilla.org' + url('event_one', id=event.id, slug=event.slug) %}
+
         <div class="button-group pull-right">
           <a href="{{ url("api_dispatch_detail", api_name='v1', resource_name="event", pk=event.id) }}?format=ical" class="button">iCal</a>
-          <a href="#" class="button">Facebook</a>
-          <a href="#" class="button">Twitter</a>
-          <a href="#" class="button">Google+</a>
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ event_url }}" class="button">Facebook</a>
+          <a target="_blank" href="https://twitter.com/share?url={{ event_url }}&amp;via=mozillaevents&amp;text={{ event.title|urlencode }}%20at%20Mozspace%20{{ event.space }}%20on%20{{ event.start_month }}%20{{ event.start_day }}" class="button">Twitter</a>
+          <a target="_blank" href="https://plus.google.com/share?url={{ event_url }}&amp;hl=en-US" class="button">Google+</a>
         </div>
       </div>
     </div>
