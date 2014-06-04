@@ -86,7 +86,6 @@ $eventBoxHeight: 20px;
   .cell-content {
     @include clearfix;
     display: table;
-    width: 100%;
   }
 
   td .day {
