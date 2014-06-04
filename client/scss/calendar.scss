@@ -48,22 +48,24 @@ $eventBoxHeight: 20px;
     border-left: 1px solid $calBorderColor;
     padding: 10px 5px;
     vertical-align: middle;
-    position: relative;
 
     &:first-child {
       border-left: 0;
     }
   }
 
+  .cell-wrapper {
+    position: relative;
+    // required because Firefox won't accept position attribute on td elements
+  }
+
   .cell-content {
-    // height: 110px;
     @include clearfix;
     display: table;
   }
 
   td .day {
     height: 100%;
-    // float: left;
     font-size: $fontSizeSmall;
     color: $textColorSecondary;
     width: 10px;
@@ -112,6 +114,7 @@ $eventBoxHeight: 20px;
   .event-box {
     border-radius: $radiusDefault / 2;
     background: $linkSkyBlue;
+    border: 1px solid darken($linkSkyBlue, 10%);
 
     a {
       padding: 3px 8px;
@@ -146,6 +149,7 @@ $eventBoxHeight: 20px;
     font-size: $fontSizeSmaller;
     background: $linkBlue;
     z-index: 1000;
+    border: 1px solid darken($linkBlue, 10%);
 
     a {
       width: auto;

@@ -23,17 +23,19 @@
           {% for day in week %}
           <td>
             {% if day != 0 %}
-            <div class="cell-content">
-              <div class="day"><a href="#">{{ day }}</a></div>
-              <div class="content">
-                {% set today_events = month_manager.get_events_for_day(day) %}
-                {% set class="" %}
-                {% if today_events|length >= 6 %}{% set class=" class=grid" %}{% endif %}
-                <ul{{class}}>
-                {% for event in today_events %}
-                  <li class="event-box js-event"><a href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a></li>
-                {% endfor %}
-                </ul>
+            <div class="cell-wrapper js-cell">
+              <div class="cell-content">
+                <div class="day"><a href="#">{{ day }}</a></div>
+                <div class="content">
+                  {% set today_events = month_manager.get_events_for_day(day) %}
+                  {% set class="" %}
+                  {% if today_events|length >= 6 %}{% set class=" class=grid" %}{% endif %}
+                  <ul{{class}}>
+                  {% for event in today_events %}
+                    <li class="event-box js-event"><a href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a></li>
+                  {% endfor %}
+                  </ul>
+                </div>
               </div>
             </div>
             {% endif %}

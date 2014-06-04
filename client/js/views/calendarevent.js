@@ -8,14 +8,12 @@ var CalendarEventView = Backbone.View.extend({
 
   initialize: function() {
     this.$clone = '';
-    this.topBorder = this.$el.parents('tr').prevAll().length === 0 ? 0 : 1;
-    this.leftBorder = this.$el.parents('td').prevAll().length === 0 ? 0 : 1;
   },
 
   clone: function(e) {
-    var $cell = this.$el.parents('td');
-    $cell.offset.y = this.$el.offset().top - $cell.offset().top - this.topBorder;
-    $cell.offset.x = this.$el.offset().left - $cell.offset().left - this.leftBorder;
+    var $cell = this.$el.parents('.js-cell');
+    $cell.offset.y = this.$el.offset().top - $cell.offset().top;
+    $cell.offset.x = this.$el.offset().left - $cell.offset().left;
 
     var $clone = this.$el.clone();
     $clone.addClass('tooltip');
