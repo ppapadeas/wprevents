@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from jingo import register
 
 LINE_LIMIT = 75
@@ -47,3 +49,10 @@ def ical_format_lines(text):
     ret_line += char
 
   return ret_line
+
+
+@register.filter
+def media_path(file_field):
+  filename = file_field.value().name
+
+  return settings.MEDIA_URL + filename if filename else ''

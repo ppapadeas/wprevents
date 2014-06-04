@@ -7,7 +7,7 @@
     {% endif %}
   </h3>
 
-  <form method="post" action="/admin/spaces/new">
+  <form method="post" action="/admin/spaces/new" enctype="multipart/form-data">
     {{ csrf() }}
     <input type="hidden" name="id" value="{{ space.id }}">
     <ul class="errorlist js-errors"></ul>
@@ -71,7 +71,12 @@
       <label>Photo</label>
       <div class="field">
         <div class="photo-preview">
-          <img src="http://placehold.it/980x150">
+          {% if form.photo.value() %}
+            {% set image_path=form.photo|media_path %}
+          {% else %}
+            {% set image_path='http://placehold.it/980x150' %}
+          {% endif %}
+          <img src="{{ image_path }}">
         </div>
         <input type="file" name="photo" value="">
       </div>

@@ -121,3 +121,7 @@ def lazy_countries():
     except IOError:
         return {u'us': 'United States'}
 COUNTRIES = lazy(lazy_countries, dict)()
+
+# MEDIA
+MEDIA_ROOT = '/tmp/upload'
+MEDIA_URL = '/media/'

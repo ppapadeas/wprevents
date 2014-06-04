@@ -59,7 +59,7 @@ class EventForm(ModelForm):
 class SpaceForm(ModelForm):
   class Meta:
     model = Space
-    fields = ['id', 'name', 'address', 'address2', 'city', 'country', 'postal_code', 'lat', 'lon']
+    fields = ['id', 'name', 'address', 'address2', 'city', 'country', 'postal_code', 'lat', 'lon', 'photo']
 
   def __init__(self, *args, **kwargs):
     super(SpaceForm, self).__init__(*args, **kwargs)

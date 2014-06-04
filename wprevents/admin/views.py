@@ -138,7 +138,7 @@ def spaces_list(request):
 def space_edit(request, id=None):
   id = request.POST.get('id') or id
   space, created = get_or_create_instance(Space, id=id)
-  form = SpaceForm(request.POST or None, instance=space)
+  form = SpaceForm(request.POST or None, request.FILES or None, instance=space)
 
   if request.method == 'POST':
     return save_ajax_form(form)
