@@ -65,6 +65,13 @@ var MapView = Backbone.View.extend({
 
       marker.setIcon(L.icon(feature.properties.icon));
       marker.selected = false;
+
+      var unslug = feature.properties.id.replace(/-/g , " ");
+      var popupContent = toTitleCase(unslug);
+      marker.bindPopup(popupContent, {
+        closeButton: false,
+        closeOnClick: true
+      });
     });
 
     $.getJSON('/static/mozspaces.json', function(mozSpaces) {
@@ -81,12 +88,14 @@ var MapView = Backbone.View.extend({
     if (this.isolationMode && !e.layer.selected) {
       e.layer.setOpacity(0.75);
     }
+    e.layer.openPopup();
   },
 
   onMarkerMouseOut: function(e) {
     if (this.isolationMode && !e.layer.selected) {
       e.layer.setOpacity(0.25);
     }
+    e.layer.closePopup();
   },
 
   onMarkerClick: function(e) {
@@ -162,5 +171,9 @@ var MapView = Backbone.View.extend({
     this.map.panBy([offset.x, offset.y]);
   }
 });
+
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
 
 module.exports = MapView;
