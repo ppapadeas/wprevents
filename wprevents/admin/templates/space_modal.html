@@ -72,7 +72,7 @@
       <div class="field">
         <div class="photo-preview">
           {% if form.photo.value() %}
-            {% set image_path=form.photo|media_path %}
+            {% set image_path=form.photo.value().name|media_path %}
           {% else %}
             {% set image_path='http://placehold.it/980x150' %}
           {% endif %}

@@ -27,7 +27,12 @@
 
   <div class="event-content row">
     <div class="space-photo">
-      <img src="http://placehold.it/980x150">{{ event.photo }}
+      {% if event.space.photo %}
+        {% set image_path=event.space.photo.name|media_path %}
+      {% else %}
+        {% set image_path='http://placehold.it/980x150' %}
+      {% endif %}
+      <img src="{{ image_path }}">
     </div>
 
     <div class="billboard row">

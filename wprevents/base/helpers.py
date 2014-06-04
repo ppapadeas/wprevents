@@ -52,7 +52,5 @@ def ical_format_lines(text):
 
 
 @register.filter
-def media_path(file_field):
-  filename = file_field.value().name
-
+def media_path(filename):
   return settings.MEDIA_URL + filename if filename else ''
