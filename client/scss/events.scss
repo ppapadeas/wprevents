@@ -200,3 +200,41 @@ li.event {
     margin-top: $baseLine;
   }
 }
+
+@media screen and (max-width: $smallBreakPoint) {
+  .event-meta,
+  .event-date {
+    width: 100%;
+  }
+
+  .event-meta {
+    margin-top: $baseLine / 2;
+  }
+
+  .event-list,
+  .event-header {
+    .event-date .day,
+    .event-date .monthyear,
+    .event-date .monthyear .month,
+    .event-date .monthyear .year {
+      float: none;
+      width: auto;
+      display: inline-block;
+      font-size: $fontSizeDefault;
+      line-height: $baseLine * 1.5;
+    }
+  }
+
+  .filters-container .select-fields {
+    & > * {
+      width: 48%;
+      float: left;
+      margin-left: 4%;
+      margin-top: $baseLine / 2;
+
+      &:nth-child(2n+3) {
+        margin-left: 0;
+      }
+    }
+  }
+}
