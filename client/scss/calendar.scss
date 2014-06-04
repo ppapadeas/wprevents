@@ -13,6 +13,20 @@ $eventBoxHeight: 20px;
   .next-month {
     text-align: right;
   }
+
+  .weekdays {
+    @include clearfix;
+    text-align: center;
+    text-transform: uppercase;
+    color: $textColorLight;
+    font-size: $fontSizeSmaller;
+    margin-top: $baseLine * 2;
+
+    td {
+      width: percentage(1 / 7);
+      vertical-align: bottom;
+    }
+  }
 }
 
 .cal {
@@ -142,14 +156,13 @@ $eventBoxHeight: 20px;
 
 .calendar-wrapper {
   position: relative;
-  padding-top: $baseLine;
   overflow: hidden;
 }
 
 .month-wrapper {
   &.sliding {
     position: absolute;
-    top: $baseLine;
+    top: 0;
     left: 0;
     width: 100%;
     -webkit-transition: 500ms -webkit-transform ease;

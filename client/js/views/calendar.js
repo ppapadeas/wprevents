@@ -66,7 +66,7 @@ var CalendarView = Backbone.View.extend({
 
     this.$destination.addClass('destination ' + direction);
     this.$origin.addClass('origin ' + direction);
-    this.$wrapper.css('height', this.destinationHeight + 20); // 20px padding
+    this.$wrapper.css('height', this.destinationHeight);
 
     this.isSliding = true;
 
