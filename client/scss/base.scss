@@ -88,10 +88,6 @@ a {
   border-bottom: 1px solid #ddd;
   color: $textColorSecondary;
   @include clearfix;
-
-  @media screen and (max-width: $smallBreakPoint) {
-    padding: 10px;
-  }
 }
 
 .fill-width {

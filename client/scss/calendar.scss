@@ -251,3 +251,9 @@ $eventBoxHeight: 20px;
     @include transform(translate3d(0%, 0, 0));
   }
 }
+
+@media screen and (max-width: $smallBreakPoint) {
+  .billboard.calendar-container {
+    padding: 10px;
+  }
+}

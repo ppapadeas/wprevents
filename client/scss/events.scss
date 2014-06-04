@@ -206,10 +206,6 @@ li.event {
 }
 
 @media screen and (max-width: $smallBreakPoint) {
-  li.event {
-    padding: 10px;
-  }
-
   .event-meta,
   .event-date {
     width: 100%;
@@ -229,7 +225,11 @@ li.event {
       width: auto;
       display: inline-block;
       font-size: $fontSizeDefault;
-      line-height: $baseLine * 1.5;
+      line-height: $baseLine / 2;
+    }
+
+    .event-date {
+      padding-top: 0;
     }
   }
 
