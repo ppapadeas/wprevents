@@ -42,7 +42,7 @@ var MapView = Backbone.View.extend({
 
   setDefaultState: function() {
     // Bounds order is [South West, North East]
-    var bounds = [[-45, -130], [45, 130]];
+    var bounds = [[-45, -90], [45, 130]];
     this.map.fitBounds(bounds);
     this.map.setZoom(2);
 
