@@ -23,7 +23,6 @@ body {
 
 #inner-wrapper {
   padding-bottom: 100px;
-  border-top: 2px solid #fff;
   position: relative;
   background: url('#{$mozCdnUrl}media/img/sandstone/bg-gradient-sand.png') repeat-x 0 0, url('#{$mozCdnUrl}media/img/sandstone/bg-sand.png') repeat 0 0;
 
@@ -102,6 +101,9 @@ a {
   float: left;
 }
 
+#tabzilla-panel {
+  z-index: 10;
+}
 .hidden {
   display: none;
 }

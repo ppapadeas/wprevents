@@ -1,5 +1,6 @@
 .masthead {
   @include clearfix;
+  border-top: 2px solid #fff;
 
   #login-box {
     float: right;
