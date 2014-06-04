@@ -10,7 +10,7 @@
       </div>
 
       <div class="column col-6 select-fields">
-        <select name="space" id="space-filter" class="js-filter">
+        <select name="space" id="space-filter" class="js-filter js-space-filter">
           <option value="" default>All spaces</option>
           {% for space in spaces %}
           <option value="{{ space.slug }}">{{ space.name }}</option>

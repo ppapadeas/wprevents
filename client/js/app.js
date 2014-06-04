@@ -24,6 +24,10 @@ var App = function() {
       map.focusSpace(id);
     }
   });
+
+  map.on('markerClick', function(id) {
+    filters.setSpace(id);
+  });
 };
 
 $(function() {

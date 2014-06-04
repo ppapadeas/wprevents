@@ -68,6 +68,13 @@ var MapView = Backbone.View.extend({
       map.featureLayer.setGeoJSON(mozSpaces);
       this.trigger('ready');
     }.bind(this));
+
+    map.featureLayer.on('click', this.onMarkerClick.bind(this));
+  },
+
+  onMarkerClick: function(e) {
+    var markerId = e.layer.feature.properties.id;
+    this.trigger('markerClick', markerId);
   },
 
   hideSpacesMarkers: function() {
