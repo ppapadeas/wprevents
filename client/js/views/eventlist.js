@@ -23,6 +23,14 @@ var EventListView = Backbone.View.extend({
         this.$el.removeAttr('style');
       }.bind(this)
     });
+  },
+
+  show: function() {
+    this.$el.removeClass('hidden');
+  },
+
+  hide: function() {
+    this.$el.addClass('hidden');
   }
 });
 

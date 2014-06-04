@@ -35,13 +35,18 @@
 
   <nav class="main-tabs">
     <ul>
-      <li class="tab{% if active_tab == 'list' %} active{% endif %}"><a href="/">List</a></li>
-      <li class="tab{% if active_tab == 'calendar' %} active{% endif %}"><a href="/calendar">Calendar</a></li>
+      <li class="tab{% if active_tab == 'list' %} active{% endif %} js-list-tab"><a href="/">List</a></li>
+      <li class="tab{% if active_tab == 'calendar' %} active{% endif %} js-calendar-tab"><a href="/calendar">Calendar</a></li>
     </ul>
   </nav>
 
-  {% block pagecontent %}
-  {% endblock %}
+  <ul class="event-list js-event-list {% if active_tab == 'calendar' %} hidden{% endif %}">
+    {% include "list_content.html" %}
+  </ul>
+
+  <div class="billboard js-calendar {% if active_tab == 'list' %} hidden{% endif %}">
+    {% include 'calendar_content.html' %}
+  </div>
 
 </div>
 {% endblock %}

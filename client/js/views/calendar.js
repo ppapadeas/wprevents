@@ -92,9 +92,7 @@ var CalendarView = Backbone.View.extend({
   },
 
   updateNav: function($html) {
-    var $newNav = $html.find('.js-cal-nav');
-
-    this.$nav.replaceWith($newNav);
+    this.$nav.replaceWith($html);
     this.$nav = this.$('.js-cal-nav');
     this.$prev = this.$('.js-prev');
     this.$next = this.$('.js-next');
@@ -109,9 +107,15 @@ var CalendarView = Backbone.View.extend({
   },
 
   update: function(filters) {
-    console.log("Filtering event list with:", filters);
+    // TODO: XHR to update calendar
+  },
 
-    // TODO: XHR to update event list
+  show: function() {
+    this.$el.removeClass('hidden');
+  },
+
+  hide: function() {
+    this.$el.addClass('hidden');
   }
 });
 

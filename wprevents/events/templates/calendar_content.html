@@ -1,49 +1,50 @@
-<div class="billboard calendar-container" id="js-calendar">
-  <nav class="cal-nav row js-cal-nav">
-    <a href="#" class="previous-month column col-3 js-prev" data-year="{{ month_manager.year_of_previous_month }}" data-month="{{ month_manager.previous_month }}">&laquo; <span>{{ month_manager.previous_month_name }} {{ month_manager.year_of_previous_month }}</span></a>
-    <div class="current-month column col-6 js-title">{{ month_manager.name }} {{ month_manager.year }}</div>
-    <a href="#" class="next-month column col-3 js-next" data-year="{{ month_manager.year_of_next_month }}" data-month="{{ month_manager.next_month }}"><span>{{ month_manager.next_month_name }} {{ month_manager.year_of_next_month }}</span> &raquo;</a>
-    <table class="weekdays fill-width row">
-      <tr class="weekdays">
-          <td>Mon</td>
-          <td>Tue</td>
-          <td>Wed</td>
-          <td>Thu</td>
-          <td>Fri</td>
-          <td>Sat</td>
-          <td>Sun</td>
-      </tr>
-    </table>
-  </nav>
-  <div class="calendar-wrapper js-wrapper">
-    <div class="month-wrapper js-content">
-      <table class="fill-width row cal">
-        {% for week in month_manager.matrix %}
-        <tr>
-          {% for day in week %}
-          <td>
-            {% if day != 0 %}
-            <div class="cell-wrapper js-cell">
-              <div class="cell-content">
-                <div class="day"><a href="#">{{ day }}</a></div>
+<nav class="cal-nav row js-cal-nav">
+  <a href="#" class="previous-month column col-3 js-prev" data-year="{{ month_manager.year_of_previous_month }}" data-month="{{ month_manager.previous_month }}">&laquo; <span>{{ month_manager.previous_month_name }} {{ month_manager.year_of_previous_month }}</span></a>
+  <div class="current-month column col-6 js-title">{{ month_manager.name }} {{ month_manager.year }}</div>
+  <a href="#" class="next-month column col-3 js-next" data-year="{{ month_manager.year_of_next_month }}" data-month="{{ month_manager.next_month }}"><span>{{ month_manager.next_month_name }} {{ month_manager.year_of_next_month }}</span> &raquo;</a>
+  <table class="weekdays fill-width row">
+    <tr class="weekdays">
+        <td>Mon</td>
+        <td>Tue</td>
+        <td>Wed</td>
+        <td>Thu</td>
+        <td>Fri</td>
+        <td>Sat</td>
+        <td>Sun</td>
+    </tr>
+  </table>
+</nav>
+<div class="calendar-wrapper js-wrapper">
+  <div class="month-wrapper js-content">
+    <table class="fill-width row cal">
+      {% for week in month_manager.matrix %}
+      <tr>
+        {% for day in week %}
+        <td>
+          {% if day != 0 %}
+          <div class="cell-wrapper js-cell">
+            <div class="cell-content">
+              <div class="day"><a href="#">{{ day }}</a></div>
                 <div class="content">
                   {% set today_events = month_manager.get_events_for_day(day) %}
                   {% set class="" %}
                   {% if today_events|length >= 6 %}{% set class=" class=grid" %}{% endif %}
-                  <ul{{class}}>
+                  <ul{{ class }}>
                   {% for event in today_events %}
-                    <li class="event-box js-event"><a href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a></li>
+                    <li class="event-box js-event">
+                      <a href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a>
+                    </li>
                   {% endfor %}
                   </ul>
                 </div>
               </div>
             </div>
-            {% endif %}
-          </td>
-          {% endfor %}
-        </tr>
+          </div>
+          {% endif %}
+        </td>
         {% endfor %}
-      </table>
-    </div>
+      </tr>
+      {% endfor %}
+    </table>
   </div>
 </div>
