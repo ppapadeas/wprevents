@@ -7,6 +7,8 @@ from django.db import models
 
 from uuslug import uuslug as slugify
 
+from utils import add_filter
+
 
 class FunctionalArea(models.Model):
   name = models.CharField(max_length=120, blank=False)
@@ -65,14 +67,15 @@ class EventManager(models.Manager):
 
     return self.filter(start__lte=now).filter(end__gte=now)
 
-  def search(self, space_name, area_name, search_string):
-    events = Event.objects.filter(
-      space__slug__contains=space_name
-    ).filter(
-      areas__slug__contains=area_name
-    ).filter(
-      title__icontains=search_string
-    ).distinct()
+  def search(self, space_name, area_name, search_string=None, start_date=None, end_date=None):
+    filters = {}
+    add_filter(filters, 'space__slug', 'contains',  space_name)
+    add_filter(filters, 'areas__slug', 'contains',  area_name)
+    add_filter(filters, 'title',       'icontains', search_string)
+    add_filter(filters, 'start',       'gte',       start_date)
+    add_filter(filters, 'end',         'lte',       end_date)
+
+    events = Event.objects.filter(**filters)
 
     return events
 

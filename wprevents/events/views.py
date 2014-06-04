@@ -38,10 +38,14 @@ def search(request):
   events = []
 
   if form.is_valid():
-    # TODO: also filter by start date, end date
-    events = Event.objects.search(form.cleaned_data['space'],
-                                  form.cleaned_data['area'],
-                                  form.cleaned_data['keyword'])
+    search_params = {
+      'space_name': form.cleaned_data['space'],
+      'area_name': form.cleaned_data['area'],
+      'search_string': form.cleaned_data['keyword'],
+      'start_date': form.cleaned_data.get('start'),
+      'end_date': form.cleaned_data.get('end')
+    }
+    events = Event.objects.search(**search_params)
 
   return render(request, 'list_content.html', {
     'events': events
