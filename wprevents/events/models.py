@@ -39,7 +39,7 @@ class Space(models.Model):
   lat = models.FloatField(null=True)
   lon = models.FloatField(null=True)
 
-  photo_url = models.URLField(max_length=300, null=True, blank=True)
+  photo = models.URLField(max_length=300, null=True, blank=True)
 
   class Meta:
     permissions = (
