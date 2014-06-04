@@ -51,7 +51,9 @@ a {
   }
 
   @media screen and (max-width: $smallBreakPoint) {
-    width: 320px;
+    width: 100%;
+    min-width: 280px;
+    padding: 0 10px;
   }
 }
 
@@ -62,6 +64,11 @@ a {
     font-family: 'MetaNormal';
     text-shadow: 0 1px 0 rgba(#fff, 0.75);
     font-size: 30px;
+
+    @media screen and (max-width: $smallBreakPoint) {
+      text-align: center;
+      padding-top: $baseLine;
+    }
   }
 
   h1 {
@@ -74,13 +81,17 @@ a {
 }
 
 .billboard {
-  padding: $baseLine 20px;
+  padding: $baseLine;
   margin-bottom: $baseLine * 2;
   @include box-shadow(0 0 0 1px #fff inset);
   background: #fff;
   border-bottom: 1px solid #ddd;
   color: $textColorSecondary;
   @include clearfix;
+
+  @media screen and (max-width: $smallBreakPoint) {
+    padding: 10px;
+  }
 }
 
 .fill-width {

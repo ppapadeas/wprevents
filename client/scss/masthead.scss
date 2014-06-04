@@ -8,5 +8,9 @@
     .persona-button {
       top: 8px;
     }
+
+    @media screen and (max-width: $smallBreakPoint) {
+      float: left;
+    }
   }
 }

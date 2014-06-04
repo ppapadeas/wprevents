@@ -3,6 +3,10 @@
   margin-bottom: $baseLine;
   font-size: $fontSizeSmall;
 
+  @media screen and (max-width: $smallBreakPoint) {
+    margin-top: 200px;
+  }
+
   #keyword-filter {
     width: 100%;
   }
@@ -202,6 +206,10 @@ li.event {
 }
 
 @media screen and (max-width: $smallBreakPoint) {
+  li.event {
+    padding: 10px;
+  }
+
   .event-meta,
   .event-date {
     width: 100%;

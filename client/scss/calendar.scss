@@ -27,6 +27,21 @@ $eventBoxHeight: 20px;
       vertical-align: bottom;
     }
   }
+
+  @media screen and (max-width: $smallBreakPoint) {
+    .previous-month,
+    .next-month {
+      width: 20%;
+
+      span {
+        display: none;
+      }
+    }
+
+    .current-month {
+      width: 60%;
+    }
+  }
 }
 
 .cal {
@@ -52,6 +67,15 @@ $eventBoxHeight: 20px;
     &:first-child {
       border-left: 0;
     }
+
+    @media screen and (max-width: $mediumBreakPoint) {
+      height: 85px;
+    }
+
+    @media screen and (max-width: $smallBreakPoint) {
+      height: 50px;
+      padding: 5px 2px;
+    }
   }
 
   .cell-wrapper {
@@ -62,6 +86,7 @@ $eventBoxHeight: 20px;
   .cell-content {
     @include clearfix;
     display: table;
+    width: 100%;
   }
 
   td .day {
@@ -71,6 +96,12 @@ $eventBoxHeight: 20px;
     width: 10px;
     display: table-cell;
     vertical-align: middle;
+    letter-spacing: -1px;
+
+    @media screen and (max-width: $smallBreakPoint) {
+      font-size: $fontSizeSmaller;
+      width: 10px;
+    }
   }
 
   td .content {
@@ -127,6 +158,18 @@ $eventBoxHeight: 20px;
       color: #fff;
       display: block;
       @include prefix(text-shadow, $textShadowDefault);
+
+      @media screen and (max-width: $mediumBreakPoint) {
+        width: 65px;
+        height: 18px;
+        font-size: $fontSizeSmallest;
+        line-height: $fontSizeSmaller;
+      }
+
+      @media screen and (max-width: $smallBreakPoint) {
+        width: 12px;
+        padding: 2px;
+      }
     }
 
     &:hover {
