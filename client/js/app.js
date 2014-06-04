@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var _ = require('underscore');
 var Backbone = require('backbone');
 
 Backbone.$ = $;
@@ -16,6 +17,11 @@ var App = function() {
 
   filters.on('change', function(filters) {
     list.update(filters);
+    if (_.has(filters, 'space')) {
+      map.selectMarker(filters.space);
+    } else {
+      map.deselectMarker();
+    }
   });
 
   map.on('ready', function() {

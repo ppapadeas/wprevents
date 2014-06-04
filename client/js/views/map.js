@@ -9,6 +9,8 @@ var MapView = Backbone.View.extend({
 
     this.setDefaultState();
 
+    this.isolationMode = false;
+
     var mapLayer = L.mapbox.tileLayer(token,{
         detectRetina: true
     });
@@ -62,6 +64,7 @@ var MapView = Backbone.View.extend({
           feature = marker.feature;
 
       marker.setIcon(L.icon(feature.properties.icon));
+      marker.selected = false;
     });
 
     $.getJSON('/static/mozspaces.json', function(mozSpaces) {
@@ -70,11 +73,58 @@ var MapView = Backbone.View.extend({
     }.bind(this));
 
     map.featureLayer.on('click', this.onMarkerClick.bind(this));
+    map.featureLayer.on('mouseover', this.onMarkerMouseOver.bind(this));
+    map.featureLayer.on('mouseout', this.onMarkerMouseOut.bind(this));
+  },
+
+  onMarkerMouseOver: function(e) {
+    if (this.isolationMode && !e.layer.selected) {
+      e.layer.setOpacity(0.75);
+    }
+  },
+
+  onMarkerMouseOut: function(e) {
+    if (this.isolationMode && !e.layer.selected) {
+      e.layer.setOpacity(0.25);
+    }
   },
 
   onMarkerClick: function(e) {
+    this.map.featureLayer.eachLayer(function (marker) {
+      if (marker !== e.layer) {
+        marker.setOpacity(0.25);
+        marker.selected = false;
+      } else {
+        marker.setOpacity(1);
+        marker.selected = true;
+      }
+    });
+
     var markerId = e.layer.feature.properties.id;
     this.trigger('markerClick', markerId);
+  },
+
+  doClickMarker: function(marker) {
+    marker.fireEvent('click');
+  },
+
+  selectMarker: function(id) {
+    this.map.featureLayer.eachLayer(function(marker) {
+      if (marker.feature.properties.id === id) {
+        this.doClickMarker(marker);
+      }
+    }.bind(this));
+
+    this.isolationMode = true;
+  },
+
+  deselectMarker: function() {
+    this.map.featureLayer.eachLayer(function(marker) {
+      marker.setOpacity(1);
+      marker.selected = false;
+    });
+
+    this.isolationMode = false;
   },
 
   hideSpacesMarkers: function() {
