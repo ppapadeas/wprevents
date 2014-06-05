@@ -8,6 +8,7 @@ var CalendarEventView = Backbone.View.extend({
 
   initialize: function() {
     this.$clone = '';
+    this.maxTooltipWidth = 250;
   },
 
   clone: function(e) {
@@ -23,6 +24,10 @@ var CalendarEventView = Backbone.View.extend({
       left: $cell.offset.x
     });
     $cell.append($clone);
+
+    if ($clone.width() > this.maxTooltipWidth) {
+      $clone.addClass('multiline');
+    }
 
     this.$clone = $clone;
   },

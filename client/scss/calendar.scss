@@ -198,6 +198,15 @@ $eventBoxHeight: 20px;
       text-overflow: normal;
     }
   }
+
+  .event-box.tooltip.multiline {
+    width: 250px;
+
+    a {
+      white-space: normal;
+      height: auto;
+    }
+  }
 }
 
 .calendar-wrapper {
