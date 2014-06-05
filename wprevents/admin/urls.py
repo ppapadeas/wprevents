@@ -1,9 +1,11 @@
 from django.conf.urls.defaults import include, url, patterns
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import RedirectView
 
-from . import views
+import views
 
 urlpatterns = patterns('',
-  url(r'^$', views.home, name='admin_home'),
+  url(r'^$', RedirectView.as_view(url=reverse_lazy('event_all'))),
 
   url(r'^events/', include([
     url(r'^$', views.events_list, name='event_all'),

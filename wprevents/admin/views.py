@@ -11,11 +11,6 @@ from .forms import EventForm, SpaceForm, FunctionalAreaForm
 import import_ical
 
 
-@permission_required('events.can_administrate_events')
-def home(request):
-  return render(request, 'admin.html')
-
-
 # EVENTS
 
 @permission_required('events.can_administrate_events')
@@ -45,8 +40,6 @@ def events_list(request):
   })
 
 
-
-
 @permission_required('events.can_administrate_events')
 @ajax_required
 @json_view
@@ -59,7 +52,6 @@ def event_edit(request, id=None):
     return save_ajax_form(form)
 
   return render(request, 'event_modal.html', { 'event': event, 'form': form })
-
 
 
 @permission_required('events.can_administrate_events')
@@ -91,6 +83,7 @@ def event_dedupe(request, id=None):
     'event': event,
     'events': events
   })
+
 
 @permission_required('events.can_administrate_events')
 def event_import_ical(request):
@@ -132,6 +125,7 @@ def spaces_list(request):
 
   return render(request, 'spaces.html', { 'spaces': spaces })
 
+
 @permission_required('events.can_administrate_spaces')
 @ajax_required
 @json_view
@@ -144,6 +138,7 @@ def space_edit(request, id=None):
     return save_ajax_form(form)
 
   return render(request, 'space_modal.html', { 'space': space, 'form': form })
+
 
 @permission_required('events.can_administrate_spaces')
 def space_delete(request):
@@ -164,6 +159,7 @@ def area_list(request):
 
   return render(request, 'areas.html', { 'areas': areas })
 
+
 @permission_required('events.can_administrate_functional_areas')
 @ajax_required
 @json_view
@@ -176,6 +172,7 @@ def area_edit(request, id=None):
     return save_ajax_form(form)
 
   return render(request, 'area_modal.html', { 'area': area, 'form': form })
+
 
 @permission_required('events.can_administrate_functional_areas')
 def area_delete(request):
