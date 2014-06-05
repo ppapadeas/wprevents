@@ -51,8 +51,6 @@ var MapView = Backbone.View.extend({
     var windowHeight = $(window).height();
     var boundingBoxHeight = 766;
     this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], { reset: true });
-
-    console.log('default');
   },
 
   setMobileState: function() {
@@ -61,7 +59,6 @@ var MapView = Backbone.View.extend({
     this.map.setZoom(0);
 
     this.map.panBy([0, -40], { animate: false });
-    console.log('mobile');
   },
 
   /*
