@@ -73,22 +73,22 @@ var CalendarView = Backbone.View.extend({
     this.updateNav($html);
 
     setTimeout(function() {
-      this.onSlideEnd();
+      this.$destination.addClass('sliding');
+      this.$origin.addClass('sliding');
+      this.$wrapper.addClass('sliding');
+
+      this.$destination.one('webkitTransitionEnd transitionend oTransitionEnd', this.onSlideEnd.bind(this));
     }.bind(this), 1);
   },
 
   onSlideEnd: function() {
-    this.$destination.addClass('sliding');
-    this.$origin.addClass('sliding');
-
-    this.$destination.one('webkitTransitionEnd transitionend oTransitionEnd', function() {
-      this.$destination.removeClass('sliding forward backward destination origin');
-      this.$origin.remove();
-      this.$content = this.$destination;
-      this.$wrapper.removeAttr('style');
-      this.initEventViews();
-      this.isSliding = false;
-    }.bind(this));
+    this.$destination.removeClass('sliding forward backward destination origin');
+    this.$origin.remove();
+    this.$content = this.$destination;
+    this.$wrapper.removeAttr('style');
+    this.$wrapper.removeClass('sliding');
+    this.initEventViews();
+    this.isSliding = false;
   },
 
   updateNav: function($html) {

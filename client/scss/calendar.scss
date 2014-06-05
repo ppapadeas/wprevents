@@ -202,7 +202,10 @@ $eventBoxHeight: 20px;
 
 .calendar-wrapper {
   position: relative;
-  overflow: hidden;
+
+  &.sliding {
+    overflow: hidden;
+  }
 }
 
 .month-wrapper {
