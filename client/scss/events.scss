@@ -11,6 +11,12 @@
       display: none;
     }
   }
+
+  .no-events-found {
+    text-align: center;
+    color: $textColorLight;
+    line-height: 130px;
+  }
 }
 
 li.event {

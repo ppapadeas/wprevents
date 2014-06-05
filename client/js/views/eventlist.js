@@ -18,7 +18,11 @@ var EventListView = Backbone.View.extend({
         request.setRequestHeader("X-CSRFToken", this.token);
       }.bind(this),
       success: function(html) {
-        this.$el.html(html);
+        if (html.length > 0) {
+          this.$el.html(html);
+        } else {
+          this.$el.html('<div class="billboard no-events-found">No events found</div>');
+        }
         this.$el.removeClass('loading');
         this.$el.removeAttr('style');
       }.bind(this)
