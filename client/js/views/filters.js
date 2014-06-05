@@ -20,6 +20,7 @@ var FiltersView = Backbone.View.extend({
 
     this.$filters = this.$('.js-filter');
     this.$spaceFilter = this.$('.js-space-filter');
+    this.$dateFilters = this.$('.js-datepicker');
 
     this.datePickers = [];
 
@@ -57,6 +58,7 @@ var FiltersView = Backbone.View.extend({
 
   setSpace: function(id) {
     var isFound = false;
+
     // check if id exists
     this.$spaceFilter.find('option').each(function() {
       if ($(this).attr('value') === id) {
@@ -96,6 +98,14 @@ var FiltersView = Backbone.View.extend({
       this.currentFilters = filters;
       this.trigger('change', filters);
     }
+  },
+
+  enableDateFilters: function() {
+    this.$dateFilters.prop('disabled', false);
+  },
+
+  disableDateFilters: function() {
+    this.$dateFilters.prop('disabled', true);
   }
 });
 

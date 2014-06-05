@@ -57,12 +57,14 @@ var App = Backbone.Router.extend({
     this.views.tabs.activate('list');
     this.views.list.show();
     this.views.calendar.hide();
+    this.views.filters.enableDateFilters();
   },
 
   calendar: function() {
     this.views.tabs.activate('calendar');
     this.views.list.hide();
     this.views.calendar.show();
+    this.views.filters.disableDateFilters();
   }
 });
 
