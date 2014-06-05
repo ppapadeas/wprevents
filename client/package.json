@@ -26,13 +26,20 @@
     "underscore": "^1.6.0",
     "pikaday": "^1.2.0",
     "jquery-form": "^3.50.0",
-    "browserify-shim": "^3.5.0"
+    "browserify-shim": "^3.5.0",
+    "enquire.js": "^2.1.1"
   },
   "browserify": {
-    "transform": [ "browserify-shim" ]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "browserify-shim": {
     "jquery": "global:$",
-    "jquery-form": { "depends": [ "jquery" ] }
+    "jquery-form": {
+      "depends": [
+        "jquery"
+      ]
+    }
   }
 }

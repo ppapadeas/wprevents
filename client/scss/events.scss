@@ -173,6 +173,11 @@ li.event {
 }
 
 @media screen and (max-width: $smallBreakPoint) {
+  .event-header {
+    margin-top: $baseLine;
+    margin-bottom: $baseLine;
+  }
+
   .event-meta,
   .event-date {
     width: 100%;

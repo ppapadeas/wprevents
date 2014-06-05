@@ -8,6 +8,11 @@
   background: none;
 
   @media screen and (max-width: $smallBreakPoint) {
-    position: absolute;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 160px;
+    margin: 0 10px;
+    width: auto;
   }
 }

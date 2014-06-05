@@ -4,7 +4,7 @@
   font-size: $fontSizeSmall;
 
   @media screen and (max-width: $smallBreakPoint) {
-    margin-top: 200px;
+    margin-top: $baseLine;
   }
 
   #keyword-filter {

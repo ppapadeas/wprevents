@@ -1,13 +1,15 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 var mapbox = require('mapbox.js');
+var enquire = require('enquire.js');
 
 var MapView = Backbone.View.extend({
   initialize: function() {
     var token = 'mozilla-webprod.e91ef8b3';
-    var map = this.map = L.mapbox.map(this.el.id);
+    var map = this.map = L.mapbox.map(this.el.id, { trackResize: false });
 
-    this.setDefaultState();
+    enquire.register("screen and (min-width: 768px)", this.setDefaultState.bind(this));
+    enquire.register("screen and (max-width: 767px)", this.setMobileState.bind(this));
 
     this.isolationMode = false;
 
@@ -43,14 +45,23 @@ var MapView = Backbone.View.extend({
   setDefaultState: function() {
     // Bounds order is [South West, North East]
     var bounds = [[-45, -90], [45, 130]];
-    this.map.fitBounds(bounds);
+    this.map.fitBounds(bounds, { animate: false });
     this.map.setZoom(2);
 
     var windowHeight = $(window).height();
     var boundingBoxHeight = 766;
-    this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], {
-      animate: false
-    });
+    this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], { reset: true });
+
+    console.log('default');
+  },
+
+  setMobileState: function() {
+    var bounds = [[-45, -90], [45, 130]];
+    this.map.fitBounds(bounds, { animate: false });
+    this.map.setZoom(0);
+
+    this.map.panBy([0, -40], { animate: false });
+    console.log('mobile');
   },
 
   /*
@@ -168,8 +179,10 @@ var MapView = Backbone.View.extend({
       }
     }.bind(this));
 
-    var offset = this.getMarkerOffset();
-    this.map.panBy([offset.x, offset.y]);
+    enquire.register("screen and (min-width: 768px)", function() {
+      var offset = this.getMarkerOffset();
+      this.map.panBy([offset.x, offset.y]);
+    });
   }
 });
 
