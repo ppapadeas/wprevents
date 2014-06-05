@@ -57,16 +57,21 @@ a {
 }
 
 .logo-nav {
+  @include clearfix;
+
   .logo {
     color: $textColorSecondary;
     letter-spacing: -0.5px;
     font-family: 'MetaNormal';
     text-shadow: 0 1px 0 rgba(#fff, 0.75);
     font-size: 30px;
+    float: left;
+    pointer-events: auto;
 
     @media screen and (max-width: $smallBreakPoint) {
       text-align: center;
       padding-top: $baseLine;
+      float: none;
     }
   }
 
@@ -106,4 +111,8 @@ a {
 }
 .hidden {
   display: none;
+}
+
+.click-through {
+  pointer-events: none;
 }

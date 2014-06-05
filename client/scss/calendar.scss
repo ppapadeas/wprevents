@@ -2,6 +2,10 @@ $calBorderColor: #ddd;
 $calCellBackground: #f2f2f2;
 $eventBoxHeight: 20px;
 
+.calendar {
+  pointer-events: auto;
+}
+
 .cal-nav {
   .current-month {
     text-transform: uppercase;

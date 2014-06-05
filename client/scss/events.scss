@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   list-style-type: none;
+  pointer-events: auto;
 
   &.loading {
     min-height: 130px;
@@ -91,6 +92,7 @@ li.event {
 .event-header {
   margin-top: $baseLine * 4;
   float: left;
+  pointer-events: auto;
 
   h2 {
     margin: 0;
@@ -146,6 +148,7 @@ li.event {
 
 .event-content {
   clear: both;
+  pointer-events: auto;
 
   .space-photo {
     clear: both;

@@ -2,6 +2,11 @@
   @include clearfix;
   border-top: 2px solid #fff;
 
+  #tabzilla,
+  #login-box {
+    pointer-events: auto;
+  }
+
   #login-box {
     float: right;
     line-height: 2 * $baseLine;
