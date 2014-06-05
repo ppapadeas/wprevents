@@ -14,6 +14,7 @@ patch()
 urlpatterns = patterns('',
   (r'', include('django_browserid.urls')),
   (r'', include('wprevents.events.urls')),
+  (r'', include('wprevents.base.urls')),
 
   # API
   url(r'^api/', include('wprevents.api.urls')),
