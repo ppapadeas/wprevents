@@ -23,10 +23,10 @@
         <td>
           {% if day != 0 %}
           <div class="cell-wrapper js-cell">
-            <div class="cell-content">
+            {% set today_events = month_manager.get_events_for_day(day) %}
+            <div class="cell-content{% if today_events|length == 0%} empty{% endif %}">
               <div class="day"><a href="#">{{ day }}</a></div>
                 <div class="content">
-                  {% set today_events = month_manager.get_events_for_day(day) %}
                   {% set class="" %}
                   {% if today_events|length >= 6 %}{% set class=" class=grid" %}{% endif %}
                   <ul{{ class }}>

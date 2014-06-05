@@ -3,7 +3,8 @@ var Backbone = require('backbone');
 var CalendarEventView = Backbone.View.extend({
   events: {
     "mouseenter": "onMouseEnter",
-    "mouseleave": "onMouseLeave"
+    "mouseleave": "onMouseLeave",
+    "touchend": "goToEvent"
   },
 
   initialize: function() {
