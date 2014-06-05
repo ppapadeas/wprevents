@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
@@ -12,7 +13,10 @@ from utils import sanitize_calendar_input
 def one(request, id, slug):
   event = get_object_or_404(Event, id=id)
 
-  return render(request, 'event.html', { 'event': event })
+  return render(request, 'event.html', {
+    'event': event,
+    'event_absolute_url': request.build_absolute_uri(reverse('event_one', args=(event.pk, event.slug,)))
+  })
 
 
 def render_index(request, template):
