@@ -16,13 +16,6 @@ def one(request, id, slug):
 
 
 def render_index(request, template):
-  search_string = request.GET.get('search', '')
-  space_name = request.GET.get('space', '')
-  area_name = request.GET.get('area', '')
-
-  spaces = Space.objects.all()
-  areas = FunctionalArea.objects.all()
-
   now = timezone.now()
 
   year, month = sanitize_calendar_input(
@@ -31,13 +24,19 @@ def render_index(request, template):
     now
   )
 
-  events = Event.objects.filter(start__year=year, start__month=month).order_by('-start')
+  if not request.GET.get('year') and not request.GET.get('month'):
+    # On front page as list, show upcoming events
+    events = Event.objects.upcoming_events()
+  else:
+    events = Event.objects.of_given_month(year, month)
+
+  events = events.order_by('-start')
   month_manager = MonthManager(year=year, month=month, events=events)
 
   return render(request, template, {
     'events': events,
-    'spaces': spaces,
-    'areas': areas,
+    'spaces': Space.objects.all(),
+    'areas': FunctionalArea.objects.all(),
     'month_manager': month_manager
   })
 
@@ -61,7 +60,7 @@ def search(request):
       'start_date': form.cleaned_data.get('start'),
       'end_date': form.cleaned_data.get('end')
     }
-    events = Event.objects.search(**search_params)
+    events = Event.objects.search(**search_params).order_by('-start')
 
   return render(request, 'list_content.html', {
     'events': events

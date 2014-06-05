@@ -66,6 +66,10 @@ class EventManager(models.Manager):
   def upcoming_events(self):
     return self.filter(start__gte=timezone.now())
 
+  def of_given_month(self, year, month):
+    filters = { 'start__year': year, 'start__month': month }
+    return self.filter(**filters)
+
   def current_events(self):
     now = timezone.now()
 
@@ -78,6 +82,9 @@ class EventManager(models.Manager):
     add_filter(filters, 'title',       'icontains', search_string)
     add_filter(filters, 'start',       'gte',       start_date)
     add_filter(filters, 'end',         'lte',       end_date)
+
+    if len(filters) is 0:
+      add_filter(filters, 'start', 'gte', timezone.now())
 
     events = Event.objects.filter(**filters)
 
