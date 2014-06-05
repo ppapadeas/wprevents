@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -75,7 +76,7 @@ def event_dedupe(request, id=None):
 
   if request.method == 'POST':
     event.remove_duplicate(request.POST.get('duplicate_id'))
-    return HttpResponseRedirect('/admin/events/'+ event.id +'/dedupe')
+    return HttpResponseRedirect(reverse('event_dedupe', args=[event.id]))
 
   events = event.get_duplicate_candidates(request.GET.get('q', ''))
 
@@ -147,7 +148,7 @@ def space_delete(request):
   if space:
     space.delete()
 
-  return HttpResponseRedirect('/admin/spaces')
+  return HttpResponseRedirect(reverse('space_all'))
 
 
 # AREAS
@@ -177,6 +178,6 @@ def area_edit(request, id=None):
 @permission_required('events.can_administrate_functional_areas')
 def area_delete(request):
   area = FunctionalArea.objects.get(id=request.POST.get('id'))
-
   area.delete()
-  return HttpResponseRedirect('/admin/areas')
+
+  return HttpResponseRedirect(reverse('area_all'))
