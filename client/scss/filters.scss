@@ -1,0 +1,63 @@
+.filters-container {
+  margin-top: 300px;
+  margin-bottom: $baseLine;
+  font-size: $fontSizeSmall;
+
+  @media screen and (max-width: $smallBreakPoint) {
+    margin-top: 200px;
+  }
+
+  #keyword-filter {
+    width: 100%;
+  }
+
+  .select-fields {
+    & > * {
+      width: 22%;
+      float: left;
+      margin-left: 4%;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  select {
+    height: $baseLine + ($baseLine / 3);
+    padding: ($baseLine / 6)  ($baseLine / 3);
+    background: transparent;
+    border: 1px solid #b2b2b2;
+  }
+
+  select.active,
+  input.active {
+    color: $linkBlue;
+    background: $lightBlue;
+    border-color: $linkBlue;
+  }
+
+  input:disabled {
+    border-color: #eee;
+    @include box-shadow(none);
+  }
+
+  input:disabled::-webkit-input-placeholder {
+    color: #ddd;
+  }
+}
+
+@media screen and (max-width: $smallBreakPoint) {
+  .filters-container .select-fields {
+    & > * {
+      width: 48%;
+      float: left;
+      margin-left: 4%;
+      margin-top: $baseLine / 2;
+
+      &:nth-child(2n+3) {
+        margin-left: 0;
+      }
+    }
+  }
+}

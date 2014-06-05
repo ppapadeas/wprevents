@@ -85,7 +85,10 @@ var FiltersView = Backbone.View.extend({
       }
 
       if (value && value !== '') {
+        $(this).addClass('active');
         filters[this.name] = value;
+      } else {
+        $(this).removeClass('active');
       }
     });
 
