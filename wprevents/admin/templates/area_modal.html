@@ -7,7 +7,7 @@
     {% endif %}
   </h3>
 
-  <form method="post" action="/admin/areas/new">
+  <form method="post" action="{{ url('areas_new_area') }}">--
     {{ csrf() }}
     <input type="hidden" name="id" value="{{ area.id }}">
     <ul class="errorlist js-errors"></ul>

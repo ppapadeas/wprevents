@@ -35,8 +35,8 @@
 
   <nav class="main-tabs">
     <ul>
-      <li class="tab{% if active_tab == 'list' %} active{% endif %} js-list-tab"><a href="/">List</a></li>
-      <li class="tab{% if active_tab == 'calendar' %} active{% endif %} js-calendar-tab"><a href="/calendar">Calendar</a></li>
+      <li class="tab{% if active_tab == 'list' %} active{% endif %} js-list-tab"><a href="{{ url('event_list') }}">List</a></li>
+      <li class="tab{% if active_tab == 'calendar' %} active{% endif %} js-calendar-tab"><a href="{{ url('event_calendar') }}">Calendar</a></li>
     </ul>
   </nav>
 

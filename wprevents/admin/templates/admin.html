@@ -24,9 +24,9 @@
 
         <nav class="main-tabs">
           <ul>
-            <li class="tab{% if active_tab == 'events' %} active{% endif %}"><a href="/admin/events">Events</a></li>
-            <li class="tab{% if active_tab == 'spaces' %} active{% endif %}"><a href="/admin/spaces">Spaces</a></li>
-            <li class="tab{% if active_tab == 'areas' %} active{% endif %}"><a href="/admin/areas">Areas</a></li>
+            <li class="tab{% if active_tab == 'events' %} active{% endif %}"><a href="{{ url('event_all') }}">Events</a></li>
+            <li class="tab{% if active_tab == 'spaces' %} active{% endif %}"><a href="{{ url('space_all') }}">Spaces</a></li>
+            <li class="tab{% if active_tab == 'areas' %} active{% endif %}"><a href="{{ url('space_all') }}">Areas</a></li>
           </ul>
         </nav>
 
