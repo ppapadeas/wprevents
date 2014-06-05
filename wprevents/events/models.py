@@ -54,6 +54,10 @@ class Space(models.Model):
       self.slug = slugify(self.name, instance=self)
     super(Space, self).save(*args, **kwargs)
 
+  @property
+  def country_name(self):
+    return self.get_country_display()
+
 
 class EventManager(models.Manager):
   def past_events(self):

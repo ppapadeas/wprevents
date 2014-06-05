@@ -8,7 +8,7 @@ CLASS:PUBLIC
 DTSTAMP:{{ date_now|format_datetime_utc }}
 DTSTART;TZID={{ event.timezone }}:{{ event.start|format_datetime_utc }}
 DTEND;TZID={{ event.timezone }}:{{ event.end|format_datetime_utc }}
-{{ "LOCATION:%s, %s, %s"|format(event.venue, event.city, event.country)|ical_escape_char|ical_format_lines }}
+{{ "LOCATION:%s, %s, %s"|format(event.space.name, event.space.city, event.space.country_name)|ical_escape_char|ical_format_lines }}
 {{ "SUMMARY:%s"|format(event.title)|ical_escape_char|ical_format_lines }}
 {{ "DESCRIPTION:%s"|format(event.description)|ical_escape_char|ical_format_lines }}
 {{ "URL:%s%s"|format(host, url('event_one', id=event.id, slug=event.slug))|ical_escape_char|ical_format_lines }}
