@@ -42,7 +42,10 @@
     @include box-shadow(none);
   }
 
-  input:disabled::-webkit-input-placeholder {
+  input:disabled::-webkit-input-placeholder,
+  input:disabled:-moz-placeholder,
+  input:disabled::-moz-placeholder,
+  input:disabled:-ms-input-placeholder {
     color: #ddd;
   }
 }

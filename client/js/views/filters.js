@@ -9,6 +9,7 @@ var FiltersView = Backbone.View.extend({
     "keyup #keyword-filter": "lazyRefresh",
     "change #start-date-filter": "refresh",
     "change #end-date-filter": "refresh",
+    "change select": "blur",
 
     "keydown #keyword-filter": "preventSubmitOnEnter",
     "keydown #start-date-filter": "onDateKeydown",
@@ -45,6 +46,10 @@ var FiltersView = Backbone.View.extend({
       $(e.target).val('').blur();
       this.refresh();
     }
+  },
+
+  blur: function(e) {
+    $(e.target).blur();
   },
 
   onDateKeydown: function(e) {

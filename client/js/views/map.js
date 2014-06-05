@@ -121,6 +121,7 @@ var MapView = Backbone.View.extend({
     this.map.featureLayer.eachLayer(function(marker) {
       if (marker.feature.properties.id === id) {
         this.doClickMarker(marker);
+        marker.closePopup();
       }
     }.bind(this));
 
