@@ -9,7 +9,19 @@
 
     <div id="inner-wrapper">
 
-      {% include "includes/masthead.html" %}
+      <header class="masthead click-through">
+        <div class="width-container">
+          <!-- Universal Mozilla tab -->
+          <a href="https://www.mozilla.org/" id="tabzilla">mozilla</a>
+
+          <!-- Sign In & Sign Out -->
+          <div id="login-box">
+            {% if user.is_authenticated() %}
+              {{ browserid_logout(text='Sign out') }}
+            {% endif %}
+          </div>
+        </div>
+      </header>
 
       <div class="logo-nav width-container">
         <h1 class="logo"><a href="/"><span class="metabold">mozilla</span> events</a></h1>
