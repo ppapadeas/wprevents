@@ -31,7 +31,8 @@ def events_list(request):
     events = paginator.page(page)
   except EmptyPage:
     # If page is out of range (e.g. 9999), deliver last page of results.
-    events = paginator.page(paginator.num_pages)
+    page = paginator.num_pages
+    events = paginator.page(page)
 
   return render(request, 'events.html', {
     'events': events,

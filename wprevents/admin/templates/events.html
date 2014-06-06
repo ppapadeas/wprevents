@@ -45,17 +45,5 @@
 {% endblock %}
 
 {% block pagination %}
-  <div class="pagination">
-    <span class="step-links">
-      {% for i in paginator.page_range %}
-        {% if i != current_page %}
-          <a href="?page={{ i }}&amp;order_by={{ order_by }}">{{ i }}</a>
-        {% else %}
-          {{ i }}
-        {% endif %}
-
-        {% if i != paginator.page_range[-1] %}|{% endif %}
-      {% endfor %}
-    </span>
-  </div>
+  {{ show_paginator(adjacent_pages=2) }}
 {% endblock %}
