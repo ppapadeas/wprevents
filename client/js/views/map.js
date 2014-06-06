@@ -197,7 +197,7 @@ var MapView = Backbone.View.extend({
     enquire.register("screen and (min-width: 768px)", function() {
       var offset = this.getMarkerOffset();
       this.map.panBy([offset.x, offset.y]);
-    });
+    }.bind(this));
   }
 });
 
