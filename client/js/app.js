@@ -49,7 +49,15 @@ var App = Backbone.Router.extend({
         this.views.map.selectMarker(filters.space);
       } else {
         this.views.map.deselectMarker();
-      }      
+      }
+    }, this);
+
+    this.views.list.on('mouseEnterEvent', function(space) {
+      this.views.map.highlightMarker(space);
+    }, this);
+
+    this.views.list.on('mouseLeaveEvent', function(space) {
+      this.views.map.unHighlightAllMarkers(space);
     }, this);
   },
 

@@ -145,6 +145,24 @@ var MapView = Backbone.View.extend({
     this.isolationMode = false;
   },
 
+  highlightMarker: function(id) {
+    if (!this.isolationMode) {
+      this.map.featureLayer.eachLayer(function(marker) {
+        if (marker.feature.properties.id !== id) {
+          marker.setOpacity(0.25)
+        }
+      });
+    }
+  },
+
+  unHighlightAllMarkers: function(id) {
+    if (!this.isolationMode) {
+      this.map.featureLayer.eachLayer(function(marker) {
+        marker.setOpacity(1);
+      });
+    }
+  },
+
   hideSpacesMarkers: function() {
     this.map.featureLayer.setFilter(function () {
       return false;
