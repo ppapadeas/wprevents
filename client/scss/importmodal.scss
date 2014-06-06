@@ -20,4 +20,9 @@
   form + form {
     margin-top: $baseLine;
   }
+
+  .import-success {
+    color: $buttonGreenDark;
+    font-weight: bold;
+  }
 }

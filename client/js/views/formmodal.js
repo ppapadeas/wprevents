@@ -25,7 +25,7 @@ var FormModalView = ModalView.extend({
           _.each(response.errors, this.addError.bind(this));
           this.enableSubmitButton();
         } else if (response.status === 'success') {
-          window.location.reload();
+          this.onSuccess(response);
         }
       }.bind(this)
     });
@@ -45,6 +45,10 @@ var FormModalView = ModalView.extend({
 
   disableSubmitButton: function() {
     this.$button.prop("disabled", true);
+  },
+
+  onSuccess: function() {
+    window.location.reload();
   }
 });
 
