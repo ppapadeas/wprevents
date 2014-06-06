@@ -97,17 +97,12 @@ def event_import_ical(request):
     url = form.cleaned_data['url']
     file = form.cleaned_data['file']
 
-    source = ''
-    events = []
-
     try:
       if url:
-        events = import_ical.from_url(url)
-        source = 'url'
+        imported_events = import_ical.from_url(url)
 
       if file:
-        events = import_ical.from_file(file)
-        source = 'file'
+        imported_events = import_ical.from_file(file)
 
     except import_ical.Error as e:
       return { 'status': 'error', 'errors': { '1': str(e) } }
@@ -116,7 +111,7 @@ def event_import_ical(request):
 
     return {
       'status': 'success',
-      'source': source
+      'imported_event_count': len(imported_events)
     }
 
   return render(request, 'import_modal.html')
