@@ -19,14 +19,14 @@ Installation (staging/prod)
 9. Assuming you have MySQL installed, start the MySQL service and create a database in the mysql console: `create database wprevents;`
 10. `./manage.py update_product_details`
 11. `./manage.py syncdb`
-13. Make sure you have [node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
-14. `cd client`
-15. `npm install`
-16. `npm install -g gulp`
-17. `gulp build-prod`
-18. Make sure the Apache `mod_wsgi` is installed
-19. Configure an Apache VirtualHost directive as described here: http://playdoh.readthedocs.org/en/latest/operations.html
-20. Restart Apache
+12. Make sure you have [node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
+13. `cd client`
+14. `npm install`
+15. `npm install -g gulp`
+16. `gulp build-prod`
+17. Make sure the Apache `mod_wsgi` is installed
+18. Configure an Apache VirtualHost directive as described here: http://playdoh.readthedocs.org/en/latest/operations.html
+19. Restart Apache
 
 In order to updated the environment automatically on the stage server, set up a cron job running this command: `./bin/update_site.py -e stage`
 
