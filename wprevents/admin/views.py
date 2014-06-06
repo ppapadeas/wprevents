@@ -109,9 +109,10 @@ def event_import_ical(request):
     except Exception, e:
       return { 'status': 'error', 'errors': { '1': str(e) } }
 
+    message = 'Successfully imported ' + str(len(imported_events)) + ' events'
     return {
       'status': 'success',
-      'imported_event_count': len(imported_events)
+      'message': message
     }
 
   return render(request, 'import_modal.html')
