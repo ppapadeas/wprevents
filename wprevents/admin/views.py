@@ -8,7 +8,7 @@ from wprevents.base.utils import get_or_create_instance, save_ajax_form
 from wprevents.base.decorators import json_view, ajax_required
 from wprevents.events.models import Event, Space, FunctionalArea
 
-from .forms import EventForm, SpaceForm, FunctionalAreaForm
+from forms import EventForm, SpaceForm, FunctionalAreaForm, ImportEventForm
 import import_ical
 
 
@@ -88,32 +88,36 @@ def event_dedupe(request, id=None):
 
 
 @permission_required('events.can_administrate_events')
+@ajax_required
+@json_view
 def event_import_ical(request):
-  if request.method == 'POST':
-    error = ''
+  form = ImportEventForm(request.POST or None)
+
+  if form.is_valid():
+    url = form.cleaned_data['url']
+    file = form.cleaned_data['file']
+
+    source = ''
+    events = []
 
     try:
-      url = request.POST.get('url')
-      cal_file = request.FILES.get('file', None)
-      source = ''
-      events = []
-
       if url:
         events = import_ical.from_url(url)
-        source = url
+        source = 'url'
 
-      if cal_file:
-        events = import_ical.from_file(cal_file)
-        source = cal_file
+      if file:
+        events = import_ical.from_file(file)
+        source = 'file'
 
-      return render(request, 'import_modal.html', {
-        'events': events,
-        'source': source
-      })
     except import_ical.Error as e:
-      error = e;
+      return { 'status': 'error', 'errors': { '1': e } }
+    except Exception, e:
+      return { 'status': 'error', 'errors': { '1': e } }
 
-    return render(request, 'import_modal.html', { 'error': error })
+    return {
+      'status': 'success',
+      'source': source
+    }
 
   return render(request, 'import_modal.html')
 

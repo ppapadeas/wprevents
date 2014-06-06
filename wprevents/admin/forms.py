@@ -80,3 +80,9 @@ class FunctionalAreaForm(ModelForm):
   class Meta:
     model = FunctionalArea
     fields = ['id', 'name', 'slug', 'color']
+
+
+
+class ImportEventForm(forms.Form):
+  url = forms.CharField(required=False)
+  file = forms.CharField(required=False)
