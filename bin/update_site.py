@@ -85,8 +85,8 @@ def update_site(env, debug):
     commands += [
         # (CHDIR, os.path.join(here, 'vendor')),
         # (EXEC,  GIT_PULL % vendor_branch),
-        (EXEC,  GIT_SUBMODULE),
-        (CHDIR, here),
+        # (EXEC,  GIT_SUBMODULE),
+        # (CHDIR, here),
         # (EXEC, 'python2.6 vendor/src/schematic/schematic migrations/'),
         (CHDIR, os.path.join(here, 'client')),
         (EXEC, 'gulp build-prod'),
