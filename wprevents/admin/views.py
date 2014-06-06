@@ -110,9 +110,9 @@ def event_import_ical(request):
         source = 'file'
 
     except import_ical.Error as e:
-      return { 'status': 'error', 'errors': { '1': e } }
+      return { 'status': 'error', 'errors': { '1': str(e) } }
     except Exception, e:
-      return { 'status': 'error', 'errors': { '1': e } }
+      return { 'status': 'error', 'errors': { '1': str(e) } }
 
     return {
       'status': 'success',
