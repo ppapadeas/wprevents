@@ -9,6 +9,7 @@ var EventModalView = require('./views/eventmodal');
 var DedupeModalView = require('./views/dedupemodal');
 var SpaceModalView = require('./views/spacemodal');
 var AreaModalView = require('./views/areamodal');
+var ImportModalView = require('./views/importmodal');
 
 $(function() {
   var container = new ModalContainerView({ el: $('.modal-container') });
@@ -65,6 +66,14 @@ $(function() {
   $('.js-edit-area').on('click', function(e) {
     var path = $(this).attr('href');
     var modal = container.setCurrentModal(AreaModalView, path);
+
+    e.preventDefault();
+  });
+
+  // 'Import iCal' button
+  $('.js-import-button').on('click', function(e) {
+    var path = $(this).attr('href');
+    var modal = container.setCurrentModal(ImportModalView, path);
 
     e.preventDefault();
   });

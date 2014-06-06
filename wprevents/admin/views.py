@@ -106,16 +106,16 @@ def event_import_ical(request):
         events = import_ical.from_file(cal_file)
         source = cal_file
 
-      return render(request, 'event_import.html', {
+      return render(request, 'import_modal.html', {
         'events': events,
         'source': source
       })
     except import_ical.Error as e:
       error = e;
 
-    return render(request, 'event_import.html', { 'error': error })
+    return render(request, 'import_modal.html', { 'error': error })
 
-  return render(request, 'event_import.html')
+  return render(request, 'import_modal.html')
 
 
 # SPACES

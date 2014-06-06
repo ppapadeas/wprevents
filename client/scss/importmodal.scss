@@ -1,0 +1,23 @@
+.import-modal {
+  @include clearfix;
+
+  .field .button {
+    margin-top: $baseLine / 2;
+  }
+
+  form {
+    @include clearfix;
+
+    input[type="url"] {
+      width: 100%;
+    }
+
+    input[type="file"] {
+      width: auto;
+    }
+  }
+
+  form + form {
+    margin-top: $baseLine;
+  }
+}
