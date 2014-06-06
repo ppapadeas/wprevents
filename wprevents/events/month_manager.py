@@ -1,4 +1,5 @@
 import calendar
+import datetime
 
 
 class MonthManager(object):
@@ -10,7 +11,9 @@ class MonthManager(object):
     self.year = year
 
   def get_events_for_day(self, day):
-    return [e for e in self.events if e.start.day == day]
+    day = datetime.date(self.year, self.month, day)
+
+    return [e for e in self.events if e.start.date() <= day <= e.end.date()]
 
   @property
   def previous_month(self):
