@@ -1,4 +1,5 @@
 var Backbone = require('backbone');
+var _ = require('underscore');
 var CalendarEventView = require('./calendarevent');
 
 var CalendarView = Backbone.View.extend({
@@ -64,21 +65,16 @@ var CalendarView = Backbone.View.extend({
     this.$destination.insertAfter(this.$origin);
     this.destinationHeight = this.$destination.height();
 
-    this.$destination.addClass('destination ' + direction);
-    this.$origin.addClass('origin ' + direction);
+    this.$destination.addClass('sliding destination ' + direction);
+    this.$origin.addClass('sliding origin ' + direction);
+    this.$wrapper.addClass('sliding');
     this.$wrapper.css('height', this.destinationHeight);
 
     this.isSliding = true;
 
     this.updateNav($html);
 
-    setTimeout(function() {
-      this.$destination.addClass('sliding');
-      this.$origin.addClass('sliding');
-      this.$wrapper.addClass('sliding');
-
-      this.$destination.one('webkitTransitionEnd transitionend oTransitionEnd', this.onSlideEnd.bind(this));
-    }.bind(this), 1);
+    this.$destination.one('webkitAnimationEnd animationend oAnimationEnd', this.onSlideEnd.bind(this));
   },
 
   onSlideEnd: function() {

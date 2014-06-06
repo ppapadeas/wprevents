@@ -244,49 +244,65 @@ $eventBoxHeight: 20px;
   }
 }
 
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@include keyframes(nextToCurrent) {
+  0% { @include transform(translate3d(100%, 0, 0)); }
+  100% { @include transform(translate3d(0%, 0, 0)); }
+}
+
+@include keyframes(currentToNext) {
+  0% { @include transform(translate3d(0%, 0, 0)); }
+  100% { @include transform(translate3d(100%, 0, 0)); }
+}
+
+@include keyframes(prevToCurrent) {
+  0% { @include transform(translate3d(-100%, 0, 0)); }
+  100% { @include transform(translate3d(0%, 0, 0)); }
+}
+
+@include keyframes(currentToPrev) {
+  0% { @include transform(translate3d(0%, 0, 0)); }
+  100% { @include transform(translate3d(-100%, 0, 0)); }
+}
+
+$calSlideDuration: 500ms;
+
 .month-wrapper {
   &.sliding {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    -webkit-transition: 500ms -webkit-transform ease;
-    -moz-transition: 500ms -moz-transform ease;
-    -ms-transition: 500ms -ms-transform ease;
-    -o-transition: 500ms -o-transform ease;
-    transition: 500ms transform ease;
-  }
-
-  &.forward.origin {
-    @include transform(translate3d(0, 0, 0));
   }
 
   &.sliding.forward.origin {
-    @include transform(translate3d(-100%, 0, 0));
-  }
-
-  &.forward.destination {
-    @include transform(translate3d(100%, 0, 0));
+    @include animation(currentToPrev $calSlideDuration);
   }
 
   &.sliding.forward.destination {
-    @include transform(translate3d(0%, 0, 0));
-  }
-
-  &.backward.origin {
-    @include transform(translate3d(0, 0, 0));
+    @include animation(nextToCurrent $calSlideDuration);
   }
 
   &.sliding.backward.origin {
-    @include transform(translate3d(100%, 0, 0));
-  }
-
-  &.backward.destination {
-    @include transform(translate3d(-100%, 0, 0));
+    @include animation(currentToNext $calSlideDuration);
   }
 
   &.sliding.backward.destination {
-    @include transform(translate3d(0%, 0, 0));
+    @include animation(prevToCurrent $calSlideDuration);
   }
 }
 
