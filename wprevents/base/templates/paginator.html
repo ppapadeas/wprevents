@@ -1,12 +1,18 @@
+{% if order_by %}
+  {% set order_by_qs = '&amp;order_by='+ order_by %}
+{% else %}
+  {% set order_by_qs = '' %}
+{% endif %}
+
 <div class="pagination">
 {% if total_pages > 1 %}
   <span class="step-links">
   {% if has_previous %}
-    <a href="?page={{ previous }}">&lt; Prev</a>
+    <a href="?page={{ previous }}{{ order_by_qs }}">&lt; Prev</a>
   {% endif %}
 
   {% if show_first %}
-    <a href="?page=1">1</a>
+    <a href="?page=1{{ order_by_qs }}">1</a>
     <span class="ellipsis">...</span>
   {% endif %}
 
@@ -14,17 +20,17 @@
     {% if linkpage == current_page %}
     <span class="current">{{ current_page }}</span>
     {% else %}
-    <a href="?page={{ linkpage }}">{{ linkpage }}</a>
+    <a href="?page={{ linkpage }}{{ order_by_qs }}">{{ linkpage }}</a>
     {% endif %}
   {% endfor %}
 
   {% if show_last %}
     <span class="ellipsis">...</span>
-    <a href="?page={{ total_pages }}">{{ total_pages }}</a>
+    <a href="?page={{ total_pages }}{{ order_by_qs }}">{{ total_pages }}</a>
   {% endif %}
 
   {% if has_next %}
-    <a href="?page={{ next }}">Next &gt;</a>
+    <a href="?page={{ next }}{{ order_by_qs }}">Next &gt;</a>
   {% endif %}
   </span>
 {% else %}

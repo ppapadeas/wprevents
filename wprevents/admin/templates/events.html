@@ -45,5 +45,5 @@
 {% endblock %}
 
 {% block pagination %}
-  {{ show_paginator(adjacent_pages=2) }}
+  {{ show_paginator(adjacent_pages=2, order_by=order_by) }}
 {% endblock %}

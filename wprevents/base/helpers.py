@@ -61,7 +61,7 @@ def media_path(filename):
 @register.function
 @register.inclusion_tag('paginator.html')
 @jinja2.contextfunction
-def show_paginator(context, adjacent_pages=2):
+def show_paginator(context, adjacent_pages=2, order_by=None):
   '''
   Based on http://www.tummy.com/articles/django-pagination/
   '''
@@ -98,4 +98,5 @@ def show_paginator(context, adjacent_pages=2):
     'has_previous': previous_page > 0,
     'show_first': 1 not in page_numbers,
     'show_last': total_pages not in page_numbers,
+    'order_by': order_by
   }
