@@ -4,8 +4,8 @@ WPR Events
 An event list/calendar that aggregates updated information about Mozilla events happening in all spaces around the world and on Air Mozilla so that people know what is happening, where, and when.
 
 
-Installation
-============
+Installation (staging/prod)
+===========================
 
 1. Clone the repo: `git clone --recursive https://github.com/ppapadeas/wprevents`
 2. `cd wprevents`
@@ -19,10 +19,16 @@ Installation
 9. Assuming you have MySQL installed, start the MySQL service and create a database in the mysql console: `create database wprevents;`
 10. `./manage.py update_product_details`
 11. `./manage.py syncdb`
-12. `./manage.py runserver`
 13. Make sure you have [node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
 14. `cd client`
 15. `npm install`
 16. `npm install -g gulp`
 17. `gulp build-prod`
-18. Open a browser to http://localhost:8000/
+18. Make sure the Apache `mod_wsgi` is installed
+19. Configure an Apache VirtualHost directive as described here: http://playdoh.readthedocs.org/en/latest/operations.html
+20. Restart Apache
+
+In order to updated the environment automatically on the stage server, set up a cron job running this command: `./bin/update_site.py -e stage`
+
+
+
