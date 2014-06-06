@@ -8,12 +8,13 @@
       </div>
     </div>
     <div class="event-info column col-8">
-      <a class="event-name" href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a>
+      {% set event_url = url('event_one', id=event.id, slug=event.slug) %}
+      <a class="event-name" href="{{ event_url }}">{{ event.title }}</a>
       <div class="event-description">
         {% if event.description %}
         <p>{{ event.description }}</p>
         {% else %}
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non vehicula libero, eu sodales velit.</p>
+        <p class="light">No description available</p>
         {% endif %}
       </div>
     </div>

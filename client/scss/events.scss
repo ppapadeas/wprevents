@@ -42,6 +42,14 @@ li.event {
     p {
       margin: 0;
       font-size: $fontSizeSmall;
+      width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    p.light {
+      color: $textColorLight;
     }
   }
 }
