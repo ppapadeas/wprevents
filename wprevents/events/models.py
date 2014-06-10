@@ -114,6 +114,9 @@ class Event(models.Model):
     permissions = (
       ('can_administrate_events', 'Can administrate'),
     )
+    index_together = [
+      ["title", "start", "end"],
+    ]
 
   def __unicode__(self):
     return '#%s %s' % (self.id, self.title)
