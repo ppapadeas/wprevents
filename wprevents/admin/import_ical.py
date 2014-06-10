@@ -1,5 +1,6 @@
 import urllib2
 
+from django.db.models import Q
 from django.utils import timezone
 from icalendar import Calendar
 
@@ -59,20 +60,29 @@ def parse_data(data):
 def bulk_create_events(cal):
   events = []
 
+  ical_events = [e for e in cal.walk('VEVENT')]
+  duplicate_events = find_duplicates(ical_events)
+
   all_spaces = Space.objects.all()
 
-  for ical_event in cal.walk('VEVENT'):
-    start = timezone.make_naive(ical_event.get('dtstart').dt, default_timezone)
-    end = timezone.make_naive(ical_event.get('dtend').dt, default_timezone)
-    title = ical_event.get('summary')
-    location = ical_event.get('location')
+  # Prepare bulk insertion, filter out items previously seen as duplicates
+  for e in ical_events:
+    title = e.get('summary')
+
+    if any(x.title == title for x in duplicate_events):
+      # Skip the events if already added
+      continue
+
+    start = timezone.make_naive(e.get('dtstart').dt, default_timezone)
+    end = timezone.make_naive(e.get('dtend').dt, default_timezone)
+    location = e.get('location')
 
     event = Event(
       start = start,
       end = end,
       space = guess_space(location, all_spaces),
       title = title[:EVENT_TITLE_LENGTH], # Truncate to avoid potential errors
-      description = ical_event.get('description').encode('utf-8')
+      description = e.get('description').encode('utf-8')
     )
     # Generate slug because django's bulk_create() does not call Event.save(),
     # which is where an Event's slug is normally set
@@ -90,3 +100,22 @@ def guess_space(location, spaces):
   guessed_space = [s for s in spaces if s.name.lower() in location.lower()]
 
   return guessed_space[0] if guessed_space else None
+
+
+def find_duplicates(ical_events):
+  """
+  Return all events previously added in the database that would be duplicate candidates (ie. same title, same start date) of all events provided in the
+    imported ical file.
+  """
+  titles = []
+  start_dates = []
+
+  for e in ical_events:
+    titles.append(e.get('summary'))
+    start_dates.append(timezone.make_naive(e.get('dtstart').dt, default_timezone))
+
+  # Dynamically build 'or' filters
+  filter_titles = reduce(lambda q, e: q|Q(title=e.title), titles, Q())
+  filter_start_dates = reduce(lambda q, date: q|Q(start=date), start_dates, Q())
+
+  return Event.objects.filter(filter_titles|filter_start_dates)
