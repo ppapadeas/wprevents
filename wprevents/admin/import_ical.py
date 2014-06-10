@@ -59,6 +59,8 @@ def parse_data(data):
 def bulk_create_events(cal):
   events = []
 
+  all_spaces = Space.objects.all()
+
   for ical_event in cal.walk('VEVENT'):
     start = timezone.make_naive(ical_event.get('dtstart').dt, default_timezone)
     end = timezone.make_naive(ical_event.get('dtend').dt, default_timezone)
@@ -68,7 +70,7 @@ def bulk_create_events(cal):
     event = Event(
       start = start,
       end = end,
-      space = guess_space(location),
+      space = guess_space(location, all_spaces),
       title = title[:EVENT_TITLE_LENGTH], # Truncate to avoid potential errors
       description = ical_event.get('description').encode('utf-8')
     )
@@ -81,5 +83,10 @@ def bulk_create_events(cal):
   return Event.objects.bulk_create(events)
 
 
-def guess_space(location):
-  return Space.objects.get(name='Air Mozilla') or None
+def guess_space(location, spaces):
+  """
+  Guess an existing Space from a string containing a raw event location
+  """
+  guessed_space = [s for s in spaces if s.name.lower() in location.lower()]
+
+  return guessed_space[0] if guessed_space else None
