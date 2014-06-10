@@ -74,20 +74,21 @@ class EventManager(models.Manager):
 
     return self.filter(start__lte=now).filter(end__gte=now)
 
-  def search(self, space_name, area_name, search_string=None, start_date=None, end_date=None):
+  def search(self, space_name, area_name, search_string=None, start_date=None, end_date=None, year=None, month=None):
     filters = {}
     add_filter(filters, 'space__slug', 'contains',  space_name)
     add_filter(filters, 'areas__slug', 'contains',  area_name)
     add_filter(filters, 'title',       'icontains', search_string)
     add_filter(filters, 'start',       'gte',       start_date)
     add_filter(filters, 'end',         'lte',       end_date)
+    # Calendar-specific
+    add_filter(filters, 'start',       'year',      year)
+    add_filter(filters, 'start',       'month',     month)
 
     if len(filters) is 0:
       add_filter(filters, 'start', 'gte', timezone.now())
 
-    events = Event.objects.filter(**filters)
-
-    return events
+    return self.filter(**filters)
 
 
 EVENT_TITLE_LENGTH = 120

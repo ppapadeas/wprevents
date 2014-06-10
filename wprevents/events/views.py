@@ -7,7 +7,6 @@ from wprevents.events.models import Event, Space, FunctionalArea
 from wprevents.events.forms import SearchForm
 
 from month_manager import MonthManager
-from utils import sanitize_calendar_input
 
 
 def one(request, id, slug):
@@ -20,25 +19,16 @@ def one(request, id, slug):
 
 
 def render_index(request, template):
+  list_events = Event.objects.upcoming_events().order_by('-start')
+  list_events = list_events.select_related('space').prefetch_related('areas')
+
   now = timezone.now()
-
-  year, month = sanitize_calendar_input(
-    request.GET.get('year', now.year),
-    request.GET.get('month', now.month),
-    now
-  )
-
-  if not request.GET.get('year') and not request.GET.get('month'):
-    # On front page as list, show upcoming events
-    events = Event.objects.upcoming_events()
-  else:
-    events = Event.objects.of_given_month(year, month)
-
-  events = events.select_related('space').prefetch_related('areas').order_by('-start')
-  month_manager = MonthManager(year=year, month=month, events=events)
+  calendar_events = Event.objects.of_given_month(now.year, now.month)
+  calendar_events = calendar_events.select_related('space').prefetch_related('areas')
+  month_manager = MonthManager(year=now.year, month=now.month, events=calendar_events)
 
   return render(request, template, {
-    'events': events,
+    'list_events': list_events,
     'spaces': Space.objects.all(),
     'areas': FunctionalArea.objects.all(),
     'month_manager': month_manager
@@ -52,7 +42,7 @@ def calendar(request):
 
 
 @ajax_required
-def search(request):
+def filter_list(request):
   form = SearchForm(request.GET)
   events = []
 
@@ -64,24 +54,31 @@ def search(request):
       'start_date': form.cleaned_data.get('start'),
       'end_date': form.cleaned_data.get('end')
     }
+
     events = Event.objects.search(**search_params).order_by('-start')
 
   return render(request, 'list_content.html', {
-    'events': events
+    'list_events': events
   })
 
 
-def calendar_month(request):
+@ajax_required
+def filter_calendar(request):
+  form = SearchForm(request.GET)
+  events = []
   now = timezone.now()
 
-  year, month = sanitize_calendar_input(
-    request.GET.get('year', now.year),
-    request.GET.get('month', now.month),
-    now
-  )
+  if form.is_valid():
+    search_params = {
+      'space_name': form.cleaned_data['space'],
+      'area_name': form.cleaned_data['area'],
+      'search_string': form.cleaned_data['keyword'],
+      'year': form.cleaned_data.get('year', now.year),
+      'month': form.cleaned_data.get('month', now.month)
+    }
 
-  events = Event.objects.filter(start__year=year, start__month=month)
-  month_manager = MonthManager(year=year, month=month, events=events)
+    calendar_events = Event.objects.search(**search_params)
+    month_manager = MonthManager(year=search_params['year'], month=search_params['month'], events=calendar_events)
 
   return render(request, 'calendar_content.html', {
     'month_manager': month_manager

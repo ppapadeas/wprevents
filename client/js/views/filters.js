@@ -75,7 +75,7 @@ var FiltersView = Backbone.View.extend({
       this.$spaceFilter.val(id);
       this.refresh();
     } else {
-      console.error(id + ' was not found');
+      console.error('Filter value was not found:', id);
     }
   },
 

@@ -16,16 +16,24 @@ var CalendarView = Backbone.View.extend({
     this.$content = this.$('.js-content');
     this.$nav = this.$('.js-cal-nav');
 
+    this.filters = {};
     this.isSliding = false;
 
     this.initEventViews();
   },
 
   getMonth: function(year, month) {
-    return $.get('/calendar_month?' + $.param({
-      year: year,
-      month: month
-    }));
+    var filters = _.clone(this.filters);
+
+    // Ignore start date and end date filters in calendar
+    delete filters.start;
+    delete filters.end;
+
+    // Add calendar-specific filters
+    filters.year = year;
+    filters.month = month;
+
+    return $.get('/filter_calendar?' + $.param(filters));
   },
 
   getNextMonth: function() {
@@ -72,7 +80,8 @@ var CalendarView = Backbone.View.extend({
 
     this.isSliding = true;
 
-    this.updateNav($html);
+    this.$nav.replaceWith($html);
+    this.updateNavProperties();
 
     this.$destination.one('webkitAnimationEnd animationend oAnimationEnd', this.onSlideEnd.bind(this));
   },
@@ -87,8 +96,7 @@ var CalendarView = Backbone.View.extend({
     this.isSliding = false;
   },
 
-  updateNav: function($html) {
-    this.$nav.replaceWith($html);
+  updateNavProperties: function() {
     this.$nav = this.$('.js-cal-nav');
     this.$prev = this.$('.js-prev');
     this.$next = this.$('.js-next');
@@ -103,7 +111,17 @@ var CalendarView = Backbone.View.extend({
   },
 
   update: function(filters) {
-    // TODO: XHR to update calendar
+    var current_year = this.$title.data('year');
+    var current_month = this.$title.data('month');
+
+    this.filters = filters;
+    this.getMonth(current_year, current_month).done(function(html) {
+      this.$el.html(html);
+      this.$wrapper = this.$('.js-wrapper');
+      this.$content = this.$('.js-content');
+      this.updateNavProperties();
+      this.initEventViews();
+    }.bind(this));
   },
 
   show: function() {
