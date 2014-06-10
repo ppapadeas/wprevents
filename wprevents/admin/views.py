@@ -18,7 +18,7 @@ import import_ical
 def events_list(request):
   order_by = request.GET.get('order_by', '-start')
 
-  event_list = Event.objects.all().order_by(order_by)
+  event_list = Event.objects.all().order_by(order_by).select_related('space').prefetch_related('areas')
   paginator = Paginator(event_list, 20) # Mockup/spec: 22 items per page
 
   page = request.GET.get('page')

@@ -11,7 +11,7 @@ from utils import sanitize_calendar_input
 
 
 def one(request, id, slug):
-  event = get_object_or_404(Event, id=id)
+  event = get_object_or_404(Event.objects.select_related('space').prefetch_related('areas'), id=id)
 
   return render(request, 'event.html', {
     'event': event,
@@ -34,7 +34,7 @@ def render_index(request, template):
   else:
     events = Event.objects.of_given_month(year, month)
 
-  events = events.order_by('-start')
+  events = events.select_related('space').prefetch_related('areas').order_by('-start')
   month_manager = MonthManager(year=year, month=month, events=events)
 
   return render(request, template, {
