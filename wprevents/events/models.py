@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 
 from django.utils import text, timezone
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 
 from uuslug import uuslug as slugify
@@ -108,7 +107,6 @@ class Event(models.Model):
   end = models.DateTimeField(default=timezone.now)
 
   space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted', on_delete=models.SET_NULL)
-  owner = models.ForeignKey(User, null=True, blank=True, related_name='events_created') # todo: remove null/blank
 
   areas = models.ManyToManyField(FunctionalArea, blank=True)
 

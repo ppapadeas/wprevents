@@ -129,7 +129,6 @@
     "modified": "2014-05-14T07:25:30",
     "start": "2014-06-04T03:00:00",
     "details": "",
-    "owner": null,
     "slug": "awesome-firefox-presentation",
     "areas": [
       2
@@ -148,7 +147,6 @@
     "modified": "2014-05-14T07:50:11",
     "start": "2014-05-14T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "global-game-jam-hackathon",
     "areas": [
       1,
@@ -168,7 +166,6 @@
     "modified": "2014-05-14T07:50:11",
     "start": "2014-10-12T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "webgl-meetup",
     "areas": [
       4,
@@ -188,7 +185,6 @@
     "modified": "2014-05-14T07:50:11",
     "start": "2014-11-27T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "firefox-enthusiasts",
     "areas": [
       2,
@@ -208,7 +204,6 @@
     "modified": "2014-09-14T07:50:11",
     "start": "2014-12-01T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "ubuntu-party",
     "areas": [
       1,
@@ -228,7 +223,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-11-12T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "training-session",
     "areas": [
       3
@@ -247,7 +241,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-19T14:00:00",
     "details": "",
-    "owner": null,
     "slug": "next-gen-javascript",
     "areas": [
       5
@@ -266,7 +259,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-19T14:00:00",
     "details": "",
-    "owner": null,
     "slug": "next-generation-javascript",
     "areas": [
       5
@@ -285,7 +277,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-24T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "duplicate-candidate",
     "areas": [
       1
@@ -304,7 +295,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-24T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "duplicate-candidate",
     "areas": [
       1
@@ -323,7 +313,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-24T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "duplicate-candidate",
     "areas": [
       1
@@ -342,7 +331,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-07-24T10:00:00",
     "details": "",
-    "owner": null,
     "slug": "bugzilla-development-meeting",
     "areas": [
       1,
@@ -363,7 +351,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-05-23T10:00:00",
     "details": "",
-    "owner": null,
     "slug": "webmaker-demos-may-23",
     "areas": [
       3
@@ -382,7 +369,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-05-16T10:00:00",
     "details": "",
-    "owner": null,
     "slug": "webmaker-demos-may-16",
     "areas": [
       3
@@ -401,7 +387,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-05-09T10:00:00",
     "details": "",
-    "owner": null,
     "slug": "webmaker-demos-may-09",
     "areas": [
       3
@@ -420,7 +405,6 @@
     "modified": "2014-06-04T04:23:36",
     "start": "2014-06-21T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "the-web-we-want",
     "areas": [
       1,
@@ -440,7 +424,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-21T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "engineering-meeting",
     "areas": [
       1
@@ -459,7 +442,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-21T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "australis-the-journey",
     "areas": [
       1
@@ -478,7 +460,6 @@
     "modified": "2014-06-04T04:24:40",
     "start": "2014-06-21T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "mozilla-as-a-maker-building-hardware",
     "areas": [
       6
@@ -497,7 +478,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-21T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "macaroons-cookies-with-contextual-caveats-for-decentralized-authorization-in-the-cloud",
     "areas": [
       1
@@ -516,7 +496,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-06-13T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "javascript-promises",
     "areas": [
       1
@@ -535,7 +514,6 @@
     "modified": "2014-02-14T07:50:11",
     "start": "2014-05-19T15:00:00",
     "details": "",
-    "owner": null,
     "slug": "graph-toronto-meetup-may-2014",
     "areas": [
       1
@@ -554,7 +532,6 @@
     "modified": "2014-06-04T07:01:04",
     "start": "2014-06-01T07:00:00",
     "details": "",
-    "owner": null,
     "slug": "june-event",
     "areas": [
       6
@@ -573,7 +550,6 @@
     "modified": "2014-06-04T07:01:56",
     "start": "2014-06-09T15:45:00",
     "details": "",
-    "owner": null,
     "slug": "monday-event",
     "areas": [
       2,
@@ -593,7 +569,6 @@
     "modified": "2014-06-04T07:02:37",
     "start": "2014-06-25T07:00:00",
     "details": "",
-    "owner": null,
     "slug": "last-event-of-june",
     "areas": [
       4
@@ -612,7 +587,6 @@
     "modified": "2014-06-04T07:04:53",
     "start": "2014-06-06T17:00:00",
     "details": "",
-    "owner": null,
     "slug": "grid-event-one",
     "areas": [
       2
@@ -631,7 +605,6 @@
     "modified": "2014-06-04T07:04:53",
     "start": "2014-06-06T17:00:00",
     "details": "",
-    "owner": null,
     "slug": "grid-event-two",
     "areas": [
       2
@@ -650,7 +623,6 @@
     "modified": "2014-06-04T07:04:53",
     "start": "2014-06-06T17:00:00",
     "details": "",
-    "owner": null,
     "slug": "grid-event-three",
     "areas": [
       2
@@ -669,7 +641,6 @@
     "modified": "2014-06-04T07:04:53",
     "start": "2014-06-06T17:00:00",
     "details": "",
-    "owner": null,
     "slug": "grid-event-four",
     "areas": [
       2
@@ -688,7 +659,6 @@
     "modified": "2014-06-04T07:04:53",
     "start": "2014-06-06T17:00:00",
     "details": "",
-    "owner": null,
     "slug": "grid-event-five",
     "areas": [
       2
@@ -707,7 +677,6 @@
     "modified": "2014-06-04T07:04:53",
     "start": "2014-06-06T17:00:00",
     "details": "",
-    "owner": null,
     "slug": "grid-event-six",
     "areas": [
       2
@@ -726,7 +695,6 @@
     "modified": "2014-06-04T07:04:53",
     "start": "2014-06-06T17:00:00",
     "details": "",
-    "owner": null,
     "slug": "grid-event-seven",
     "areas": [
       2
@@ -745,7 +713,6 @@
     "modified": "2014-06-04T07:04:53",
     "start": "2014-06-06T17:00:00",
     "details": "",
-    "owner": null,
     "slug": "grid-event-eight",
     "areas": [
       2
