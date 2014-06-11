@@ -70,13 +70,11 @@ def event_delete(request):
 @permission_required('events.can_administrate_events')
 @ajax_required
 def event_dedupe(request, id=None):
-  event = Event.objects.get(id=id)
-
-  if request.method == 'POST':
-    event.remove_duplicate(request.POST.get('duplicate_id'))
-    return HttpResponseRedirect(reverse('event_dedupe', args=[event.id]))
-
-  events = event.get_duplicate_candidates(request.GET.get('q', ''))
+  try:
+    event = Event.objects.get(id=id)
+    events = event.get_duplicate_candidates(request.GET.get('q', ''))
+  except Event.DoesNotExist:
+    events = []
 
   return render(request, 'event_dedupe.html', {
     'event': event,
