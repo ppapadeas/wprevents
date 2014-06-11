@@ -22,8 +22,7 @@ var FormModalView = ModalView.extend({
       success: function(response) {
         if (response.status === 'error') {
           this.clearErrors();
-          _.each(response.errors, this.addError.bind(this));
-          this.enableSubmitButton();
+          this.onError(response.errors);
         } else if (response.status === 'success') {
           this.onSuccess(response);
         }
@@ -45,6 +44,11 @@ var FormModalView = ModalView.extend({
 
   disableSubmitButton: function() {
     this.$button.prop("disabled", true);
+  },
+
+  onError: function(errors) {
+    _.each(errors, this.addError.bind(this));
+    this.enableSubmitButton();
   },
 
   onSuccess: function() {

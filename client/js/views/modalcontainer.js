@@ -11,7 +11,7 @@ var ModalContainerView = Backbone.View.extend({
   },
 
   closeOnOutsideClick: function(e) {
-    if (this.modal && this.$el.is(e.target)) {
+    if (this.modal && this.$el.is(e.target) && this.modal.closable) {
       this.closeCurrentModal();
     }
   },

@@ -25,4 +25,18 @@
     color: $buttonGreenDark;
     font-weight: bold;
   }
+
+  .button {
+    float: left;
+  }
+
+  .spinner {
+    background: url('#{$staticUrl}spinner.gif') no-repeat 0 0;
+    float: left;
+    margin-left: 10px;
+    height: 32px;
+    width: 32px;
+    position: relative;
+    top: 7px;
+  }
 }
