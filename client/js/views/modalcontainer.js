@@ -29,12 +29,16 @@ var ModalContainerView = Backbone.View.extend({
   },
 
   setCurrentModal: function(ModalType, path) {
+    var topMargin = 150;
+    var scrollTop = $(window).scrollTop();
+
     // Load HTML then create view object asynchronously
     $.get(path).done(function(html) {
       this.$el.html(html);
       this.showBackground();
 
       this.modal = new ModalType({ el: this.$('.js-modal') });
+      this.modal.$el.css('marginTop', topMargin + scrollTop);
       this.modal.on('close', this.closeCurrentModal.bind(this));
     }.bind(this));
   },
