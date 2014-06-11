@@ -87,9 +87,11 @@ var MapView = Backbone.View.extend({
       this.trigger('ready');
     }.bind(this));
 
-    map.featureLayer.on('click', this.onMarkerClick.bind(this));
-    map.featureLayer.on('mouseover', this.onMarkerMouseOver.bind(this));
-    map.featureLayer.on('mouseout', this.onMarkerMouseOut.bind(this));
+    if (this.$el.hasClass('js-world')) {
+      map.featureLayer.on('click', this.onMarkerClick.bind(this));
+      map.featureLayer.on('mouseover', this.onMarkerMouseOver.bind(this));
+      map.featureLayer.on('mouseout', this.onMarkerMouseOut.bind(this));
+    }
   },
 
   onMarkerMouseOver: function(e) {
