@@ -16,7 +16,7 @@
 
     {{ browserid_css() }}
   </head>
-  <body data-mobile-cookie="{{ settings.MOBILE_COOKIE }}">
+  <body data-mobile-cookie="{{ settings.MOBILE_COOKIE }}" class="{{ body_class }}">
     {{ browserid_info() }}
 
     {% block page %}

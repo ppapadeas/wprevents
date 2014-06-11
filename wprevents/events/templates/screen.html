@@ -1,5 +1,7 @@
 {% extends "index.html" %}
 
+{% set body_class = 'screen' %}
+
 {% block page %}
   <div id="outer-wrapper" class="screen">
 
@@ -28,7 +30,7 @@
 
           <div class="event-focus">
 
-            {% set event = events[2] %}
+            {% set event = list_events[2] %}
 
           <header class="event-header billboard js-event-header">
               <div class="event-date column col-2">

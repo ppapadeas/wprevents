@@ -89,5 +89,5 @@ def screen(request):
   events = Event.objects.all().order_by('-start')[:10]
 
   return render(request, 'screen.html', {
-    'events': events
+    'list_events': events
   })

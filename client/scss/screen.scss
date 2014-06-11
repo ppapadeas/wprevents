@@ -1,4 +1,9 @@
+body.screen {
+  background: url('#{$mozCdnUrl}media/img/sandstone/bg-sand.png') repeat 0 0;
+}
+
 .screen {
+
   .width-container {
     width: auto;
     margin: 0 4%;
@@ -7,6 +12,7 @@
 
   .screen-content {
     @include clearfix;
+    margin-top: 30px;
   }
 
   .upcoming-events {
@@ -53,6 +59,14 @@
   }
 
   @media screen and (max-width: 1900px) {
+    h1.logo {
+      margin-top: -20px;
+    }
+
+    .screen-content {
+      margin-top: 10px;
+    }
+
     .event-info {
       width: 50%;
     }
