@@ -83,3 +83,11 @@ def filter_calendar(request):
   return render(request, 'calendar_content.html', {
     'month_manager': month_manager
   })
+
+
+def screen(request):
+  events = Event.objects.all().order_by('-start')[:10]
+
+  return render(request, 'screen.html', {
+    'events': events
+  })

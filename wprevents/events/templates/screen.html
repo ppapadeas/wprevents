@@ -1,0 +1,87 @@
+{% extends "index.html" %}
+
+{% block page %}
+  <div id="outer-wrapper" class="screen">
+
+    <div id="inner-wrapper">
+
+      <header class="masthead click-through">
+        <div class="width-container">
+          <!-- Universal Mozilla tab -->
+          <a href="https://www.mozilla.org/" id="tabzilla">mozilla</a>
+        </div>
+      </header>
+
+      <div class="logo-nav width-container click-through">
+        <h1 class="logo"><a href="/"><span class="metabold">mozilla</span> events</a></h1>
+      </div>
+
+      <!-- <div id="map" class="js-fullscreen"></div> -->
+
+      {% block content %}
+        <div class="width-container screen-content">
+          <div class="upcoming-events">
+            <ul class="event-list">
+              {% include "list_content.html" %}
+            </ul>
+          </div>
+
+          <div class="event-focus">
+
+            {% set event = events[2] %}
+
+          <header class="event-header billboard js-event-header">
+              <div class="event-date column col-2">
+                <div class="day">{{ event.start_day }}</div>
+                <div class="monthyear">
+                  <div class="month">{{ event.start_month }}</div>
+                  <div class="year">{{ event.start.year }}</div>
+                </div>
+              </div>
+              <div class="column col-6">
+                <h2 class="oslight">{{ event.title }}</h2>
+              </div>
+
+              <div class="event-meta column col-2">
+                <div class="event-space js-event-space" data-space="{{ event.space.slug }}">{{ event.space }}</div>
+                <div class="event-areas count-{{ event.areas.all().count() }}">
+                  {% for area in event.areas.all() %}
+                  <div class="event-area {{ area.color }}">{{ area.name }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+          </header>
+
+          <div class="event-content row">
+            <div class="billboard row">
+              <div>
+                <h4>Description</h4>
+                <div class="event-desription">
+                  {% if event.description %}
+                    <p>{{ event.description }}</p>
+                  {% else %}
+                    <p class="light">No description available.</p>
+                  {% endif %}
+                </div>
+
+                <h4>Details</h4>
+                <div class="event-details">
+                  {% if event.details %}
+                    <p>{{ event.details }}</p>
+                  {% else %}
+                    <p class="light">There are no details for this event yet.</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </div>
+
+        </div>
+      {% endblock %}
+
+    </div>
+
+  </div>
+{% endblock %}

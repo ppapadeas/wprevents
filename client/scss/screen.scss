@@ -1,0 +1,82 @@
+.screen {
+  .width-container {
+    width: auto;
+    margin: 0 4%;
+    max-width: none;
+  }
+
+  .screen-content {
+    @include clearfix;
+  }
+
+  .upcoming-events {
+    width: 48.5%;
+    float: left;
+  }
+
+  .event-focus {
+    width: 48.5%;
+    float: left;
+    margin-left: 3%;
+  }
+
+  .event-header {
+    margin-top: 0;
+    float: none;
+
+    .col-6 {
+      width: 65%;
+    }
+  }
+
+  [class*="col-"] {
+    width: auto;
+    left: auto;
+  }
+
+  .event-meta {
+    float: right;
+    width: 120px;
+  }
+
+  .event-date {
+    padding-top: 0;
+
+    .day {
+      padding-right: 10px;
+      text-align: left;
+    }
+  }
+
+  .event-info {
+    width: 60%;
+  }
+
+  @media screen and (max-width: 1900px) {
+    .event-info {
+      width: 50%;
+    }
+
+    .event-date {
+      .day {
+        font-size: 40px;
+      }
+
+      .monthyear {
+        padding-top: 6px;
+      }
+
+      .month {
+        font-size: 18px;
+      }
+
+      .year {
+        font-size: 16px;
+      }
+    }
+
+    .event-header .col-6 {
+      width: 50%;
+    }
+  }
+}

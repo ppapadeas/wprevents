@@ -36,34 +36,32 @@
     </div>
 
     <div class="billboard row">
-      <div class="column col-12">
-        <div>
-          <h4>Description</h4>
-          <div class="event-desription">
-            {{ event.description }}
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh.</p>
-          </div>
-
-          <h4>Details</h4>
-          <div class="event-details">
-            {{ event.details }}
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh. Nulla sodales vehicula arcu sit amet vulputate. Nulla vulputate posuere massa. Phasellus fringilla posuere dapibus. Etiam sed lectus elit. Morbi vitae elementum orci. Nunc ultricies sem eu sapien mollis, vel bibendum libero gravida. Sed porttitor ante quis lacus suscipit accumsan. Etiam rutrum felis eget euismod molestie. Aliquam vitae ornare augue. Vestibulum nisi eros, egestas at felis at, feugiat viverra lorem. Donec suscipit nibh id turpis sagittis posuere. Cras consectetur leo quis aliquam lacinia. Fusce hendrerit euismod ornare. Proin blandit aliquam metus.</p>
-            <ul>
-              <li>Maecenas auctor rhoncus orci</li>
-              <li>Consectetur adipiscing elit</li>
-              <li>Ut placerat lorem a ligula</li>
-              <li>Ac luctus nibh</li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh.</p>
-          </div>
+      <div>
+        <h4>Description</h4>
+        <div class="event-desription">
+          {{ event.description }}
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh.</p>
         </div>
 
-        <div class="button-group pull-right">
-          <a href="{{ url("api_dispatch_detail", api_name='v1', resource_name="event", pk=event.id) }}?format=ical" class="button">iCal</a>
-          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ event_absolute_url }}" class="button">Facebook</a>
-          <a target="_blank" href="https://twitter.com/share?url={{ event_absolute_url }}&amp;text={{ event.title|urlencode }}%20at%20Mozspace%20{{ event.space }}%20on%20{{ event.start_month }}%20{{ event.start_day }}" class="button">Twitter</a>
-          <a target="_blank" href="https://plus.google.com/share?url={{ event_absolute_url }}&amp;hl=en-US" class="button">Google+</a>
+        <h4>Details</h4>
+        <div class="event-details">
+          {{ event.details }}
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh. Nulla sodales vehicula arcu sit amet vulputate. Nulla vulputate posuere massa. Phasellus fringilla posuere dapibus. Etiam sed lectus elit. Morbi vitae elementum orci. Nunc ultricies sem eu sapien mollis, vel bibendum libero gravida. Sed porttitor ante quis lacus suscipit accumsan. Etiam rutrum felis eget euismod molestie. Aliquam vitae ornare augue. Vestibulum nisi eros, egestas at felis at, feugiat viverra lorem. Donec suscipit nibh id turpis sagittis posuere. Cras consectetur leo quis aliquam lacinia. Fusce hendrerit euismod ornare. Proin blandit aliquam metus.</p>
+          <ul>
+            <li>Maecenas auctor rhoncus orci</li>
+            <li>Consectetur adipiscing elit</li>
+            <li>Ut placerat lorem a ligula</li>
+            <li>Ac luctus nibh</li>
+          </ul>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh.</p>
         </div>
+      </div>
+
+      <div class="button-group pull-right">
+        <a href="{{ url("api_dispatch_detail", api_name='v1', resource_name="event", pk=event.id) }}?format=ical" class="button">iCal</a>
+        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ event_absolute_url }}" class="button">Facebook</a>
+        <a target="_blank" href="https://twitter.com/share?url={{ event_absolute_url }}&amp;text={{ event.title|urlencode }}%20at%20Mozspace%20{{ event.space }}%20on%20{{ event.start_month }}%20{{ event.start_day }}" class="button">Twitter</a>
+        <a target="_blank" href="https://plus.google.com/share?url={{ event_absolute_url }}&amp;hl=en-US" class="button">Google+</a>
       </div>
     </div>
   </div>
