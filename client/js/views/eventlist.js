@@ -2,23 +2,23 @@ var Backbone = require('backbone');
 
 var EventListView = Backbone.View.extend({
   events: {
-    "mouseenter .event": 'onMouseEnterEvent',
-    "mouseleave .event": 'onMouseLeaveEvent'
+    "mouseenter .js-event": 'onMouseEnterEvent',
+    "mouseleave .js-event": 'onMouseLeaveEvent'
   },
 
   initialize: function() {
-    this.$events = this.$('.event');
+    this.$events = this.$('.js-event');
 
     this.token = $("form [name='csrfmiddlewaretoken']").val();
   },
 
   onMouseEnterEvent: function(e) {
-    var space = $(e.target).closest('.event').data('space');
+    var space = $(e.target).closest('.js-event').data('space');
     this.trigger('mouseEnterEvent', space);
   },
 
   onMouseLeaveEvent: function(e) {
-    var space = $(e.target).closest('.event').data('space');
+    var space = $(e.target).closest('.js-event').data('space');
     this.trigger('mouseLeaveEvent', space);
   },
 

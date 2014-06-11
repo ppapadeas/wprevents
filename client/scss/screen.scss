@@ -3,6 +3,18 @@ body.screen {
 }
 
 .screen {
+  li.event {
+    cursor: pointer;
+
+    &:hover,
+    &.active {
+      background: $linkSkyBlue;
+
+      * {
+        color: #fff;
+      }
+    }
+  }
 
   .width-container {
     width: auto;
@@ -20,10 +32,18 @@ body.screen {
     float: left;
   }
 
-  .event-focus {
+  .event-info-container {
     width: 48.5%;
     float: left;
     margin-left: 3%;
+  }
+
+  .event-content {
+    display: none;
+
+    &.active {
+      display: block;
+    }
   }
 
   .event-header {
@@ -32,6 +52,10 @@ body.screen {
 
     .col-6 {
       width: 65%;
+    }
+
+    .event-meta {
+      display: none;
     }
   }
 
