@@ -27,14 +27,14 @@ def analyze_data(data):
   cal = parse_data(filter_chars(data))
 
   try:
-    events = bulk_create_events(cal)
+    events, skipped = bulk_create_events(cal)
   except transaction.TransactionManagementError, e:
     transaction.rollback()
     raise Error('An error with the database transaction occured while bulk inserting events')
   except Exception, e:
     raise Error('An error occurred while bulk inserting events: ' + str(e))
 
-  return events
+  return events, skipped
 
 
 def fetch_url(url):
@@ -76,10 +76,12 @@ def bulk_create_events(cal):
 
   # Prepare batch create by looping through ical events, filtering out duplicates
   events_to_create = []
+  skipped = 0
   for e in ical_events:
     title = e.get('summary')
     # Filter out duplicate events
     if any(x.title == title for x in duplicate_events):
+      skipped += 1
       continue
 
     start = timezone.make_naive(e.get('dtstart').dt, default_timezone)
@@ -120,7 +122,7 @@ def bulk_create_events(cal):
 
   transaction.commit()
 
-  return created_events
+  return created_events, skipped
 
 
 def guess_space(location, spaces):

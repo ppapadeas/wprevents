@@ -97,6 +97,9 @@ def event_import_ical(request):
     url = form.cleaned_data['url']
     file = form.cleaned_data['file']
 
+    if not url and not file:
+      return { 'status': 'error', 'errors': { '1': 'Import field cannot be empty' } }
+
     try:
       if url:
         imported_events = import_ical.from_url(url)
