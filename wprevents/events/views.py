@@ -65,7 +65,6 @@ def filter_list(request):
 @ajax_required
 def filter_calendar(request):
   form = SearchForm(request.GET)
-  events = []
   now = timezone.now()
 
   if form.is_valid():
