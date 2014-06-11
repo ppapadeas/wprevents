@@ -20,7 +20,7 @@
       </div>
     </form>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" action="{{ url('event_import_ical') }}">
       {{ csrf() }}
       <div class="row">
         <label for="file">File</label>
