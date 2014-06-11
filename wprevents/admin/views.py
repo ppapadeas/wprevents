@@ -95,17 +95,12 @@ def event_import_ical(request):
 
   if form.is_valid():
     url = form.cleaned_data['url']
-    file = form.cleaned_data['file']
 
-    if not url and not file:
-      return { 'status': 'error', 'errors': { '1': 'Import field cannot be empty' } }
+    if not url:
+      return { 'status': 'error', 'errors': { '1': 'URL field cannot be empty' } }
 
     try:
-      if url:
-        imported_events, skipped = import_ical.from_url(url)
-
-      if file:
-        imported_events, skipped = import_ical.from_file(file)
+      imported_events, skipped = import_ical.from_url(url)
 
     except import_ical.Error as e:
       return { 'status': 'error', 'errors': { '1': str(e) } }

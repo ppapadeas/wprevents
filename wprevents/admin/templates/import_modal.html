@@ -20,18 +20,5 @@
       </div>
     </form>
 
-    <form method="POST" enctype="multipart/form-data" action="{{ url('event_import_ical') }}">
-      {{ csrf() }}
-      <div class="row">
-        <label for="file">File</label>
-        <div class="field">
-          <input type="file" name="file">
-          <div class="button-container">
-            <input type="submit" value="Import from file" class="button js-button">
-          </div>
-        </div>
-      </div>
-    </form>
-
   </div>
 </div>

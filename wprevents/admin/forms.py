@@ -85,4 +85,3 @@ class FunctionalAreaForm(ModelForm):
 
 class ImportEventForm(forms.Form):
   url = forms.CharField(required=False)
-  file = forms.CharField(required=False)

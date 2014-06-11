@@ -19,10 +19,6 @@ def from_url(url):
   return analyze_data(fetch_url(url))
 
 
-def from_file(ical_file):
-  return analyze_data(ical_file.read())
-
-
 def analyze_data(data):
   cal = parse_data(filter_chars(data))
 
