@@ -3,35 +3,45 @@
     Deduplicate {{ event.title }}
   </h3>
 
-  {{ event.title }} in {{ event.space.name }} scheduled for {{ event.start }} is a duplicate of:
+  {% if events|length > 0 %}
+    <p class="intro">{{ event.title }} in {{ event.space.name }} scheduled for {{ event.start.strftime('%Y-%m-%d') }} is a duplicate of:</p>
+  {% else %}
+    <p class="intro">No possible duplicates found for this event.</p>
+  {% endif %}
 
-  <table class="admin-table fill-width">
-    <thead>
-      <tr>
-        <th>Event name</th>
-        <th>Space</th>
-        <th>Date</th>
-        <th>Area</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+  <div class="filter">
+    <input type="text" class="js-name-filter fill-width" value="" placeholder="Filter by event name">
+  </div>
 
-    <tbody>
-      {% for event in events %}
-      <tr>
-        <td>{{ event.title }}</td>
-        <td>{{ event.space }}</td>
-        <td>{{ event.start.strftime('%Y-%m-%d') }}</td>
-        <td>{{ event.area_names|join(', ') }}</td>
-        <td>
-          <form method="post">
-            {{ csrf() }}
-            <input type="hidden" name="duplicate_id" value="{{ event.id }}">
-            <input type="submit" value="dupe">
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  {% if events|length > 0 %}
+    <table class="admin-table fill-width">
+      <thead>
+        <tr>
+          <th>Event name</th>
+          <th>Space</th>
+          <th>Date</th>
+          <th>Area</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for event in events %}
+        <tr>
+          <td>{{ event.title }}</td>
+          <td>{{ event.space }}</td>
+          <td>{{ event.start.strftime('%Y-%m-%d') }}</td>
+          <td>{{ event.area_names|join(', ') }}</td>
+          <td>
+            <form method="post">
+              {{ csrf() }}
+              <input type="hidden" name="duplicate_id" value="{{ event.id }}">
+              <input type="submit" value="dupe">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
 </div>
