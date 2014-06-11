@@ -7,7 +7,7 @@ var ModalView = Backbone.View.extend({
   },
 
   initialize: function() {
-
+    this.closable = true;
   },
 
   close: function() {
