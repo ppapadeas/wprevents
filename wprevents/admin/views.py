@@ -102,17 +102,18 @@ def event_import_ical(request):
 
     try:
       if url:
-        imported_events = import_ical.from_url(url)
+        imported_events, skipped = import_ical.from_url(url)
 
       if file:
-        imported_events = import_ical.from_file(file)
+        imported_events, skipped = import_ical.from_file(file)
 
     except import_ical.Error as e:
       return { 'status': 'error', 'errors': { '1': str(e) } }
     except Exception, e:
       return { 'status': 'error', 'errors': { '1': str(e) } }
 
-    message = 'Successfully imported ' + str(len(imported_events)) + ' events'
+    message = 'Import successful: ' + str(len(imported_events)) + ' events created, '+ str(skipped) +' events skipped'
+
     return {
       'status': 'success',
       'message': message
