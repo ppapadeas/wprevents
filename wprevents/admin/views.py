@@ -58,10 +58,7 @@ def event_edit(request, id=None):
 
 @permission_required('events.can_administrate_events')
 def event_delete(request):
-  event = Event.objects.get(id=request.POST.get('id'))
-
-  if event:
-    event.delete()
+  Event.objects.delete_by_id(id=request.POST.get('id'))
 
   query_string = request.META.get('QUERY_STRING', '')
   query_string = '?' + query_string if query_string else ''
@@ -143,10 +140,7 @@ def space_edit(request, id=None):
 
 @permission_required('events.can_administrate_spaces')
 def space_delete(request):
-  space = Space.objects.get(id=request.POST.get('id'))
-
-  if space:
-    space.delete()
+  Space.objects.delete_by_id(id=request.POST.get('id'))
 
   return HttpResponseRedirect(reverse('space_all'))
 
@@ -177,7 +171,6 @@ def area_edit(request, id=None):
 
 @permission_required('events.can_administrate_functional_areas')
 def area_delete(request):
-  area = FunctionalArea.objects.get(id=request.POST.get('id'))
-  area.delete()
+  FunctionalArea.objects.delete_by_id(id=request.POST.get('id'))
 
   return HttpResponseRedirect(reverse('area_all'))

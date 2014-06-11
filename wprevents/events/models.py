@@ -9,7 +9,17 @@ from uuslug import uuslug as slugify
 from utils import add_filter
 
 
+class CustomManager(models.Manager):
+  def delete_by_id(self, id):
+    try:
+      self.model.objects.get(id=id).delete()
+    except self.model.DoesNotExist:
+      pass
+
+
 class FunctionalArea(models.Model):
+  objects = CustomManager()
+
   name = models.CharField(max_length=120, blank=False)
   slug = models.SlugField(max_length=50, blank=False)
   color = models.CharField(max_length=20, blank=False, default="red-1")
@@ -24,6 +34,8 @@ class FunctionalArea(models.Model):
 
 
 class Space(models.Model):
+  objects = CustomManager()
+
   COUNTRIES = settings.COUNTRIES.items()
 
   name = models.CharField(max_length=120)
@@ -58,7 +70,7 @@ class Space(models.Model):
     return self.get_country_display()
 
 
-class EventManager(models.Manager):
+class EventManager(CustomManager):
   def past_events(self):
     return self.filter(end__lte=timezone.now())
 
@@ -148,9 +160,6 @@ class Event(models.Model):
     duplicate_candidates = Event.objects.filter(start__gte=event_day).filter(end__lte=day_after_event).exclude(id=self.id).filter(title__icontains=q)
 
     return duplicate_candidates
-
-  def remove_duplicate(self, id):
-    Event.objects.filter(id=id).delete()
 
   @property
   def area_names(self):
