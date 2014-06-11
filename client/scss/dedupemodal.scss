@@ -1,0 +1,12 @@
+.dedupe-event-modal {
+  .admin-table tr > td:first-of-type {
+    max-width: 200px;
+  }
+
+  tr > td:nth-child(4) {
+    max-width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
