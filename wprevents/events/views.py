@@ -19,7 +19,7 @@ def one(request, id, slug):
 
 
 def render_index(request, template):
-  list_events = Event.objects.upcoming_events().order_by('-start')
+  list_events = Event.objects.upcoming_events().order_by('start')
   list_events = list_events.select_related('space').prefetch_related('areas')
 
   now = timezone.now()
@@ -55,7 +55,7 @@ def filter_list(request):
       'end_date': form.cleaned_data.get('end')
     }
 
-    events = Event.objects.search(**search_params).order_by('-start')
+    events = Event.objects.search(**search_params).order_by('start')
 
   return render(request, 'list_content.html', {
     'list_events': events

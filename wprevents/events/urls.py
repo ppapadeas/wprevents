@@ -8,5 +8,5 @@ urlpatterns = patterns('',
   url(r'^filter_calendar$', views.filter_calendar, name='event_filter_calendar'),
   url(r'^$', views.list, name='event_list'),
   url(r'^e/(?P<id>\w+)/(?P<slug>[a-z0-9-]+)$', views.one, name='event_one'),
-  url(r'^screen$', views.screen, name='event_screen'),
+  url(r'^screen/(?P<slug>[a-z0-9-]+)$', views.screen, name='event_screen'),
 )
