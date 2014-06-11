@@ -4,8 +4,9 @@ var CalendarEventView = require('./calendarevent');
 
 var CalendarView = Backbone.View.extend({
   events: {
-    'click .js-prev': 'onClickPrev',
-    'click .js-next': 'onClickNext'
+    'click .js-prev': 'showPreviousMonth',
+    'click .js-next': 'showNextMonth',
+    'click .js-day':  'showEventsOfDay'
   },
 
   initialize: function() {
@@ -44,7 +45,7 @@ var CalendarView = Backbone.View.extend({
     return this.getMonth(this.$prev.data('year'), this.$prev.data('month'));
   },
 
-  onClickNext: function(e) {
+  showNextMonth: function(e) {
     e.preventDefault();
 
     if (!this.isSliding) {
@@ -54,7 +55,7 @@ var CalendarView = Backbone.View.extend({
     }
   },
 
-  onClickPrev: function(e) {
+  showPreviousMonth: function(e) {
     e.preventDefault();
 
     if (!this.isSliding) {
@@ -62,6 +63,14 @@ var CalendarView = Backbone.View.extend({
         this.slide('backward', html);
       }.bind(this));
     }
+  },
+
+  showEventsOfDay: function(e) {
+    var date = $(e.target).data('date');
+
+    e.preventDefault();
+
+    this.trigger('filterDate', date);
   },
 
   slide: function(direction, html) {

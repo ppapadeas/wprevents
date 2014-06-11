@@ -59,6 +59,12 @@ var App = Backbone.Router.extend({
     this.views.list.on('mouseLeaveEvent', function(space) {
       this.views.map.unHighlightAllMarkers(space);
     }, this);
+
+    this.views.calendar.on('filterDate', function(date) {
+      this.views.filters.setDates(date);
+      this.views.filters.refresh();
+      this.navigate('', { trigger: true });
+    }, this);
   },
 
   list: function() {

@@ -79,6 +79,10 @@ var FiltersView = Backbone.View.extend({
     }
   },
 
+  setDates: function(date) {
+    this.$dateFilters.val(date);
+  },
+
   refresh: function() {
     var filters = {};
 
