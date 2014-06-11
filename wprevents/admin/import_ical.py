@@ -28,6 +28,9 @@ def analyze_data(data):
 
   try:
     events = bulk_create_events(cal)
+  except transaction.TransactionManagementError, e:
+    transaction.rollback()
+    raise Error('An error with the database transaction occured while bulk inserting events')
   except Exception, e:
     raise Error('An error occurred while bulk inserting events: ' + str(e))
 
