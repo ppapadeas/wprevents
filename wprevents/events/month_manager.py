@@ -42,3 +42,7 @@ class MonthManager(object):
   @property
   def year_of_next_month(self):
     return self.year + 1 if self.next_month == 1 else self.year
+
+  def format_date_for_day(self, day):
+    date = datetime.date(self.year, self.month, day)
+    return date

@@ -26,7 +26,7 @@
             {% set today_events = month_manager.get_events_for_day(day) %}
             <div class="cell-content{% if today_events|length == 0%} empty{% endif %}">
               <div class="day">
-                <a href="#" class="js-day" data-date="{{ month_manager.year }}-{{ month_manager.month }}-{{ day }}">{{ day }}</a>
+                <a href="#" class="js-day" data-date="{{ month_manager.format_date_for_day(day) }}">{{ day }}</a>
               </div>
               <div class="content">
                 {% set class="" %}
