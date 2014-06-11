@@ -85,8 +85,8 @@ def filter_calendar(request):
   })
 
 
-def screen(request):
-  events = Event.objects.all().order_by('-start')[:10]
+def screen(request, slug):
+  events = Event.objects.upcoming_events().filter(space__slug=slug).order_by('start')[:10]
 
   return render(request, 'screen.html', {
     'list_events': events
