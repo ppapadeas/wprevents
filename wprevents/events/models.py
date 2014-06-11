@@ -98,6 +98,8 @@ class Event(models.Model):
 
   created = models.DateTimeField(auto_now_add=True)
   modified = models.DateTimeField(auto_now=True)
+  # Temporary id used when bulk creating events in cal format
+  bulk_id = models.IntegerField(null=True)
 
   title = models.CharField(max_length=EVENT_TITLE_LENGTH)
   slug = models.SlugField(max_length=EVENT_TITLE_LENGTH, blank=True)

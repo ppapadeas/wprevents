@@ -54,6 +54,42 @@
   }
 },
 {
+  "pk": 7,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "gray-1",
+    "name": "Video",
+    "slug": "video"
+  }
+},
+{
+  "pk": 8,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "gray-1",
+    "name": "Firefox OS",
+    "slug": "firefox-os"
+  }
+},
+{
+  "pk": 9,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "gray-1",
+    "name": "Development",
+    "slug": "development"
+  }
+},
+{
+  "pk": 10,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "gray-1",
+    "name": "Security",
+    "slug": "security"
+  }
+},
+{
   "pk": 1,
   "model": "events.space",
   "fields": {

@@ -1,10 +1,12 @@
+import random
 import urllib2
 
+from django.db import transaction
 from django.db.models import Q
 from django.utils import timezone
 from icalendar import Calendar
 
-from wprevents.events.models import Event, Space, EVENT_TITLE_LENGTH
+from wprevents.events.models import Event, Space, FunctionalArea, EVENT_TITLE_LENGTH
 
 default_timezone = timezone.get_default_timezone()
 
@@ -23,7 +25,11 @@ def from_file(ical_file):
 
 def analyze_data(data):
   cal = parse_data(filter_chars(data))
-  events = bulk_create_events(cal)
+
+  try:
+    events = bulk_create_events(cal)
+  except Exception, e:
+    raise Error('An error occurred while bulk inserting events: ' + str(e))
 
   return events
 
@@ -56,21 +62,21 @@ def parse_data(data):
 
   return cal
 
-
+@transaction.commit_manually
 def bulk_create_events(cal):
-  events = []
-
   ical_events = [e for e in cal.walk('VEVENT')]
   duplicate_events = find_duplicates(ical_events)
+  spaces = Space.objects.all()
 
-  all_spaces = Space.objects.all()
+  # Temporary bulk_id used to fetch back newly created events
+  bulk_id = random.randrange(1000000000)
 
-  # Prepare bulk insertion, filter out items previously seen as duplicates
+  # Prepare batch create by looping through ical events, filtering out duplicates
+  events_to_create = []
   for e in ical_events:
     title = e.get('summary')
-
+    # Filter out duplicate events
     if any(x.title == title for x in duplicate_events):
-      # Skip the events if already added
       continue
 
     start = timezone.make_naive(e.get('dtstart').dt, default_timezone)
@@ -80,17 +86,38 @@ def bulk_create_events(cal):
     event = Event(
       start = start,
       end = end,
-      space = guess_space(location, all_spaces),
+      space = guess_space(location, spaces),
       title = title[:EVENT_TITLE_LENGTH], # Truncate to avoid potential errors
-      description = e.get('description').encode('utf-8')
+      description = e.get('description').encode('utf-8'),
+      bulk_id = bulk_id
     )
+
     # Generate slug because django's bulk_create() does not call Event.save(),
     # which is where an Event's slug is normally set
     event.define_slug()
 
-    events.append(event)
+    events_to_create.append(event)
 
-  return Event.objects.bulk_create(events)
+  # Bulk create and instantly retrieve events, and remove bulk_id
+  Event.objects.bulk_create(events_to_create)
+  created_events = Event.objects.filter(bulk_id=bulk_id)
+
+  # Bulk update any functional areas of all these newly created events
+  FunctionalAreaRelations = Event.areas.through
+  relations = []
+  areas = FunctionalArea.objects.all()
+
+  for e in created_events:
+    for area in guess_functional_areas(e.description, areas):
+      relations.append(FunctionalAreaRelations(event_id=e.pk, functionalarea_id=area.pk))
+
+  FunctionalAreaRelations.objects.bulk_create(relations)
+
+  Event.objects.filter(bulk_id=bulk_id).update(bulk_id=None);
+
+  transaction.commit()
+
+  return created_events
 
 
 def guess_space(location, spaces):
@@ -100,6 +127,12 @@ def guess_space(location, spaces):
   guessed_space = [s for s in spaces if s.name.lower() in location.lower()]
 
   return guessed_space[0] if guessed_space else None
+
+
+def guess_functional_areas(description, functional_areas):
+  guessed_areas = [a for a in functional_areas if a.name.lower() in description.lower()]
+
+  return guessed_areas
 
 
 def find_duplicates(ical_events):
