@@ -9,6 +9,7 @@
   padding: ($baseLine * 2) 0 ($baseLine * 3) 0;
   position: relative;
   z-index: 10;
+  height: $mainFooterHeight;
 
   .row {
     padding: 0 20px;

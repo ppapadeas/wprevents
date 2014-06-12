@@ -39,21 +39,20 @@
       <div>
         <h4>Description</h4>
         <div class="event-desription">
-          {{ event.description }}
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh.</p>
+          {% if event.description %}
+            {{ event.description }}
+          {% else %}
+            <p class="light">No description available.</p>
+          {% endif %}
         </div>
 
         <h4>Details</h4>
         <div class="event-details">
-          {{ event.details }}
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh. Nulla sodales vehicula arcu sit amet vulputate. Nulla vulputate posuere massa. Phasellus fringilla posuere dapibus. Etiam sed lectus elit. Morbi vitae elementum orci. Nunc ultricies sem eu sapien mollis, vel bibendum libero gravida. Sed porttitor ante quis lacus suscipit accumsan. Etiam rutrum felis eget euismod molestie. Aliquam vitae ornare augue. Vestibulum nisi eros, egestas at felis at, feugiat viverra lorem. Donec suscipit nibh id turpis sagittis posuere. Cras consectetur leo quis aliquam lacinia. Fusce hendrerit euismod ornare. Proin blandit aliquam metus.</p>
-          <ul>
-            <li>Maecenas auctor rhoncus orci</li>
-            <li>Consectetur adipiscing elit</li>
-            <li>Ut placerat lorem a ligula</li>
-            <li>Ac luctus nibh</li>
-          </ul>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor rhoncus orci. Ut placerat lorem a ligula scelerisque dapibus ac luctus nibh.</p>
+          {% if event.details %}
+            <p>{{ event.details }}</p>
+          {% else %}
+            <p class="light">There are no details for this event yet.</p>
+          {% endif %}
         </div>
       </div>
 

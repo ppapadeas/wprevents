@@ -167,6 +167,10 @@ li.event {
     margin-top: 0;
   }
 
+  * + h4 {
+    margin-top: 40px;
+  }
+
   h4 + h4 {
     margin-top: 1.33em;
   }
