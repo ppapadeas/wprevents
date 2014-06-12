@@ -141,15 +141,143 @@
   "pk": 4,
   "model": "events.space",
   "fields": {
-    "city": "Cyberspace",
-    "name": "Air Mozilla",
+    "city": "Auckland",
+    "name": "Auckland",
     "country": "us",
     "address2": "",
-    "lon": -122.0609917,
-    "postal_code": "94041",
-    "address": "Cyberspace",
-    "lat": 37.3874349,
-    "slug": "air-mozilla",
+    "lon": 174.777106,
+    "postal_code": "",
+    "address": "",
+    "lat": -36.866596,
+    "slug": "auckland",
+    "photo": null
+  }
+},
+{
+  "pk": 5,
+  "model": "events.space",
+  "fields": {
+    "city": "Beijing",
+    "name": "Beijing",
+    "country": "cn",
+    "address2": "",
+    "lon": 116.43405,
+    "postal_code": "",
+    "address": "",
+    "lat": 39.909901,
+    "slug": "beijing",
+    "photo": null
+  }
+},
+{
+  "pk": 6,
+  "model": "events.space",
+  "fields": {
+    "city": "Berlin",
+    "name": "Berlin",
+    "country": "de",
+    "address2": "",
+    "lon": 13.418735,
+    "postal_code": "",
+    "address": "",
+    "lat": 52.512408,
+    "slug": "berlin",
+    "photo": null
+  }
+},
+{
+  "pk": 7,
+  "model": "events.space",
+  "fields": {
+    "city": "Portland",
+    "name": "Portland",
+    "country": "us",
+    "address2": "",
+    "lon": -122.6827999,
+    "postal_code": "",
+    "address": "",
+    "lat": 45.5236536,
+    "slug": "portland",
+    "photo": null
+  }
+},
+{
+  "pk": 8,
+  "model": "events.space",
+  "fields": {
+    "city": "San Francisco",
+    "name": "San Francisco",
+    "country": "us",
+    "address2": "",
+    "lon": -122.38889,
+    "postal_code": "",
+    "address": "",
+    "lat": 37.78955,
+    "slug": "san-francisco",
+    "photo": null
+  }
+},
+{
+  "pk": 9,
+  "model": "events.space",
+  "fields": {
+    "city": "Taipei",
+    "name": "Taipei",
+    "country": "tw",
+    "address2": "",
+    "lon": 121.56705,
+    "postal_code": "",
+    "address": "",
+    "lat": 25.03265,
+    "slug": "taipei",
+    "photo": null
+  }
+},
+{
+  "pk": 10,
+  "model": "events.space",
+  "fields": {
+    "city": "Tokyo",
+    "name": "Tokyo",
+    "country": "jp",
+    "address2": "",
+    "lon": 139.727765,
+    "postal_code": "",
+    "address": "",
+    "lat": 35.665208,
+    "slug": "tokyo",
+    "photo": null
+  }
+},
+{
+  "pk": 11,
+  "model": "events.space",
+  "fields": {
+    "city": "Toronto",
+    "name": "Toronto",
+    "country": "ca",
+    "address2": "",
+    "lon": -79.3943,
+    "postal_code": "",
+    "address": "",
+    "lat": 43.64715,
+    "slug": "toronto",
+    "photo": null
+  }
+},
+{
+  "pk": 12,
+  "model": "events.space",
+  "fields": {
+    "city": "Vancouver",
+    "name": "Vancouver",
+    "country": "ca",
+    "address2": "",
+    "lon": -123.1091763,
+    "postal_code": "",
+    "address": "",
+    "lat": 49.2824945,
+    "slug": "vancouver",
     "photo": null
   }
 },
