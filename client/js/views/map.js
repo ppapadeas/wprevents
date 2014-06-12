@@ -191,7 +191,7 @@ var MapView = Backbone.View.extend({
       if (marker.feature.properties.id === id) {
         var markerCoords = this.markerCoords = marker.getLatLng();
         this.map.setView(markerCoords, 10, {
-          animate: true
+          animate: false
         });
       }
     }.bind(this));
