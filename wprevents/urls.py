@@ -7,9 +7,14 @@ from django.http import HttpResponse
 from funfactory.monkeypatches import patch
 patch()
 
+from base import views
+
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
+
+handler404 = views.error404
+handler500 = views.error500
 
 urlpatterns = patterns('',
   (r'', include('django_browserid.urls')),
@@ -25,8 +30,9 @@ urlpatterns = patterns('',
   (r'^robots\.txt$', lambda r: HttpResponse(
     "User-agent: *\n%s: /" % 'Allow' if settings.ENGAGE_ROBOTS else 'Disallow' ,
     mimetype="text/plain")
-  )
-
+  ),
+  url(r'^404$', handler404, name='404'),
+  url(r'^500$', handler500, name='500'),
   # Uncomment the admin/doc line below to enable admin documentation:
   # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
