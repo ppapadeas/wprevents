@@ -11,7 +11,7 @@
   <h4>Details</h4>
   <div class="event-details">
     {% if event.is_multiday %}
-    <p>Event starts at <em>{{ event.start_time }}</em> on <em>{{ event.start_date }}</em> and ends at <em>{{ event.end_time }}</em> on <em>{{ event.end_date }}</em>.</p>
+    <p>Event starts at <em>{{ event.start_time }}</em> on <em>{{ event.start_date_pretty }}</em> and ends at <em>{{ event.end_time }}</em> on <em>{{ event.end_date_pretty }}</em>.</p>
     {% else %}
     <p>Event starts at <em>{{ event.start_time }}</em> and ends at <em>{{ event.end_time }}</em>.</p>
     {% endif %}
