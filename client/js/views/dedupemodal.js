@@ -5,7 +5,8 @@ var ModalView = require('./modal');
 
 var DedupeModalView = ModalView.extend({
   events: _.extend({}, ModalView.prototype.events, {
-    'click .js-delete': 'deleteDuplicateEvent'
+    'click .js-delete': 'deleteDuplicateEvent',
+    'keyup .js-name-filter': 'filterByName'
   }),
 
   initialize: function(options) {
@@ -38,6 +39,21 @@ var DedupeModalView = ModalView.extend({
           this.trigger('deleteEvent', id);
         }.bind(this));
       }.bind(this)
+    });
+  },
+
+  filterByName: function(e) {
+    var keyword = e.target.value;
+    var $rows = this.$('tbody tr');
+
+    $rows.each(function() {
+      var $row = $(this);
+      var name = $row.children(':first').html();
+
+      $row.removeClass('hidden');
+      if (name.indexOf(keyword) == -1) {
+        $row.addClass('hidden');
+      }
     });
   }
 });

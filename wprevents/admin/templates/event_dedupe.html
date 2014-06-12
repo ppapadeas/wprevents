@@ -4,14 +4,14 @@
   </h3>
 
   {% if events|length > 0 %}
-    <p class="intro">{{ event.title }} in {{ event.space.name }} scheduled for {{ event.start.strftime('%Y-%m-%d') }} is a duplicate of:</p>
+    <p class="intro">{{ event.title }} in {{ event.space.name }} scheduled for {{ event.start.strftime('%Y-%m-%d') }} might be a duplicate of:</p>
+
+    <div class="filter">
+      <input type="text" class="js-name-filter fill-width" value="" placeholder="Filter by event name">
+    </div>
   {% else %}
     <p class="intro">No possible duplicates found for this event.</p>
   {% endif %}
-
-  <div class="filter">
-    <input type="text" class="js-name-filter fill-width" value="" placeholder="Filter by event name">
-  </div>
 
   {% if events|length > 0 %}
     {{ csrf() }}
@@ -35,7 +35,7 @@
           <td>{{ event.start.strftime('%Y-%m-%d') }}</td>
           <td>{{ event.area_names|join(', ') }}</td>
           <td>
-            <a href="#" class="js-delete">delete</a>
+            <a href="#" class="delete-item js-delete">delete</a>
           </td>
         </tr>
         {% endfor %}
