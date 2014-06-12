@@ -24,7 +24,7 @@ var MapView = Backbone.View.extend({
       // add tile layer to the map
       mapLayer.addTo(map);
       // disable map zoom on scroll.
-      // map.scrollWheelZoom.disable();
+      map.scrollWheelZoom.disable();
       // create spaces markers.
       this.initSpacesMarkers();
 
