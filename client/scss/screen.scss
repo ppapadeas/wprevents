@@ -49,14 +49,6 @@ body.screen {
   .event-header {
     margin-top: 0;
     float: none;
-
-    .col-6 {
-      width: 65%;
-    }
-
-    .event-meta {
-      display: none;
-    }
   }
 
   [class*="col-"] {
@@ -111,10 +103,6 @@ body.screen {
       .year {
         font-size: 16px;
       }
-    }
-
-    .event-header .col-6 {
-      width: 50%;
     }
   }
 }

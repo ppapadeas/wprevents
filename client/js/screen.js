@@ -38,14 +38,21 @@ var ScreenView = Backbone.View.extend({
   },
 
   selectEvent: function(id) {
+    var eventExists = false;
+
     this.$events.removeClass('active');
     this.$events.each(function() {
       if ($(this).data('id') === id) {
         $(this).addClass('active');
+        eventExists = true;
       }
     });
 
-    this.showEventDetails(id);
+    if (eventExists) {
+      this.showEventDetails(id);
+    } else {
+      this.selectFirstRow();
+    }
   },
 
   showEventDetails: function(id) {
