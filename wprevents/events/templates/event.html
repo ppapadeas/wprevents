@@ -48,7 +48,7 @@
 
         <h4>Details</h4>
         <div class="event-details">
-          <p>Event starts at 12:00 and ends at 18:00.</p>
+          <p>Event starts at {{ event.start_time }} and ends at {{ event.end_time }}.</p>
           {% if event.details %}
             <p>{{ event.details }}</p>
           {% endif %}

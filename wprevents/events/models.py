@@ -162,6 +162,10 @@ class Event(models.Model):
     return duplicate_candidates
 
   @property
+  def is_multiday(self):
+    return self.start.date() != self.end.date()
+
+  @property
   def area_names(self):
     return [area.name for area in self.areas.all()]
 
@@ -178,5 +182,13 @@ class Event(models.Model):
     return self.start.strftime('%Y-%m-%d')
 
   @property
+  def start_time(self):
+    return self.start.strftime('%H:%M')
+
+  @property
   def end_date(self):
     return self.end.strftime('%Y-%m-%d')
+
+  @property
+  def end_time(self):
+    return self.end.strftime('%H:%M')
