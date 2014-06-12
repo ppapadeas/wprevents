@@ -182,12 +182,20 @@ class Event(models.Model):
     return self.start.strftime('%Y-%m-%d')
 
   @property
+  def start_date_pretty(self):
+    return self.start.strftime('%B %-d, %Y')
+
+  @property
   def start_time(self):
     return self.start.strftime('%H:%M')
 
   @property
   def end_date(self):
     return self.end.strftime('%Y-%m-%d')
+
+  @property
+  def end_date_pretty(self):
+    return self.end.strftime('%B %-d, %Y')
 
   @property
   def end_time(self):
