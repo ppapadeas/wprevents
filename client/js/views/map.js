@@ -4,7 +4,7 @@ var mapbox = require('mapbox.js');
 var enquire = require('enquire.js');
 
 var MapView = Backbone.View.extend({
-  initialize: function() {
+  initialize: function(options) {
     var token = 'mozilla-webprod.e91ef8b3';
     var map = this.map = L.mapbox.map(this.el.id, { trackResize: false });
 
@@ -24,7 +24,7 @@ var MapView = Backbone.View.extend({
       // add tile layer to the map
       mapLayer.addTo(map);
       // disable map zoom on scroll.
-      map.scrollWheelZoom.disable();
+      // map.scrollWheelZoom.disable();
       // create spaces markers.
       this.initSpacesMarkers();
 
@@ -39,6 +39,18 @@ var MapView = Backbone.View.extend({
           map.tap.disable();
         }
       }
+
+      if (options.markerOffset) {
+        this.markerOffset = options.markerOffset;
+      }
+
+      if (options.hideControls) {
+        this.map.removeControl(this.map.zoomControl);
+      }
+
+      if (options.dragging) {
+        this.map.dragging = options.dragging;
+      }
     }.bind(this));
   },
 
@@ -50,7 +62,7 @@ var MapView = Backbone.View.extend({
 
     var windowHeight = $(window).height();
     var boundingBoxHeight = 766;
-    this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], { reset: true });
+    this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], { animate: false });
   },
 
   setMobileState: function() {
@@ -197,7 +209,7 @@ var MapView = Backbone.View.extend({
     }.bind(this));
 
     enquire.register("screen and (min-width: 768px)", function() {
-      var offset = this.getMarkerOffset();
+      var offset = this.markerOffset ? this.markerOffset : this.getMarkerOffset();
       this.map.panBy([offset.x, offset.y]);
     }.bind(this));
   }

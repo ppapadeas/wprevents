@@ -3,6 +3,14 @@ body.screen {
 }
 
 .screen {
+  #inner-wrapper {
+    padding-bottom: 0;
+
+    &:after {
+      display: none;
+    }
+  }
+
   li.event {
     cursor: pointer;
 

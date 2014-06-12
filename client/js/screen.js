@@ -3,6 +3,8 @@ var Backbone = require('backbone');
 
 Backbone.$ = $;
 
+var MapView = require('./views/map');
+
 var ScreenView = Backbone.View.extend({
   events: {
     'click .js-event': 'onEventClick'
@@ -12,6 +14,11 @@ var ScreenView = Backbone.View.extend({
     this.$events = $('.js-event');
     this.$details = $('.js-event-info');
     this.selectFirstRow();
+
+    var map = new MapView({ el: '#map', hideControls: true, dragging: false, markerOffset: { x: -($(window).width() * 0.25), y: -50 } });
+    map.on('ready', function() {
+      map.focusSpace(map.$el.data('space'));
+    });
 
     setTimeout(this.refresh.bind(this), 30000);
   },
