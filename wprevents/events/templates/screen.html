@@ -21,7 +21,7 @@
       <!-- <div id="map" class="js-fullscreen"></div> -->
 
       {% block content %}
-        <div class="width-container screen-content">
+        <div class="width-container screen-content js-screen-content">
           <div class="upcoming-events">
             <ul class="event-list">
               {% include "list_content.html" %}
@@ -30,7 +30,7 @@
 
           <div class="event-info-container">
           {% for event in list_events %}
-            <div class="event-content row js-event-info">
+            <div class="event-content row js-event-info" data-id="{{ event.id }}">
               <div class="billboard row">
                 <div>
                   <h4>Description</h4>

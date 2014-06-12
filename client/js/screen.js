@@ -5,29 +5,69 @@ Backbone.$ = $;
 
 var ScreenView = Backbone.View.extend({
   events: {
-    'click .js-event': 'selectEvent'
+    'click .js-event': 'onEventClick'
   },
 
   initialize: function() {
     this.$events = $('.js-event');
     this.$details = $('.js-event-info');
-    this.$events.eq(0).addClass('active');
-    this.showEventDetails(0);
+    this.selectFirstRow();
+
+    setTimeout(this.refresh.bind(this), 30000);
   },
 
-  selectEvent: function(e) {
-    var $el = $(e.target).closest('.js-event');
-    var index = $el.prevAll('.js-event').length;
+  selectFirstRow: function() {
+    this.currentEventId = this.$events.first().data('id');
+    this.selectEvent(this.currentEventId);
+  },
+
+  reset: function() {
+    this.setElement($('.js-screen-content'));
+    this.$events = $('.js-event');
+    this.$details = $('.js-event-info');
+    this.selectEvent(this.currentEventId);
+  },
+
+  onEventClick: function(e) {
+    var $row = $(e.target).closest('.js-event');
+    this.currentEventId = $row.data('id');
+    this.selectEvent(this.currentEventId);
+
+    // prevent going to event page if link is clicked
+    e.preventDefault();
+  },
+
+  selectEvent: function(id) {
     this.$events.removeClass('active');
-    $el.addClass('active');
+    this.$events.each(function() {
+      if ($(this).data('id') === id) {
+        $(this).addClass('active');
+      }
+    });
 
-    this.showEventDetails(index);
+    this.showEventDetails(id);
   },
 
-  showEventDetails: function(index) {
+  showEventDetails: function(id) {
     this.$details.removeClass('active');
-    this.$details.eq(index).addClass('active');
+    this.$details.each(function() {
+      if ($(this).data('id') === id) {
+        $(this).addClass('active');
+      }
+    });
+  },
+
+  refresh: function() {
+    setTimeout(this.refresh.bind(this), 30000);
+    $.ajax({
+      url: window.location,
+      success: function(data) {
+        var $content = $(data).find('.js-screen-content');
+        this.$el.replaceWith($content);
+        this.reset();
+      }.bind(this)
+    });
   }
 });
 
-new ScreenView({ el: $('.screen-content') });
+new ScreenView({ el: $('.js-screen-content') });
