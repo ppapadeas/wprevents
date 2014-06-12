@@ -1,0 +1,24 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+{% for space in spaces %} 
+  {
+    "type": "Feature",
+    "properties": {
+      "id": "{{ space.slug }}",
+      "marker-color": "#B70900",
+      "marker-size": "large",
+      "icon": {
+        "iconUrl": "http://www.mozilla.org/media/img/contact/moz-map-pin.png",
+        "iconSize": [35, 90],
+        "iconAnchor": [17.5, 45],
+        "popupAnchor": [0, -46]
+      }
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [{{ space.lon }}, {{ space.lat }}]
+    }
+  }{% if not loop.last %},{% endif %}
+{% endfor %}]
+}

@@ -94,7 +94,7 @@ var MapView = Backbone.View.extend({
       });
     });
 
-    $.getJSON('/static/mozspaces.json', function(mozSpaces) {
+    $.getJSON('/spaces.json', function(mozSpaces) {
       map.featureLayer.setGeoJSON(mozSpaces);
       this.trigger('ready');
     }.bind(this));

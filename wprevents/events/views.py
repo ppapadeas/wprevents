@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+from django.http import HttpResponse
 
 from wprevents.base.decorators import ajax_required
 from wprevents.events.models import Event, Space, FunctionalArea
@@ -90,3 +91,13 @@ def screen(request, slug):
   return render(request, 'screen.html', {
     'list_events': events
   })
+
+
+@ajax_required
+def map_spaces(request):
+  response = render(request, 'spaces.json', {
+    'spaces': Space.objects.all()
+  })
+
+  return HttpResponse(response.content, content_type='application/json')
+
