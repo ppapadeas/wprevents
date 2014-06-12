@@ -23,7 +23,7 @@
 
   <tbody>
     {% for event in events %}
-    <tr>
+    <tr data-id="{{ event.id }}" class="js-event">
       <td><a href="#linkToEventPage?" title="{{ event.title }}">{{ event.title }}</a></td>
       <td>{{ event.space }}</td>
       <td>{{ event.start_date }} - {{ event.end_date }}</td>
@@ -31,7 +31,7 @@
       <td class="actions">
 
         <a href="{{ url('event_edit', id=event.id) }}" class="js-edit-event">edit</a>
-        <a href="{{ url('event_dedupe', id=event.id) }}" class="js-dedupe-event">dupe</a>
+        <a href="{{ url('event_dedupe', id=event.id) }}" class="js-dedupe-event">dedupe</a>
 
         <form action="{{ url('event_delete') }}?page={{ current_page }}&order_by={{ order_by }}" method="post">
           {{ csrf() }}

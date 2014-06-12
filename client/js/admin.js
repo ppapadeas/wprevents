@@ -17,7 +17,8 @@ $(function() {
   // 'New event' button
   $('.js-new-event').on('click', function(e) {
     var path = $(this).attr('href');
-    var modal = container.setCurrentModal(EventModalView, path);
+    
+    container.loadModal(EventModalView, path);
 
     e.preventDefault();
   });
@@ -25,7 +26,8 @@ $(function() {
   // 'Edit' action
   $('.js-edit-event').on('click', function(e) {
     var path = $(this).attr('href');
-    var modal = container.setCurrentModal(EventModalView, path);
+    
+    container.loadModal(EventModalView, path);
 
     e.preventDefault();
   });
@@ -33,7 +35,17 @@ $(function() {
   // 'Dedupe' action
   $('.js-dedupe-event').on('click', function(e) {
     var path = $(this).attr('href');
-    var modal = container.setCurrentModal(DedupeModalView, path);
+
+    container.loadModal(DedupeModalView, path).done(function(modal) {
+
+      // When an event row is removed inside the dedupe modal,
+      // remove it in the main table as well.
+      modal.on('deleteEvent', function(id) {
+        var $row = $("tr[data-id='" + id + "']");
+
+        $row.remove();
+      });
+    });
 
     e.preventDefault();
   });
@@ -41,7 +53,8 @@ $(function() {
   // 'New space' button
   $('.js-new-space').on('click', function(e) {
     var path = $(this).attr('href');
-    var modal = container.setCurrentModal(SpaceModalView, path);
+    
+    container.loadModal(SpaceModalView, path);
 
     e.preventDefault();
   });
@@ -49,7 +62,8 @@ $(function() {
   // 'Edit space' action
   $('.js-edit-space').on('click', function(e) {
     var path = $(this).attr('href');
-    var modal = container.setCurrentModal(SpaceModalView, path);
+    
+    container.loadModal(SpaceModalView, path);
 
     e.preventDefault();
   });
@@ -57,7 +71,8 @@ $(function() {
   // 'New area' button
   $('.js-new-area').on('click', function(e) {
     var path = $(this).attr('href');
-    var modal = container.setCurrentModal(AreaModalView, path);
+    
+    container.loadModal(AreaModalView, path);
 
     e.preventDefault();
   });
@@ -65,7 +80,8 @@ $(function() {
   // 'Edit area' action
   $('.js-edit-area').on('click', function(e) {
     var path = $(this).attr('href');
-    var modal = container.setCurrentModal(AreaModalView, path);
+    
+    container.loadModal(AreaModalView, path);
 
     e.preventDefault();
   });
@@ -73,7 +89,8 @@ $(function() {
   // 'Import iCal' button
   $('.js-import-button').on('click', function(e) {
     var path = $(this).attr('href');
-    var modal = container.setCurrentModal(ImportModalView, path);
+    
+    container.loadModal(ImportModalView, path);
 
     e.preventDefault();
   });

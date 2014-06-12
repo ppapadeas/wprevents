@@ -14,6 +14,8 @@
   </div>
 
   {% if events|length > 0 %}
+    {{ csrf() }}
+
     <table class="admin-table fill-width">
       <thead>
         <tr>
@@ -27,17 +29,13 @@
 
       <tbody>
         {% for event in events %}
-        <tr>
+        <tr data-id="{{ event.id }}">
           <td>{{ event.title }}</td>
           <td>{{ event.space }}</td>
           <td>{{ event.start.strftime('%Y-%m-%d') }}</td>
           <td>{{ event.area_names|join(', ') }}</td>
           <td>
-            <form method="post">
-              {{ csrf() }}
-              <input type="hidden" name="duplicate_id" value="{{ event.id }}">
-              <input type="submit" value="dupe">
-            </form>
+            <a href="#" class="js-delete">delete</a>
           </td>
         </tr>
         {% endfor %}

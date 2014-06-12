@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^$', views.events_list, name='event_all'),
     url(r'^new$', views.event_edit, name='events_new_event'),
     url(r'^delete$', views.event_delete, name='event_delete'),
+    url(r'^ajax_delete$', views.event_ajax_delete, name='event_ajax_delete'),
     url(r'^import$', views.event_import_ical, name='event_import_ical'),
 
     url(r'^(?P<id>\w+)/', include([

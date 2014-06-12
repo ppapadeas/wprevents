@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from wprevents.base.utils import get_or_create_instance, save_ajax_form
-from wprevents.base.decorators import json_view, ajax_required
+from wprevents.base.decorators import json_view, ajax_required, post_required
 from wprevents.events.models import Event, Space, FunctionalArea
 
 from forms import EventForm, SpaceForm, FunctionalAreaForm, ImportEventForm
@@ -57,6 +57,7 @@ def event_edit(request, id=None):
 
 
 @permission_required('events.can_administrate_events')
+@post_required
 def event_delete(request):
   Event.objects.delete_by_id(id=request.POST.get('id'))
 
@@ -65,6 +66,23 @@ def event_delete(request):
   redirect_to = '/admin/events/' + query_string
 
   return HttpResponseRedirect(redirect_to)
+
+
+@permission_required('events.can_administrate_events')
+@ajax_required
+@post_required
+@json_view
+def event_ajax_delete(request):
+  """This view is used by the event de-duplication modal."""
+  try:
+    event = Event.objects.get(id=request.POST.get('id'))
+
+    if event:
+      event.delete()
+  except Event.DoesNotExist:
+    pass
+
+  return { 'status': 'success' }
 
 
 @permission_required('events.can_administrate_events')
