@@ -1,0 +1,22 @@
+<div>
+  <h4>Description</h4>
+  <div class="event-desription">
+    {% if event.description %}
+      {{ event.description }}
+    {% else %}
+      <p class="light">No description available.</p>
+    {% endif %}
+  </div>
+
+  <h4>Details</h4>
+  <div class="event-details">
+    {% if event.is_multiday %}
+    <p>Event starts at <em>{{ event.start_time }}</em> on <em>{{ event.start_date }}</em> and ends at <em>{{ event.end_time }}</em> on <em>{{ event.end_date }}</em>.</p>
+    {% else %}
+    <p>Event starts at <em>{{ event.start_time }}</em> and ends at <em>{{ event.end_time }}</em>.</p>
+    {% endif %}
+    {% if event.details %}
+      <p>{{ event.details }}</p>
+    {% endif %}
+  </div>
+</div>

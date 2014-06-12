@@ -178,6 +178,11 @@ li.event {
   .button-group {
     margin-top: $baseLine;
   }
+
+  em {
+    font-style: normal;
+    font-weight: bold;
+  }
 }
 
 @media screen and (max-width: $smallBreakPoint) {

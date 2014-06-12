@@ -36,24 +36,7 @@
     </div>
 
     <div class="billboard row">
-      <div>
-        <h4>Description</h4>
-        <div class="event-desription">
-          {% if event.description %}
-            {{ event.description }}
-          {% else %}
-            <p class="light">No description available.</p>
-          {% endif %}
-        </div>
-
-        <h4>Details</h4>
-        <div class="event-details">
-          <p>Event starts at {{ event.start_time }} and ends at {{ event.end_time }}.</p>
-          {% if event.details %}
-            <p>{{ event.details }}</p>
-          {% endif %}
-        </div>
-      </div>
+      {% include "event-info.html" %}
 
       <div class="button-group pull-right">
         <a href="{{ url("api_dispatch_detail", api_name='v1', resource_name="event", pk=event.id) }}?format=ical" class="button">iCal</a>
