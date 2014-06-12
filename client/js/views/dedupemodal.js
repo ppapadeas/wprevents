@@ -43,12 +43,12 @@ var DedupeModalView = ModalView.extend({
   },
 
   filterByName: function(e) {
-    var keyword = e.target.value;
+    var keyword = e.target.value.toLowerCase();
     var $rows = this.$('tbody tr');
 
     $rows.each(function() {
       var $row = $(this);
-      var name = $row.children(':first').html();
+      var name = $row.children(':first').html().toLowerCase();
 
       $row.removeClass('hidden');
       if (name.indexOf(keyword) == -1) {
