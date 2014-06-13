@@ -4,8 +4,8 @@ WPR Events
 An event list/calendar that aggregates updated information about Mozilla events happening in all spaces around the world and on Air Mozilla so that people know what is happening, where, and when.
 
 
-Installation (staging/prod)
-===========================
+Installation steps (production)
+-------------------------------
 
 * Clone the repo: `git clone --recursive https://github.com/ppapadeas/wprevents`
 * `cd wprevents`
@@ -14,7 +14,9 @@ Installation (staging/prod)
 * Upgrade pip: `pip install -U pip`
 * `pip install -r requirements/compiled.txt`
 * `cp wprevents/settings/local.py-dist wprevents/settings/local.py`
-* Update the SECRET_KEY variable in `wprevents/settings/local.py`
+* Configure variables in `wprevents/settings/local.py`:
+  - Set DEV, DEBUG and TEMPLATE_DEBUG to False
+  - Set a value for SECRET_KEY and SITE_URL
 * Assuming you have MySQL installed, start the MySQL service and create a database in the mysql console: `create database wprevents;`
 * `./manage.py update_product_details`
 * `./manage.py syncdb`
@@ -27,10 +29,11 @@ Installation (staging/prod)
 * Configure an Apache VirtualHost directive as described here: http://playdoh.readthedocs.org/en/latest/operations.html
 * Restart Apache
 
-Adding a user
-=============
-* `./manage.py createsuperuser` with the admin email address.
-
-Updating the stage/prod server
-==============================
+Stage server
+------------
+* (optional) From the mysql shell: source bin/sql/dummy-events-data.sql
 * Set up a cron job running this command: `./bin/update_site.py -e stage`
+
+Adding a privileged user
+------------------------
+* `./manage.py createsuperuser` and enter the user's email address.
