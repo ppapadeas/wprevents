@@ -31,7 +31,7 @@ Installation steps (production)
 
 Stage server
 ------------
-* (optional) From the mysql shell: source bin/sql/dummy-events-data.sql
+* (optional) Add fake events: `./manage.py loaddata data/dummy-events.json`
 * Set up a cron job running this command: `./bin/update_site.py -e stage`
 
 Adding a privileged user
