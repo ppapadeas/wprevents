@@ -16,7 +16,7 @@ Installation steps (production)
 * `cp wprevents/settings/local.py-dist wprevents/settings/local.py`
 * Configure variables in `wprevents/settings/local.py`:
   - Set DEV, DEBUG and TEMPLATE_DEBUG to False
-  - Set a value for SECRET_KEY and SITE_URL
+  - Set a value for SECRET_KEY, HMAC_KEYS and SITE_URL
 * Assuming you have MySQL installed, start the MySQL service and create a database in the mysql console: `create database wprevents;`
 * `./manage.py update_product_details`
 * `./manage.py syncdb`
