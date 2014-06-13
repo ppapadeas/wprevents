@@ -105,4 +105,15 @@
   .step-links {
     display: inline-block;
   }
+
+  .step-links > *:before {
+    content: '|';
+    margin-right: 5px;
+    color: $textColorLight;
+    pointer-events: none;
+  }
+
+  .step-links > *:first-child:before {
+    display: none;
+  }
 }
