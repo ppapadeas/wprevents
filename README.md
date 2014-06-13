@@ -7,28 +7,30 @@ An event list/calendar that aggregates updated information about Mozilla events 
 Installation (staging/prod)
 ===========================
 
-1. Clone the repo: `git clone --recursive https://github.com/ppapadeas/wprevents`
-2. `cd wprevents`
-3. Assuming you have [virtualenv](http://www.virtualenv.org/en/latest/) and [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) installed: `mkvirtualenv wprevents`
-    * If you don't have virtualenv(wrapper) you can install them: `pip install virtualenvwrapper`
-4. Upgrade pip: `pip install -U pip`
-5. `pip install -r requirements/compiled.txt`
-6. `cp wprevents/settings/local.py-dist wprevents/settings/local.py`
-7. Update the PRIVILEGED_USERS variable in `wprevents/settings/local.py` with your email
-8. Update the SECRET_KEY variable in `wprevents/settings/local.py`
-9. Assuming you have MySQL installed, start the MySQL service and create a database in the mysql console: `create database wprevents;`
-10. `./manage.py update_product_details`
-11. `./manage.py syncdb`
-12. Make sure you have [node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
-13. `cd client`
-14. `npm install`
-15. `npm install -g gulp`
-16. `gulp build-prod`
-17. Make sure the Apache `mod_wsgi` is installed
-18. Configure an Apache VirtualHost directive as described here: http://playdoh.readthedocs.org/en/latest/operations.html
-19. Restart Apache
+* Clone the repo: `git clone --recursive https://github.com/ppapadeas/wprevents`
+* `cd wprevents`
+* Assuming you have [virtualenv](http://www.virtualenv.org/en/latest/) and [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) installed: `mkvirtualenv wprevents`
+  * If you don't have virtualenv(wrapper) you can install them: `pip install virtualenvwrapper`
+* Upgrade pip: `pip install -U pip`
+* `pip install -r requirements/compiled.txt`
+* `cp wprevents/settings/local.py-dist wprevents/settings/local.py`
+* Update the SECRET_KEY variable in `wprevents/settings/local.py`
+* Assuming you have MySQL installed, start the MySQL service and create a database in the mysql console: `create database wprevents;`
+* `./manage.py update_product_details`
+* `./manage.py syncdb`
+* Make sure you have [node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
+* `cd client`
+* `npm install`
+* `npm install -g gulp`
+* `gulp build-prod`
+* Make sure the Apache `mod_wsgi` is installed
+* Configure an Apache VirtualHost directive as described here: http://playdoh.readthedocs.org/en/latest/operations.html
+* Restart Apache
 
-In order to updated the environment automatically on the stage server, set up a cron job running this command: `./bin/update_site.py -e stage`
+Adding a user
+=============
+* `./manage.py createsuperuser` with the admin email address.
 
-
-
+Updating the stage/prod server
+==============================
+* Set up a cron job running this command: `./bin/update_site.py -e stage`
