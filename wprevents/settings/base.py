@@ -55,8 +55,8 @@ BROWSERID_VERIFY_CLASS = 'django_browserid.views.Verify'
 # Do not create user on login
 BROWSERID_CREATE_USER = False
 
-LOGIN_URL = '/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/admin/events'
 LOGIN_REDIRECT_URL_FAILURE = '/'
 
 # Remove LocaleURLMiddleware since we are not localing our website
