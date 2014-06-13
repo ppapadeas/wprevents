@@ -96,4 +96,13 @@
       }
     }
   }
+
+  textarea {
+    height: 60px;
+    @include transition(300ms height ease);
+
+    &:focus {
+      height: 120px;
+    }
+  }
 }
