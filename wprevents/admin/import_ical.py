@@ -75,7 +75,7 @@ def bulk_create_events(cal):
   events_to_create = []
   skipped = 0
   for ical_event in ical_events:
-    title = ical_event.get('summary')
+    title = HTMLParser().unescape(ical_event.get('summary'))
     # Filter out duplicate events
     if any(x.title == title for x in duplicate_events):
       skipped += 1
