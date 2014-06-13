@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.markup.templatetags.markup import markdown as django_markdown
 
 from jingo import register
 import jinja2
@@ -100,3 +101,7 @@ def show_paginator(context, adjacent_pages=2, order_by=None):
     'show_last': total_pages not in page_numbers,
     'order_by': order_by
   }
+
+@register.filter
+def markdown(md_content):
+  return django_markdown(md_content, "safe")
