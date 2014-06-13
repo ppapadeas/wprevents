@@ -2,7 +2,6 @@
   "name": "wprevents-client",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,16 +11,13 @@
   },
   "author": "",
   "license": "MPL",
-  "devDependencies": {
+  "dependencies": {
     "gulp": "^3.6.2",
     "gulp-browserify": "^0.5.0",
     "gulp-ruby-sass": "^0.5.0",
     "gulp-size": "^0.3.1",
-    "gulp-uglify": "^0.3.0"
-  },
-  "dependencies": {
+    "gulp-uglify": "^0.3.0",
     "backbone": "^1.1.2",
-    "jquery": "^2.1.1",
     "mapbox.js": "^1.6.3",
     "underscore": "^1.6.0",
     "pikaday": "^1.2.0",
