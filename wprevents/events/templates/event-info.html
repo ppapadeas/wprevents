@@ -2,7 +2,7 @@
   <h4>Description</h4>
   <div class="event-description">
     {% if event.description %}
-      {{ event.description|markdown }}
+      {{ event.description }}
     {% else %}
       <p class="light">No description available.</p>
     {% endif %}
@@ -16,7 +16,7 @@
     <p>Event starts at <em>{{ event.start_time }}</em> and ends at <em>{{ event.end_time }}</em>.</p>
     {% endif %}
     {% if event.details %}
-      <p>{{ event.details|markdown }}</p>
+      {{ event.details|markdown }}
     {% endif %}
   </div>
 </div>
