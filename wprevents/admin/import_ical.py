@@ -74,17 +74,17 @@ def bulk_create_events(cal):
   # Prepare batch create by looping through ical events, filtering out duplicates
   events_to_create = []
   skipped = 0
-  for e in ical_events:
-    title = e.get('summary')
+  for ical_event in ical_events:
+    title = ical_event.get('summary')
     # Filter out duplicate events
     if any(x.title == title for x in duplicate_events):
       skipped += 1
       continue
 
-    start = timezone.make_naive(e.get('dtstart').dt, default_timezone)
-    end = timezone.make_naive(e.get('dtend').dt, default_timezone)
-    location = e.get('location')
-    description = HTMLParser().unescape(e.get('description')).encode('utf-8')
+    start = timezone.make_naive(ical_event.get('dtstart').dt, default_timezone)
+    end = timezone.make_naive(ical_event.get('dtend').dt, default_timezone)
+    location = ical_event.get('location')
+    description = HTMLParser().unescape(ical_event.get('description')).encode('utf-8')
 
     event = Event(
       start = start,
@@ -110,9 +110,9 @@ def bulk_create_events(cal):
   relations = []
   areas = FunctionalArea.objects.all()
 
-  for e in created_events:
-    for area in guess_functional_areas(e.description, areas):
-      relations.append(FunctionalAreaRelations(event_id=e.pk, functionalarea_id=area.pk))
+  for event in created_events:
+    for area in guess_functional_areas(event.description, areas):
+      relations.append(FunctionalAreaRelations(event_id=event.pk, functionalarea_id=area.pk))
 
   FunctionalAreaRelations.objects.bulk_create(relations)
 
@@ -146,9 +146,9 @@ def find_duplicates(ical_events):
   titles = []
   start_dates = []
 
-  for e in ical_events:
-    titles.append(e.get('summary'))
-    start_dates.append(timezone.make_naive(e.get('dtstart').dt, default_timezone))
+  for ical_event in ical_events:
+    titles.append(ical_event.get('summary'))
+    start_dates.append(timezone.make_naive(ical_event.get('dtstart').dt, default_timezone))
 
   # Dynamically build 'or' filters
   filter_titles = reduce(lambda q, e: q|Q(title=e.title), titles, Q())
