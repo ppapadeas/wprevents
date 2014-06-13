@@ -1,3 +1,4 @@
+from HTMLParser import HTMLParser
 import random
 import urllib2
 
@@ -83,13 +84,14 @@ def bulk_create_events(cal):
     start = timezone.make_naive(e.get('dtstart').dt, default_timezone)
     end = timezone.make_naive(e.get('dtend').dt, default_timezone)
     location = e.get('location')
+    description = HTMLParser().unescape(e.get('description')).encode('utf-8')
 
     event = Event(
       start = start,
       end = end,
       space = guess_space(location, spaces),
       title = title[:EVENT_TITLE_LENGTH], # Truncate to avoid potential errors
-      description = e.get('description').encode('utf-8'),
+      description = description,
       bulk_id = bulk_id
     )
 
