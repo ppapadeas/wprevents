@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{% block page %}
+  <div id="outer-wrapper">
+
+    <div id="inner-wrapper">
+
+      <header class="masthead click-through">
+        <div class="width-container">
+          <!-- Universal Mozilla tab -->
+          <a href="https://www.mozilla.org/" id="tabzilla">mozilla</a>
+        </div>
+      </header>
+
+      <div class="logo-nav width-container click-through">
+        <h1 class="logo"><a href="/"><span class="metabold">mozilla</span> events</a></h1>
+      </div>
+
+      <div class="width-container">
+        <div class="page-header">
+          <h2 class="oslight">{% block title %}{% endblock %}</h2>
+        </div>
+
+        <div class="billboard">
+          {% block message %}{% endblock %}
+        </div>
+      </div>
+
+    </div>
+
+    {% include "footer.html" %}
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

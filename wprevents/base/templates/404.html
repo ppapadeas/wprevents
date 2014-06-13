@@ -1,5 +1,9 @@
-{% extends 'main.html' %}
+{% extends 'error.html' %}
 
-{% block content %}
-Sorry, we could not find the page you were looking for (error 404).
+{% block title %}
+Page not found
+{% endblock %}
+
+{% block message %}
+<p>Sorry, we could not find the page you're looking for (error 404).</p>
 {% endblock %}

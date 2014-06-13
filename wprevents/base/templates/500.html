@@ -1,5 +1,9 @@
-{% extends 'main.html' %}
+{% extends 'error.html' %}
 
-{% block content %}
-Sorry, the server encountered an internal error (error 500).
+{% block title %}
+Error
+{% endblock %}
+
+{% block message %}
+<p>Sorry, the server encountered an internal error (error 500).</p>
 {% endblock %}
