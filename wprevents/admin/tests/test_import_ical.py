@@ -6,7 +6,7 @@ from .. import import_ical
 
 
 class ImportIcalTestCase(TestCase):
-  fixtures = ['initial_data.json']
+  fixtures = ['events_test_data.json']
 
   def setUp(self):
     with file(os.path.dirname(os.path.abspath(__file__)) + '/SampleEvents.ics') as f: s = f.read()
@@ -36,7 +36,7 @@ class ImportIcalTestCase(TestCase):
     imported_events, skipped = import_ical.from_string(self.ical_string)
     test_event = [e for e in imported_events if e.title == 'Some test event'][0]
 
-    self.assertEqual(test_event.space.name == 'Berlin', True)
+    self.assertEqual(test_event.space.name == 'Mountain View', True)
 
 
   def test_event_functional_areas_are_guessed(self):

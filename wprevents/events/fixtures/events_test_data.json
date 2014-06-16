@@ -1,0 +1,36 @@
+[
+{
+  "pk": 1,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "orange-1",
+    "name": "Security",
+    "slug": "security"
+  }
+},
+{
+  "pk": 2,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "blue-1",
+    "name": "Firefox OS",
+    "slug": "firefox-os"
+  }
+},
+{
+  "pk": 1,
+  "model": "events.space",
+  "fields": {
+    "city": "Mountain View",
+    "name": "Mountain View",
+    "country": "us",
+    "address2": "",
+    "lon": -122.0609917,
+    "postal_code": "94041",
+    "address": "331 E. Evelyn Avenue",
+    "lat": 37.3874349,
+    "slug": "mountain-view",
+    "photo": null
+  }
+}
+]
