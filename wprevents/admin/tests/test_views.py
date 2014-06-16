@@ -21,6 +21,7 @@ class ViewsTest(TestCase):
     self.client.login(username=test_username, password=test_password)
 
     response = self.client.get(reverse('event_all'))
+    self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'events.html')
 
     # Delete and dedupe
@@ -47,6 +48,7 @@ class ViewsTest(TestCase):
     self.client.login(username=test_username, password=test_password)
 
     response = self.client.get(reverse('space_all'))
+    self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'spaces.html')
 
 
@@ -56,4 +58,5 @@ class ViewsTest(TestCase):
     self.client.login(username=test_username, password=test_password)
 
     response = self.client.get(reverse('area_all'))
+    self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'areas.html')
