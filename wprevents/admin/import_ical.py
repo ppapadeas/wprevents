@@ -17,10 +17,10 @@ class Error(Exception):
 
 
 def from_url(url):
-  return analyze_data(fetch_url(url))
+  return from_string(fetch_url(url))
 
 
-def analyze_data(data):
+def from_string(data):
   cal = parse_data(filter_chars(data))
 
   try:
