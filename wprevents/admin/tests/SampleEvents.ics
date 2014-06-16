@@ -1,0 +1,49 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VEVENT
+UID:20140613T171932Z-47614@generic2.webapp.phx1.mozilla.com
+DTSTART:20140609T185800Z
+DTEND:20140609T195800Z
+DESCRIPTION:Talks OWASP AFUP Firefox OS Security
+LOCATION:Berlin, Germany
+SUMMARY:Some test event
+URL:https://air.mozilla.org/talks-owasp-afup-firefoxos-security-mozilla-fi
+ refoxos-what-is-owasp-by-sebastien-gioria/
+END:VEVENT
+BEGIN:VEVENT
+UID:20140613T171932Z-78378@generic2.webapp.phx1.mozilla.com
+DTSTART:20140609T183100Z
+DTEND:20140609T193100Z
+DESCRIPTION:Let's talk security in PHP applications with Christophe Villen
+ euve.
+LOCATION:Cyberspace
+SUMMARY:Talks OWASP AFUP FirefoxOS Security @Mozilla FirefoxOS Security in
+  PHP by Christophe Villeneuve
+URL:https://air.mozilla.org/talks-owasp-afup-firefoxos-security-mozilla-fi
+ refoxos-security-in-php-by-christophe-villeneuve/
+END:VEVENT
+BEGIN:VEVENT
+UID:20140613T171932Z-28140@generic2.webapp.phx1.mozilla.com
+DTSTART:20140609T181800Z
+DTEND:20140609T191800Z
+DESCRIPTION:Stéphanie Ouillon nous présente les stratégies mises en pla
+ ce dans Firefox OS pour garantir la sécurité des application web sur de
+ FFOS.
+LOCATION:Cyberspace
+SUMMARY:Talks OWASP AFUP FirefoxOS Security @Mozilla FirefoxOS application
+  security by Stephanie Ouillon
+URL:https://air.mozilla.org/talks-owasp-afup-firefoxos-security-mozilla-fi
+ refoxos-application-security-by-stephanie-ouillon/
+END:VEVENT
+BEGIN:VEVENT
+UID:20140613T171932Z-4477@generic2.webapp.phx1.mozilla.com
+DTSTART:20140321T024600Z
+DTEND:20140321T034600Z
+DESCRIPTION:David Baron introduces XPCOM and internal strings in Gecko.
+LOCATION:Cyberspace
+SUMMARY:XPCOM and Internal Strings in Gecko
+URL:https://air.mozilla.org/xpcom-and-internal-strings-in-gecko/
+END:VEVENT
+X-WR-CALNAME:Air Mozilla Public Events
+END:VCALENDAR
