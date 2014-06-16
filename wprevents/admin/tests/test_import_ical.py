@@ -1,11 +1,11 @@
 import os
 
-from django.test import TestCase
+from django.test import TransactionTestCase
 
 from .. import import_ical
 
 
-class ImportIcalTestCase(TestCase):
+class ImportIcalTestCase(TransactionTestCase):
   fixtures = ['events_test_data.json']
 
   def setUp(self):
