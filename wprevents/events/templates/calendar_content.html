@@ -34,7 +34,7 @@
                 <ul{{ class }}>
                 {% for event in today_events %}
                   <li class="event-box js-event">
-                    <a href="{{ url('event_one', id=event.id, slug=event.slug) }}">{{ event.title }}</a>
+                    <a href="{{ url('events_event_single', id=event.id, slug=event.slug) }}">{{ event.title }}</a>
                   </li>
                 {% endfor %}
                 </ul>

@@ -7,7 +7,7 @@
     {% endif %}
   </h3>
 
-  <form method="post" action="{{ url('events_new_event') }}">
+  <form method="post" action="{{ url('admin_event_new') }}">
     {{ csrf() }}
     <ul class="errorlist js-errors"></ul>
     <input type="hidden" name="id" value="{{ event.id }}">

@@ -15,7 +15,7 @@ def one(request, id, slug):
 
   return render(request, 'event.html', {
     'event': event,
-    'event_absolute_url': request.build_absolute_uri(reverse('event_one', args=(event.pk, event.slug,)))
+    'event_absolute_url': request.build_absolute_uri(reverse('events_event_single', args=(event.pk, event.slug,)))
   })
 
 

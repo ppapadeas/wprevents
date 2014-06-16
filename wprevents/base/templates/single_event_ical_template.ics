@@ -11,7 +11,7 @@ DTEND;TZID={{ event.timezone }}:{{ event.end|format_datetime_utc }}
 {{ "LOCATION:%s, %s, %s"|format(event.space.name, event.space.city, event.space.country_name)|ical_escape_char|ical_format_lines }}
 {{ "SUMMARY:%s"|format(event.title)|ical_escape_char|ical_format_lines }}
 {{ "DESCRIPTION:%s"|format(event.description)|ical_escape_char|ical_format_lines }}
-{{ "URL:%s%s"|format(host, url('event_one', id=event.id, slug=event.slug))|ical_escape_char|ical_format_lines }}
+{{ "URL:%s%s"|format(host, url('events_event_single', id=event.id, slug=event.slug))|ical_escape_char|ical_format_lines }}
 SEQUENCE:{{ event.times_edited }}
 END:VEVENT
 END:VCALENDAR

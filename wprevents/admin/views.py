@@ -158,7 +158,7 @@ def space_edit(request, id=None):
 def space_delete(request):
   Space.objects.delete_by_id(id=request.POST.get('id'))
 
-  return HttpResponseRedirect(reverse('space_all'))
+  return HttpResponseRedirect(reverse('admin_spaces_all'))
 
 
 # AREAS
@@ -189,4 +189,4 @@ def area_edit(request, id=None):
 def area_delete(request):
   FunctionalArea.objects.delete_by_id(id=request.POST.get('id'))
 
-  return HttpResponseRedirect(reverse('area_all'))
+  return HttpResponseRedirect(reverse('admin_area_list'))

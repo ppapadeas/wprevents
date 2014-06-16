@@ -5,9 +5,9 @@
 {% set active_tab = 'events' %}
 
 {% block actions %}
-  <a class="button js-import-button" href="{{ url('event_import_ical') }}">Import iCal</a>
+  <a class="button js-import-button" href="{{ url('admin_event_import_ical') }}">Import iCal</a>
   <a class="button" href="{{ url("api_dispatch_list", resource_name="event", api_name='v1') }}?format=csv">Export CSV</a>
-  <a class="button js-new-event" href="{{ url('events_new_event') }}">New event</a>
+  <a class="button js-new-event" href="{{ url('admin_event_new') }}">New event</a>
 {% endblock %}
 
 {% block tablecontent %}
@@ -24,16 +24,16 @@
   <tbody>
     {% for event in events %}
     <tr data-id="{{ event.id }}" class="js-event">
-      <td><a href="{{ url('event_one', id=event.id, slug=event.slug) }}" title="{{ event.title }}" target="_blank">{{ event.title }}</a></td>
+      <td><a href="{{ url('events_event_single', id=event.id, slug=event.slug) }}" title="{{ event.title }}" target="_blank">{{ event.title }}</a></td>
       <td>{{ event.space }}</td>
       <td>{{ event.start_date }} - {{ event.end_date }}</td>
       <td>{{ event.area_names|join(', ') }}</td>
       <td class="actions">
 
-        <a href="{{ url('event_edit', id=event.id) }}" class="js-edit-event">edit</a>
-        <a href="{{ url('event_dedupe', id=event.id) }}" class="js-dedupe-event">dedupe</a>
+        <a href="{{ url('admin_event_edit', id=event.id) }}" class="js-edit-event">edit</a>
+        <a href="{{ url('admin_event_dedupe', id=event.id) }}" class="js-dedupe-event">dedupe</a>
 
-        <form action="{{ url('event_delete') }}?page={{ current_page }}&order_by={{ order_by }}" method="post">
+        <form action="{{ url('admin_event_delete') }}?page={{ current_page }}&order_by={{ order_by }}" method="post">
           {{ csrf() }}
           <input type="hidden" name="id" value="{{ event.id }}">
           <input type="submit" value="delete" class="delete-item">
