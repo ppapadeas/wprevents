@@ -32,5 +32,59 @@
     "slug": "mountain-view",
     "photo": null
   }
+},
+{
+  "pk": 1,
+  "model": "events.event",
+  "fields": {
+    "end": "2014-06-21T17:00:00",
+    "description": "",
+    "title": "Engineering Meeting",
+    "created": "2014-02-14T07:50:11",
+    "space": 1,
+    "modified": "2014-02-14T07:50:11",
+    "start": "2014-06-21T15:00:00",
+    "details": "",
+    "slug": "engineering-meeting",
+    "areas": [
+      1
+    ]
+  }
+},
+{
+  "pk": 2,
+  "model": "events.event",
+  "fields": {
+    "end": "2014-06-21T17:00:00",
+    "description": "",
+    "title": "Engineering Meeting",
+    "created": "2014-02-14T07:50:11",
+    "space": 1,
+    "modified": "2014-02-14T07:50:11",
+    "start": "2014-06-21T15:00:00",
+    "details": "",
+    "slug": "engineering-meeting",
+    "areas": [
+      1
+    ]
+  }
+},
+{
+  "pk": 3,
+  "model": "events.event",
+  "fields": {
+    "end": "2014-06-21T17:00:00",
+    "description": "",
+    "title": "Engineering Meeting",
+    "created": "2014-02-14T07:50:11",
+    "space": 1,
+    "modified": "2014-02-14T07:50:11",
+    "start": "2014-06-21T15:00:00",
+    "details": "",
+    "slug": "engineering-meeting",
+    "areas": [
+      1
+    ]
+  }
 }
 ]
