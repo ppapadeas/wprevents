@@ -13,7 +13,7 @@ class ImportIcalTestCase(TransactionTestCase):
     self.ical_string = s.decode('utf-8')
 
   def test_events_are_imported(self):
-    """events should be imported from icalendar format"""
+    """should import events in icalendar format"""
     imported_events, skipped = import_ical.from_string(self.ical_string)
 
     self.assertEqual(imported_events.count(), 4)
@@ -21,7 +21,7 @@ class ImportIcalTestCase(TransactionTestCase):
 
 
   def test_duplicate_events_are_skipped(self):
-    """duplicate events should not be imported"""
+    """should not import duplicate events"""
     imported_events_1, skipped_1 = import_ical.from_string(self.ical_string)
     imported_events_2, skipped_2 = import_ical.from_string(self.ical_string)
 
@@ -32,7 +32,7 @@ class ImportIcalTestCase(TransactionTestCase):
 
 
   def test_event_space_name_is_guessed(self):
-    """space name should be guessed from ical event location field"""
+    """should guess event space name name from ical location field"""
     imported_events, skipped = import_ical.from_string(self.ical_string)
     test_event = [e for e in imported_events if e.title == 'Some test event'][0]
 
@@ -40,7 +40,7 @@ class ImportIcalTestCase(TransactionTestCase):
 
 
   def test_event_functional_areas_are_guessed(self):
-    """functional areas should be guessed from ical event description field"""
+    """should guess event functional areas from ical event description field"""
     imported_events, skipped = import_ical.from_string(self.ical_string)
     test_event = [e for e in imported_events if e.title == 'Some test event'][0]
 
