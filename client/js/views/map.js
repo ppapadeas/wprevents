@@ -72,18 +72,17 @@ var MapView = Backbone.View.extend({
 
     this.isFocusingSpace = false;
 
-    this.map.fitBounds(bounds, { animate: false });
-
     if (this.isMobile) {
-      this.map.setZoom(0);
+      this.map.fitWorld({ paddingTopLeft: [0, 40] });
+      this.map.setZoom(0, { animate: false });
 
-      this.map.panBy([0, -40], { animate: false });
     } else {
-      this.map.setZoom(2);
-
       var windowHeight = $(window).height();
-      var boundingBoxHeight = 766;
-      this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], { animate: false });
+      var boundingBoxHeight = 800;
+      var offset = -Math.abs((windowHeight - boundingBoxHeight) * 2);
+
+      this.map.fitBounds(bounds, { animate: false, paddingTopLeft: [0, offset] });
+      this.map.setZoom(2, { animate: false });
     }
   },
 
