@@ -6,10 +6,22 @@ var enquire = require('enquire.js');
 var MapView = Backbone.View.extend({
   initialize: function(options) {
     var token = 'mozilla-webprod.e91ef8b3';
-    var map = this.map = L.mapbox.map(this.el.id, { trackResize: false });
+    var map = this.map = L.mapbox.map(this.el.id, {
+      trackResize: false,
+      zoomAnimation: false,
+      fadeAnimation: false,
+      inertia: false
+    });
 
-    enquire.register("screen and (min-width: 768px)", this.setDefaultState.bind(this));
-    enquire.register("screen and (max-width: 767px)", this.setMobileState.bind(this));
+    enquire.register("screen and (min-width: 768px)", function() {
+      this.isMobile = false;
+      if (!this.isFocusingSpace) this.setDefaultState();
+    }.bind(this));
+
+    enquire.register("screen and (max-width: 767px)", function() {
+      this.isMobile = true;
+      if (!this.isFocusingSpace) this.setDefaultState();
+    }.bind(this));
 
     this.isolationMode = false;
 
@@ -57,20 +69,22 @@ var MapView = Backbone.View.extend({
   setDefaultState: function() {
     // Bounds order is [South West, North East]
     var bounds = [[-45, -90], [45, 130]];
+
+    this.isFocusingSpace = false;
+
     this.map.fitBounds(bounds, { animate: false });
-    this.map.setZoom(2);
 
-    var windowHeight = $(window).height();
-    var boundingBoxHeight = 766;
-    this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], { animate: false });
-  },
+    if (this.isMobile) {
+      this.map.setZoom(0);
 
-  setMobileState: function() {
-    var bounds = [[-45, -90], [45, 130]];
-    this.map.fitBounds(bounds, { animate: false });
-    this.map.setZoom(0);
+      this.map.panBy([0, -40], { animate: false });
+    } else {
+      this.map.setZoom(2);
 
-    this.map.panBy([0, -40], { animate: false });
+      var windowHeight = $(window).height();
+      var boundingBoxHeight = 766;
+      this.map.panBy([0, (windowHeight - boundingBoxHeight) / 2], { animate: false });
+    }
   },
 
   /*
@@ -199,6 +213,8 @@ var MapView = Backbone.View.extend({
   },
 
   focusSpace: function(id) {
+    this.isFocusingSpace = true;
+
     this.map.featureLayer.eachLayer(function (marker) {
       if (marker.feature.properties.id === id) {
         var markerCoords = this.markerCoords = marker.getLatLng();
@@ -210,7 +226,8 @@ var MapView = Backbone.View.extend({
 
     enquire.register("screen and (min-width: 768px)", function() {
       var offset = this.markerOffset ? this.markerOffset : this.getMarkerOffset();
-      this.map.panBy([offset.x, offset.y]);
+
+      this.map.panBy([offset.x, offset.y], { animate: false });
     }.bind(this));
   }
 });

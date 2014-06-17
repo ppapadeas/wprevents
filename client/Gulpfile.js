@@ -38,6 +38,13 @@ gulp.task('scripts-prod', function() {
     .on('error', logError)
     .pipe(size({ showFiles: true }))
     .pipe(gulp.dest(staticDir + '/js'));
+
+  gulp.src('js/event.js')
+    .pipe(browserify())
+    .pipe(uglify())
+    .on('error', logError)
+    .pipe(size({ showFiles: true }))
+    .pipe(gulp.dest(staticDir + '/js'));
 });
 
 gulp.task('scripts-dev', function() {
@@ -54,6 +61,12 @@ gulp.task('scripts-dev', function() {
     .pipe(gulp.dest(staticDir + '/js'));
 
   gulp.src('js/screen.js')
+    .pipe(browserify({ debug: true }))
+    .on('error', logError)
+    .pipe(size({ showFiles: true }))
+    .pipe(gulp.dest(staticDir + '/js'));
+
+  gulp.src('js/event.js')
     .pipe(browserify({ debug: true }))
     .on('error', logError)
     .pipe(size({ showFiles: true }))

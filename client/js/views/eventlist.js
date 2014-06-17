@@ -3,7 +3,8 @@ var Backbone = require('backbone');
 var EventListView = Backbone.View.extend({
   events: {
     "mouseenter .js-event": 'onMouseEnterEvent',
-    "mouseleave .js-event": 'onMouseLeaveEvent'
+    "mouseleave .js-event": 'onMouseLeaveEvent',
+    "click .js-event-link": 'showEventPage',
   },
 
   initialize: function() {
@@ -20,6 +21,13 @@ var EventListView = Backbone.View.extend({
   onMouseLeaveEvent: function(e) {
     var space = $(e.target).closest('.js-event').data('space');
     this.trigger('mouseLeaveEvent', space);
+  },
+
+  showEventPage: function(e) {
+    // Don't visit link
+    e.preventDefault();
+
+    this.trigger('showEvent', $(e.target).attr('href'));
   },
 
   update: function(filters) {

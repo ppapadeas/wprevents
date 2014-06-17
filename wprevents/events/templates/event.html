@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 
 {% block content %}
-<div class="width-container click-through">
+<div class="width-container click-through js-event-container">
   <header class="event-header billboard js-event-header">
       <div class="event-date column col-2">
         <div class="day">{{ event.start_day }}</div>
@@ -48,4 +48,8 @@
   </div>
 
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ settings.STATIC_URL }}js/event.js"></script>
 {% endblock %}

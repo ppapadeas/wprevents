@@ -6,7 +6,8 @@ var CalendarView = Backbone.View.extend({
   events: {
     'click .js-prev': 'showPreviousMonth',
     'click .js-next': 'showNextMonth',
-    'click .js-day':  'showEventsOfDay'
+    'click .js-day':  'showEventsOfDay',
+    "click .js-event-link": 'showEventPage'
   },
 
   initialize: function() {
@@ -103,6 +104,13 @@ var CalendarView = Backbone.View.extend({
     this.$wrapper.removeClass('sliding');
     this.initEventViews();
     this.isSliding = false;
+  },
+
+  showEventPage: function(e) {
+    // Don't visit link
+    e.preventDefault();
+
+    this.trigger('showEvent', $(e.target).attr('href'));
   },
 
   updateNavProperties: function() {
