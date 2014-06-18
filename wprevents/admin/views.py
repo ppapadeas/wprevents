@@ -1,8 +1,12 @@
+from dateutil.relativedelta import relativedelta
+
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.db import connections
+from django.db.models import Count
 
 from wprevents.base.utils import get_or_create_instance, save_ajax_form
 from wprevents.base.decorators import json_view, ajax_required, post_required
@@ -190,3 +194,81 @@ def area_delete(request):
   FunctionalArea.objects.delete_by_id(id=request.POST.get('id'))
 
   return HttpResponseRedirect(reverse('admin_area_list'))
+
+
+def get_rows(qs):
+  results = []
+
+  extract_month = connections[Event.objects.db].ops.date_trunc_sql('month', 'start')
+  rows = qs.extra(select={'month': extract_month}).values('month').annotate(num_events=Count('id'))
+
+  for r in rows:
+    results.append((r['month'].strftime('%Y-%m'), str(r['num_events'])))
+
+  return results
+
+
+def get_month_list():
+  months = []
+  first = Event.objects.order_by('start')[0].start.date()
+  last = Event.objects.order_by('-start')[0].start.date()
+  current = first
+
+  months.append(first.strftime('%Y-%m'))
+  while current < last:
+    current = current + relativedelta(months=1)
+    months.append(current.strftime('%Y-%m'))
+
+  return months
+
+
+def to_csv(table):
+  csv = ''
+  for row in table:
+    csv += ','.join(row) + '\n'
+
+  return csv
+
+
+def metrics(request):
+  spaces = Space.objects.all()
+  areas = FunctionalArea.objects.all()
+  months = get_month_list()
+  table = [['0'] * (len(spaces) + len(areas) + 2) for x in xrange(len(months) + 1)]
+
+  # Column names
+  table[0][0] = 'Date'
+  table[0][1] = 'Total events'
+
+  # `Date` column
+  for i, m in enumerate(months):
+    table[1 + i][0] = m
+
+  # `Total Events` column
+  for date, count in get_rows(Event.objects):
+    table[1 + months.index(date)][1] = count
+
+  # Spaces columns
+  offset = 2
+  
+  for i, s in enumerate(spaces):
+    table[0][offset + i] = s.name
+
+  for i, s in enumerate(spaces):
+    for date, count in get_rows(Event.objects.filter(space=s)):
+      table[1 + months.index(date)][offset + i] = count
+
+  # Areas columns
+  offset += len(spaces)
+
+  for i, a in enumerate(areas):
+    table[0][offset + i] = a.name
+
+  for i, a in enumerate(areas):
+    for date, count in get_rows(Event.objects.filter(areas=a)):
+      table[1 + months.index(date)][offset + i] = count
+
+  response = HttpResponse(content=to_csv(table))
+  response['Content-Disposition'] = "attachment; filename=metrics.csv"
+
+  return response
