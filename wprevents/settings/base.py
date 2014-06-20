@@ -1,7 +1,7 @@
 # This is your project's main settings file that can be committed to your
 # repo. If you need to override a setting locally, use settings_local.py
 
-from funfactory.settings_base import *
+from funfactory.settings_base import * # noqa
 
 # Name of the top-level module where you put all your apps.
 # If you did not install Playdoh with the funfactory installer script
@@ -12,20 +12,20 @@ PROJECT_MODULE = 'wprevents'
 # Defines the views served for root URLs.
 ROOT_URLCONF = '%s.urls' % PROJECT_MODULE
 
-INSTALLED_APPS = list(INSTALLED_APPS) + [
-    # Application base, containing global templates.
-    '%s.base' % PROJECT_MODULE,
-    '%s.events' % PROJECT_MODULE,
-    '%s.admin' % PROJECT_MODULE,
+INSTALLED_APPS = (['south'] +
+                  list(INSTALLED_APPS) + [
+                      # Application base, containing global templates.
+                      '%s.base' % PROJECT_MODULE,
+                      '%s.events' % PROJECT_MODULE,
+                      '%s.admin' % PROJECT_MODULE,
 
-    'django_browserid',
-    'tastypie',
-]
+                      'django_browserid',
+                      'tastypie'])
 
 # Note! If you intend to add `south` to INSTALLED_APPS,
 # make sure it comes BEFORE `django_nose`.
-#INSTALLED_APPS.remove('django_nose')
-#INSTALLED_APPS.append('django_nose')
+# INSTALLED_APPS.remove('django_nose')
+# INSTALLED_APPS.append('django_nose')
 
 
 LOCALE_PATHS = (
@@ -99,6 +99,7 @@ DOMAIN_METHODS['messages'] = [
 #    ('media/js/**.js', 'javascript'),
 # ]
 
+
 # Set ALLOWED_HOSTS based on SITE_URL.
 def _allowed_hosts():
     from django.conf import settings
@@ -121,6 +122,7 @@ LOGGING = {
         }
     }
 }
+
 
 # List of valid country codes.
 def lazy_countries():
