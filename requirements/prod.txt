@@ -34,3 +34,6 @@ Babel>=0.9.4
 
 # Mobile
 -e git://github.com/jbalogh/django-mobility@644e0c1c58#egg=django-mobility
+
+# South
+south==0.8.1
