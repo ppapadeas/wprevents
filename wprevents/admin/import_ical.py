@@ -29,7 +29,7 @@ def from_string(data):
     events, skipped = bulk_create_events(cal)
   except transaction.TransactionManagementError, e:
     transaction.rollback()
-    raise Error('An error with the database transaction occured while bulk inserting events' + str(e))
+    raise Error('An error with the database transaction occured while bulk inserting events: ' + str(e))
   except Exception, e:
     raise Error('An error occurred while bulk inserting events: ' + str(e))
 
