@@ -1,3 +1,4 @@
+from datetime import datetime, date, time
 from HTMLParser import HTMLParser
 import random
 import urllib2
@@ -6,6 +7,7 @@ from django.db import transaction
 from django.db.models import Q
 from django.utils import timezone
 from icalendar import Calendar
+import pytz
 
 from wprevents.events.models import Event, Space, FunctionalArea, EVENT_TITLE_LENGTH
 
@@ -27,7 +29,7 @@ def from_string(data):
     events, skipped = bulk_create_events(cal)
   except transaction.TransactionManagementError, e:
     transaction.rollback()
-    raise Error('An error with the database transaction occured while bulk inserting events')
+    raise Error('An error with the database transaction occured while bulk inserting events' + str(e))
   except Exception, e:
     raise Error('An error occurred while bulk inserting events: ' + str(e))
 
@@ -81,16 +83,24 @@ def bulk_create_events(cal):
       skipped += 1
       continue
 
-    start = timezone.make_naive(ical_event.get('dtstart').dt, default_timezone)
-    end = timezone.make_naive(ical_event.get('dtend').dt, default_timezone)
-    location = ical_event.get('location')
-    description = HTMLParser().unescape(ical_event.get('description')).encode('utf-8')
+    start = ensure_timezone_datetime(ical_event.get('dtstart').dt)
+    start = timezone.make_naive(start, default_timezone)
+
+    end = ensure_timezone_datetime(ical_event.get('dtend').dt)
+    end = timezone.make_naive(end, default_timezone)
+
+    location = ical_event.get('location', '')
+    description = ical_event.get('description', '')
+    description = HTMLParser().unescape(description).encode('utf-8')
+
+    space = guess_space(location, spaces)
+    title = title[:EVENT_TITLE_LENGTH] # Truncate to avoid potential errors
 
     event = Event(
       start = start,
       end = end,
-      space = guess_space(location, spaces),
-      title = title[:EVENT_TITLE_LENGTH], # Truncate to avoid potential errors
+      space = space,
+      title = title,
       description = description,
       bulk_id = bulk_id
     )
@@ -138,6 +148,16 @@ def guess_functional_areas(description, functional_areas):
   return guessed_areas
 
 
+def ensure_timezone_datetime(checked_date):
+  if isinstance(checked_date, date) and not isinstance(checked_date, datetime):
+    # Cast date as datetime: handle special case where events checked_date date is set for the whole day within the iCal file
+    checked_date = datetime.combine(checked_date, time())
+
+    if checked_date.tzinfo is None:
+      checked_date = pytz.utc.localize(checked_date)
+  return checked_date
+
+
 def find_duplicates(ical_events):
   """
   Return all events previously added in the database that would be duplicate candidates (ie. same title, same start date) of all events provided in the
@@ -148,7 +168,10 @@ def find_duplicates(ical_events):
 
   for ical_event in ical_events:
     titles.append(ical_event.get('summary'))
-    start_dates.append(timezone.make_naive(ical_event.get('dtstart').dt, default_timezone))
+    start = ical_event.get('dtstart').dt
+    start = ensure_timezone_datetime(start)
+
+    start_dates.append(timezone.make_naive(start, default_timezone))
 
   # Dynamically build 'or' filters
   filter_titles = reduce(lambda q, e: q|Q(title=e.title), titles, Q())
