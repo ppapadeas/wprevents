@@ -100,7 +100,7 @@ class EventManager(CustomManager):
     add_filter(filters, 'start',       'year',      year)
     add_filter(filters, 'start',       'month',     month)
 
-    if len(filters) is 0:
+    if not start_date:
       add_filter(filters, 'start', 'gte', timezone.now())
 
     queryset = self.filter(**filters)
