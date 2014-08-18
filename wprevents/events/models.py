@@ -100,7 +100,10 @@ class EventManager(CustomManager):
     add_filter(filters, 'start',       'year',      year)
     add_filter(filters, 'start',       'month',     month)
 
-    if not start_date:
+    for_calendar = year is not None
+
+    # Display only upcoming events in the list tab when start date filter is not set
+    if not start_date and not for_calendar:
       add_filter(filters, 'start', 'gte', timezone.now())
 
     queryset = self.filter(**filters)
