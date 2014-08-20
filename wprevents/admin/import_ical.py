@@ -83,10 +83,10 @@ def bulk_create_events(cal):
       continue
 
     start = ensure_timezone_datetime(ical_event.get('dtstart').dt)
-    start = timezone.make_naive(start, settings.TIME_ZONE)
+    start = timezone.make_naive(start, pytz.timezone(settings.TIME_ZONE))
 
     end = ensure_timezone_datetime(ical_event.get('dtend').dt)
-    end = timezone.make_naive(end, settings.TIME_ZONE)
+    end = timezone.make_naive(end, pytz.timezone(settings.TIME_ZONE))
 
     location = ical_event.get('location', '')
     description = ical_event.get('description', '')
@@ -170,7 +170,7 @@ def find_duplicates(ical_events):
     start = ical_event.get('dtstart').dt
     start = ensure_timezone_datetime(start)
 
-    start_dates.append(timezone.make_naive(start, settings.TIME_ZONE))
+    start_dates.append(timezone.make_naive(start, pytz.timezone(settings.TIME_ZONE)))
 
   # Dynamically build 'or' filters
   filter_titles = reduce(lambda q, e: q|Q(title=e.title), titles, Q())

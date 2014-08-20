@@ -168,6 +168,15 @@ class Event(models.Model):
 
     return duplicate_candidates
 
+  def _make_local_to_space(self, obj):
+    if not obj:
+      return None
+    if self.space is not None and self.space.timezone is not None:
+      tz = pytz.timezone(self.space.timezone)
+      return obj.astimezone(tz)
+    else:
+      return obj
+
   @property
   def is_multiday(self):
     return self.start.date() != self.end.date()
@@ -177,33 +186,41 @@ class Event(models.Model):
     return [area.name for area in self.areas.all()]
 
   @property
+  def local_start(self):
+    return self._make_local_to_space(self.start)
+
+  @property
+  def local_end(self):
+    return self._make_local_to_space(self.end)
+
+  @property
   def start_day(self):
-    return self.start.strftime('%d')
+    return self.local_start.strftime('%d')
 
   @property
   def start_month(self):
-    return self.start.strftime('%b')
+    return self.local_start.strftime('%b')
 
   @property
   def start_date(self):
-    return self.start.strftime('%Y-%m-%d')
+    return self.local_start.strftime('%Y-%m-%d')
 
   @property
   def start_date_pretty(self):
-    return self.start.strftime('%B %-d, %Y')
+    return self.local_start.strftime('%B %-d, %Y')
 
   @property
   def start_time(self):
-    return self.start.strftime('%H:%M')
+    return self.local_start.strftime('%H:%M')
 
   @property
   def end_date(self):
-    return self.end.strftime('%Y-%m-%d')
+    return self.local_end.strftime('%Y-%m-%d')
 
   @property
   def end_date_pretty(self):
-    return self.end.strftime('%B %-d, %Y')
+    return self.local_end.strftime('%B %-d, %Y')
 
   @property
   def end_time(self):
-    return self.end.strftime('%H:%M')
+    return self.local_end.strftime('%H:%M')
