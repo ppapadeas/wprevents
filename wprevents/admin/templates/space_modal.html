@@ -47,6 +47,13 @@
     </div>
 
     <div class="row">
+      <label>Timezone</label>
+      <div class="field">
+        {{ form.timezone }}
+      </div>
+    </div>
+
+    <div class="row">
       <label>Postal Code</label>
       <div class="field">
         <input type="text" name="postal_code" value="{{ form.postal_code.value() }}" placeholder="">

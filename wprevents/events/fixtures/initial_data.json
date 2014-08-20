@@ -95,6 +95,7 @@
   "fields": {
     "city": "Mountain View",
     "name": "Mountain View",
+    "timezone": "America/Los_Angeles",
     "country": "us",
     "address2": "",
     "lon": -122.0609917,
@@ -111,6 +112,7 @@
   "fields": {
     "city": "London",
     "name": "London",
+    "timezone": "Europe/London",
     "country": "gb",
     "address2": "",
     "lon": -0.127497,
@@ -127,6 +129,7 @@
   "fields": {
     "city": "Paris",
     "name": "Paris",
+    "timezone": "Europe/Paris",
     "country": "fr",
     "address2": "",
     "lon": 2.3411542,
@@ -143,6 +146,7 @@
   "fields": {
     "city": "Auckland",
     "name": "Auckland",
+    "timezone": "Pacific/Auckland",
     "country": "us",
     "address2": "",
     "lon": 174.777106,
@@ -159,6 +163,7 @@
   "fields": {
     "city": "Beijing",
     "name": "Beijing",
+    "timezone": "Asia/Shanghai",
     "country": "cn",
     "address2": "",
     "lon": 116.43405,
@@ -175,6 +180,7 @@
   "fields": {
     "city": "Berlin",
     "name": "Berlin",
+    "timezone": "Europe/Berlin",
     "country": "de",
     "address2": "",
     "lon": 13.418735,
@@ -191,6 +197,7 @@
   "fields": {
     "city": "Portland",
     "name": "Portland",
+    "timezone": "America/Los_Angeles",
     "country": "us",
     "address2": "",
     "lon": -122.6827999,
@@ -207,6 +214,7 @@
   "fields": {
     "city": "San Francisco",
     "name": "San Francisco",
+    "timezone": "America/Los_Angeles",
     "country": "us",
     "address2": "",
     "lon": -122.38889,
@@ -223,6 +231,7 @@
   "fields": {
     "city": "Taipei",
     "name": "Taipei",
+    "timezone": "Asia/Taipei",
     "country": "tw",
     "address2": "",
     "lon": 121.56705,
@@ -239,6 +248,7 @@
   "fields": {
     "city": "Tokyo",
     "name": "Tokyo",
+    "timezone": "Asia/Tokyo",
     "country": "jp",
     "address2": "",
     "lon": 139.727765,
@@ -255,6 +265,7 @@
   "fields": {
     "city": "Toronto",
     "name": "Toronto",
+    "timezone": "America/Toronto",
     "country": "ca",
     "address2": "",
     "lon": -79.3943,
@@ -271,6 +282,7 @@
   "fields": {
     "city": "Vancouver",
     "name": "Vancouver",
+    "timezone": "America/Vancouver",
     "country": "ca",
     "address2": "",
     "lon": -123.1091763,

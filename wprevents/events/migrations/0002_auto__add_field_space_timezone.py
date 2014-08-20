@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+from south.utils import datetime_utils as datetime
+from south.db import db
+from south.v2 import SchemaMigration
+from django.db import models
+
+
+class Migration(SchemaMigration):
+
+    def forwards(self, orm):
+        # Adding field 'Space.timezone'
+        db.add_column(u'events_space', 'timezone',
+                      self.gf('django.db.models.fields.CharField')(default='UTC', max_length=100),
+                      keep_default=False)
+
+
+    def backwards(self, orm):
+        # Deleting field 'Space.timezone'
+        db.delete_column(u'events_space', 'timezone')
+
+
+    models = {
+        u'events.event': {
+            'Meta': {'object_name': 'Event', 'index_together': "[['title', 'start', 'end']]"},
+            'areas': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['events.FunctionalArea']", 'symmetrical': 'False', 'blank': 'True'}),
+            'bulk_id': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'details': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'end': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '120', 'blank': 'True'}),
+            'space': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'events_hosted'", 'null': 'True', 'on_delete': 'models.SET_NULL', 'to': u"orm['events.Space']"}),
+            'start': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '120'})
+        },
+        u'events.functionalarea': {
+            'Meta': {'object_name': 'FunctionalArea'},
+            'color': ('django.db.models.fields.CharField', [], {'default': "'red-1'", 'max_length': '20'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'})
+        },
+        u'events.space': {
+            'Meta': {'object_name': 'Space'},
+            'address': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'address2': ('django.db.models.fields.CharField', [], {'max_length': '150', 'blank': 'True'}),
+            'city': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50'}),
+            'country': ('django.db.models.fields.CharField', [], {'default': "'US'", 'max_length': '50'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'lat': ('django.db.models.fields.FloatField', [], {'null': 'True'}),
+            'lon': ('django.db.models.fields.FloatField', [], {'null': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '120'}),
+            'photo': ('django.db.models.fields.files.FileField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
+            'postal_code': ('django.db.models.fields.CharField', [], {'max_length': '8', 'blank': 'True'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
+            'timezone': ('django.db.models.fields.CharField', [], {'default': "'UTC'", 'max_length': '100'})
+        }
+    }
+
+    complete_apps = ['events']

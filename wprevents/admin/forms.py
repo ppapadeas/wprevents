@@ -6,6 +6,7 @@ from django.utils.translation import get_language
 
 from product_details import product_details
 from tower import ugettext as _
+from pytz import common_timezones
 
 from wprevents.events.models import Event, Space, FunctionalArea
 
@@ -57,9 +58,12 @@ class EventForm(ModelForm):
 
 
 class SpaceForm(ModelForm):
+  timezone = forms.ChoiceField(choices=zip(common_timezones,
+                                           common_timezones))
+
   class Meta:
     model = Space
-    fields = ['id', 'name', 'address', 'address2', 'city', 'country', 'postal_code', 'lat', 'lon', 'photo']
+    fields = ['id', 'name', 'address', 'address2', 'city', 'country', 'postal_code', 'lat', 'lon', 'photo', 'timezone']
 
   def __init__(self, *args, **kwargs):
     super(SpaceForm, self).__init__(*args, **kwargs)

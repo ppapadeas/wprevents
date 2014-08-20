@@ -3,6 +3,7 @@ from HTMLParser import HTMLParser
 import random
 import urllib2
 
+from django.conf import settings
 from django.db import transaction
 from django.db.models import Q
 from django.utils import timezone
@@ -10,8 +11,6 @@ from icalendar import Calendar
 import pytz
 
 from wprevents.events.models import Event, Space, FunctionalArea, EVENT_TITLE_LENGTH
-
-default_timezone = timezone.get_default_timezone()
 
 
 class Error(Exception):
@@ -84,10 +83,10 @@ def bulk_create_events(cal):
       continue
 
     start = ensure_timezone_datetime(ical_event.get('dtstart').dt)
-    start = timezone.make_naive(start, default_timezone)
+    start = timezone.make_naive(start, settings.TIME_ZONE)
 
     end = ensure_timezone_datetime(ical_event.get('dtend').dt)
-    end = timezone.make_naive(end, default_timezone)
+    end = timezone.make_naive(end, settings.TIME_ZONE)
 
     location = ical_event.get('location', '')
     description = ical_event.get('description', '')
@@ -171,7 +170,7 @@ def find_duplicates(ical_events):
     start = ical_event.get('dtstart').dt
     start = ensure_timezone_datetime(start)
 
-    start_dates.append(timezone.make_naive(start, default_timezone))
+    start_dates.append(timezone.make_naive(start, settings.TIME_ZONE))
 
   # Dynamically build 'or' filters
   filter_titles = reduce(lambda q, e: q|Q(title=e.title), titles, Q())

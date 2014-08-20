@@ -137,3 +137,6 @@ COUNTRIES = lazy(lazy_countries, dict)()
 # MEDIA
 MEDIA_ROOT = '/tmp/upload'
 MEDIA_URL = '/media/'
+
+USE_TZ = True
+TIME_ZONE = 'UTC'

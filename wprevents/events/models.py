@@ -8,6 +8,8 @@ from uuslug import uuslug as slugify
 
 from utils import add_filter
 
+import pytz
+
 
 class CustomManager(models.Manager):
   def delete_by_id(self, id):
@@ -51,6 +53,8 @@ class Space(models.Model):
   lon = models.FloatField(null=True)
 
   photo = models.FileField(upload_to='img', max_length=300, null=True, blank=True)
+
+  timezone = models.CharField(default='UTC', max_length=100)
 
   class Meta:
     permissions = (
