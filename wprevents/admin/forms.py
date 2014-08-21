@@ -1,12 +1,14 @@
 from datetime import datetime
 
 from django import forms
+from django.conf import settings
 from django.forms import ModelForm
+from django.utils.timezone import make_aware, make_naive
 from django.utils.translation import get_language
 
 from product_details import product_details
 from tower import ugettext as _
-from pytz import common_timezones
+from pytz import common_timezones, timezone
 
 from wprevents.events.models import Event, Space, FunctionalArea
 
@@ -32,12 +34,12 @@ class EventForm(ModelForm):
     super(EventForm, self).__init__(*args, **kwargs)
 
     if self.instance.start:
-      self.fields['start_date'].initial = self.instance.start.date().strftime(DATE_FORMAT)
-      self.fields['start_time'].initial = self.instance.start.time().strftime(TIME_FORMAT)
+      self.fields['start_date'].initial = self.instance.start_date
+      self.fields['start_time'].initial = self.instance.start_time
 
     if self.instance.end:
-      self.fields['end_date'].initial = self.instance.end.date().strftime(DATE_FORMAT)
-      self.fields['end_time'].initial = self.instance.end.time().strftime(TIME_FORMAT)
+      self.fields['end_date'].initial = self.instance.end_date
+      self.fields['end_time'].initial = self.instance.end_time
 
   def clean(self):
     """Clean form."""
@@ -48,11 +50,20 @@ class EventForm(ModelForm):
     end_date = cleaned_data.get('end_date')
     end_time = cleaned_data.get('end_time')
 
+    space = cleaned_data.get('space')
+
+    if space is not None and space.timezone is not None:
+      tz = timezone(space.timezone)
+    else:
+      tz = timezone(settings.TIME_ZONE)
+
     if start_date and start_time:
-      cleaned_data['start'] = datetime.combine(start_date, start_time)
+      start = make_aware(datetime.combine(start_date, start_time), tz)
+      cleaned_data['start'] = make_naive(start, timezone(settings.TIME_ZONE))
 
     if end_date and end_time:
-      cleaned_data['end'] = datetime.combine(end_date, end_time)
+      end = make_aware(datetime.combine(end_date, end_time), tz)
+      cleaned_data['end'] = make_naive(end, timezone(settings.TIME_ZONE))
 
     return cleaned_data
 

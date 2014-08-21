@@ -1,4 +1,5 @@
 from dateutil.relativedelta import relativedelta
+from datetime import datetime
 
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -7,6 +8,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.db import connections
 from django.db.models import Count
+from django.utils.timezone import make_aware
+
+from pytz import timezone
 
 from wprevents.base.utils import get_or_create_instance, save_ajax_form
 from wprevents.base.decorators import json_view, ajax_required, post_required
@@ -132,6 +136,41 @@ def event_import_ical(request):
     }
 
   return render(request, 'import_modal.html')
+
+
+@permission_required('events.can_administrate_events')
+@ajax_required
+@json_view
+def event_convert_datetimes(request):
+  format = '%Y-%m-%d %H:%M'
+
+  start_string = request.GET['start_date'] + ' ' + request.GET['start_time']
+  start = datetime.strptime(start_string, format)
+
+  end_string = request.GET['end_date'] + ' ' + request.GET['end_time']
+  end = datetime.strptime(end_string, format)
+
+  current_space_id = request.GET['current_space']
+  if current_space_id == '':
+    current_tz = timezone('UTC')
+  else:
+    current_tz = timezone(Space.objects.get(id=current_space_id).timezone)
+
+  new_space_id = request.GET['new_space']
+  if new_space_id == '':
+    new_tz = timezone('UTC')
+  else:
+    new_tz = timezone(Space.objects.get(id=new_space_id).timezone)
+
+  start = make_aware(start, current_tz).astimezone(new_tz)
+  end = make_aware(end, current_tz).astimezone(new_tz)
+
+  return {
+    'start_date': start.strftime('%Y-%m-%d'),
+    'start_time': start.strftime('%H:%M'),
+    'end_date': end.strftime('%Y-%m-%d'),
+    'end_time': end.strftime('%H:%M')
+  }
 
 
 # SPACES

@@ -1,4 +1,4 @@
-<div class="modal event-modal js-modal">
+<div class="modal event-modal js-modal {% if not form.title.value() %}js-new-event{% endif %}">
   <h3 class="oslight">
     {% if form.title.value() %}
       {{ form.title.value() }}
@@ -27,14 +27,14 @@
       <div class="start-date">
         <label for="date_start">Start date</label>
         <div class="field">
-          <input type="text" name="start_date" value="{{ form.start_date.value() }}" placeholder="yy/dd/mm" class="js-datepicker">
+          <input type="text" name="start_date" value="{{ form.start_date.value() }}" placeholder="yy/dd/mm" class="js-datepicker js-start-date">
           <div class="date-picker-icon"></div>
         </div>
       </div>
       <div class="end-date">
         <label for="time_start">End date</label>
         <div class="field">
-          <input type="text" name="end_date" value="{{ form.end_date.value() }}" placeholder="yy/dd/mm" class="js-datepicker">
+          <input type="text" name="end_date" value="{{ form.end_date.value() }}" placeholder="yy/dd/mm" class="js-datepicker js-end-date">
           <div class="date-picker-icon"></div>
         </div>
       </div>
@@ -43,13 +43,13 @@
       <div class="start-time">
         <label for="time_start">Start time</label>
         <div class="field">
-          <input type="text" name="start_time" value="{{ form.start_time.value() }}" placeholder="12:00">
+          <input type="text" name="start_time" value="{{ form.start_time.value() }}" placeholder="12:00" class="js-start-time">
         </div>
       </div>
       <div class="end-time">
         <label for="time_start">End time</label>
         <div class="field">
-          <input type="text" name="end_time" value="{{ form.end_time.value() }}" placeholder="13:00">
+          <input type="text" name="end_time" value="{{ form.end_time.value() }}" placeholder="13:00" class="js-end-time">
         </div>
       </div>
     </div>

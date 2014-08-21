@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^ajax_delete$', views.event_ajax_delete, name='admin_event_ajax_delete'),
     url(r'^import$', views.event_import_ical, name='admin_event_import_ical'),
     url(r'^metrics.csv$', views.metrics, name='admin_event_metrics'),
+    url(r'^convert$', views.event_convert_datetimes, name='admin_event_convert_datetimes'),
 
     url(r'^(?P<id>\w+)/', include([
       url(r'^edit', views.event_edit, name='admin_event_edit'),
