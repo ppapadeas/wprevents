@@ -99,4 +99,5 @@ class FunctionalAreaForm(ModelForm):
 
 
 class ImportEventForm(forms.Form):
+  space = forms.ModelChoiceField(queryset=Space.objects.all(), required=False, empty_label='auto detect')
   url = forms.CharField(required=False)

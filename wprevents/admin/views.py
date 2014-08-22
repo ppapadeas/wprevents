@@ -17,7 +17,7 @@ from wprevents.base.decorators import json_view, ajax_required, post_required
 from wprevents.events.models import Event, Space, FunctionalArea
 
 from forms import EventForm, SpaceForm, FunctionalAreaForm, ImportEventForm
-import import_ical
+from event_importer import EventImporter
 
 
 # EVENTS
@@ -116,14 +116,16 @@ def event_import_ical(request):
 
   if form.is_valid():
     url = form.cleaned_data['url']
+    space = form.cleaned_data['space']
 
     if not url:
       return { 'status': 'error', 'errors': { '1': 'URL field cannot be empty' } }
 
     try:
-      imported_events, skipped = import_ical.from_url(url)
+      importer = EventImporter(space)
+      imported_events, skipped = importer.from_url(url)
 
-    except import_ical.Error as e:
+    except event_importer.Error as e:
       return { 'status': 'error', 'errors': { '1': str(e) } }
     except Exception, e:
       return { 'status': 'error', 'errors': { '1': str(e) } }
@@ -135,7 +137,9 @@ def event_import_ical(request):
       'message': message
     }
 
-  return render(request, 'import_modal.html')
+  return render(request, 'import_modal.html', {
+    'form': form
+  })
 
 
 @permission_required('events.can_administrate_events')
