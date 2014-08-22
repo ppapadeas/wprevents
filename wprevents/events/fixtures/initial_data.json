@@ -3,40 +3,76 @@
   "pk": 1,
   "model": "events.functionalarea",
   "fields": {
-    "color": "orange-1",
-    "name": "Quality Assurance",
-    "slug": "quality-assurance"
-  }
-},
-{
-  "pk": 2,
-  "model": "events.functionalarea",
-  "fields": {
-    "color": "blue-1",
-    "name": "Localization",
-    "slug": "localization"
-  }
-},
-{
-  "pk": 3,
-  "model": "events.functionalarea",
-  "fields": {
     "color": "green-1",
     "name": "Accessibility",
     "slug": "accessibility"
   }
 },
 {
-  "pk": 4,
+  "pk": 2,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "orange-1",
+    "name": "Community Building",
+    "slug": "community"
+  }
+},
+{
+  "pk": 3,
   "model": "events.functionalarea",
   "fields": {
     "color": "red-1",
-    "name": "l10n",
-    "slug": "l10n"
+    "name": "Developer Engagement",
+    "slug": "devrel"
+  }
+},
+{
+  "pk": 4,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "gray-2",
+    "name": "Development",
+    "slug": "development"
   }
 },
 {
   "pk": 5,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "pink-2",
+    "name": "Engagement",
+    "slug": "engagement"
+  }
+},
+{
+  "pk": 6,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "blue-1",
+    "name": "Firefox OS",
+    "slug": "firefox-os"
+  }
+},
+{
+  "pk": 7,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "gray-2",
+    "name": "Hardware",
+    "slug": "hardware"
+  }
+},
+{
+  "pk": 8,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "red-1",
+    "name": "L10n",
+    "slug": "l10n"
+  }
+},
+{
+  "pk": 9,
   "model": "events.functionalarea",
   "fields": {
     "color": "purple-1",
@@ -45,48 +81,48 @@
   }
 },
 {
-  "pk": 6,
-  "model": "events.functionalarea",
-  "fields": {
-    "color": "gray-1",
-    "name": "Hardware",
-    "slug": "hardware"
-  }
-},
-{
-  "pk": 7,
-  "model": "events.functionalarea",
-  "fields": {
-    "color": "gray-1",
-    "name": "Video",
-    "slug": "video"
-  }
-},
-{
-  "pk": 8,
-  "model": "events.functionalarea",
-  "fields": {
-    "color": "gray-1",
-    "name": "Firefox OS",
-    "slug": "firefox-os"
-  }
-},
-{
-  "pk": 9,
-  "model": "events.functionalarea",
-  "fields": {
-    "color": "gray-1",
-    "name": "Development",
-    "slug": "development"
-  }
-},
-{
   "pk": 10,
   "model": "events.functionalarea",
   "fields": {
-    "color": "gray-1",
+    "color": "gray-2",
+    "name": "Other",
+    "slug": "other"
+  }
+},
+{
+  "pk": 11,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "orange-1",
+    "name": "Quality Assurance",
+    "slug": "quality-assurance"
+  }
+},
+{
+  "pk": 12,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "green-2",
     "name": "Security",
     "slug": "security"
+  }
+},
+{
+  "pk": 13,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "green-2",
+    "name": "Services",
+    "slug": "services"
+  }
+},
+{
+  "pk": 14,
+  "model": "events.functionalarea",
+  "fields": {
+    "color": "red-1",
+    "name": "WebMaker",
+    "slug": "webmaker"
   }
 },
 {
@@ -103,7 +139,7 @@
     "address": "331 E. Evelyn Avenue",
     "lat": 37.3874349,
     "slug": "mountain-view",
-    "photo": null
+    "photo": "img/mtv.jpg"
   }
 },
 {
@@ -120,7 +156,7 @@
     "address": "101 St Martin's Lane, 3rd Floor",
     "lat": 51.51045,
     "slug": "london",
-    "photo": null
+    "photo": "img/london.jpg"
   }
 },
 {
@@ -137,7 +173,7 @@
     "address": "16 Bis Boulevard Montmartre",
     "lat": 48.8721388,
     "slug": "paris",
-    "photo": null
+    "photo": "img/Paris_4.jpg"
   }
 },
 {
@@ -150,11 +186,11 @@
     "country": "us",
     "address2": "",
     "lon": 174.777106,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "1023",
+    "address": "5 Short St",
     "lat": -36.866596,
     "slug": "auckland",
-    "photo": null
+    "photo": "img/auckland.jpg"
   }
 },
 {
@@ -167,11 +203,11 @@
     "country": "cn",
     "address2": "",
     "lon": 116.43405,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "100020",
+    "address": "International Club Office Tower 800A",
     "lat": 39.909901,
     "slug": "beijing",
-    "photo": null
+    "photo": "img/beijing.jpg"
   }
 },
 {
@@ -182,13 +218,13 @@
     "name": "Berlin",
     "timezone": "Europe/Berlin",
     "country": "de",
-    "address2": "",
+    "address2": "Voltastr. 5",
     "lon": 13.418735,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "13355",
+    "address": "Haus 10, Treppe 6",
     "lat": 52.512408,
     "slug": "berlin",
-    "photo": null
+    "photo": "img/berlin.jpg"
   }
 },
 {
@@ -199,13 +235,13 @@
     "name": "Portland",
     "timezone": "America/Los_Angeles",
     "country": "us",
-    "address2": "",
+    "address2": "1120 NW Couch St, Suite 320",
     "lon": -122.6827999,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "97209",
+    "address": "Brewery Block 2",
     "lat": 45.5236536,
     "slug": "portland",
-    "photo": null
+    "photo": "img/mozpdx1.jpg"
   }
 },
 {
@@ -218,11 +254,11 @@
     "country": "us",
     "address2": "",
     "lon": -122.38889,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "94105",
+    "address": "2 Harrison Street",
     "lat": 37.78955,
     "slug": "san-francisco",
-    "photo": null
+    "photo": "img/SF.jpg"
   }
 },
 {
@@ -235,11 +271,11 @@
     "country": "tw",
     "address2": "",
     "lon": 121.56705,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "11047",
+    "address": "4F-A1, No. 106, Sec. 5, Xinyi Rd, Xinyi Dist.",
     "lat": 25.03265,
     "slug": "taipei",
-    "photo": null
+    "photo": "img/taipei-03.jpg"
   }
 },
 {
@@ -252,11 +288,11 @@
     "country": "jp",
     "address2": "",
     "lon": 139.727765,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "1060032",
+    "address": "7-5-6 Roppongi, Minato-ku",
     "lat": 35.665208,
     "slug": "tokyo",
-    "photo": null
+    "photo": "img/tokyo.jpg"
   }
 },
 {
@@ -269,11 +305,11 @@
     "country": "ca",
     "address2": "",
     "lon": -79.3943,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "M5V 1R9",
+    "address": "366 Adelaide St W, Suite 500",
     "lat": 43.64715,
     "slug": "toronto",
-    "photo": null
+    "photo": "img/toronto.jpg"
   }
 },
 {
@@ -286,11 +322,11 @@
     "country": "ca",
     "address2": "",
     "lon": -123.1091763,
-    "postal_code": "",
-    "address": "",
+    "postal_code": "V6B 1H5",
+    "address": "163 W Hastings St, Suite 209",
     "lat": 49.2824945,
     "slug": "vancouver",
-    "photo": null
+    "photo": "img/vancouver.jpg"
   }
 }
 ]
