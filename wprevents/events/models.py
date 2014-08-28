@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 import pytz
+import copy
 
 from django.utils import text, timezone
 from django.conf import settings
@@ -171,6 +172,22 @@ class Event(models.Model):
     duplicate_candidates = Event.objects.filter(start__gte=event_day).filter(end__lte=day_after_event).exclude(id=self.id).filter(title__icontains=q)
 
     return duplicate_candidates
+
+  def get_instances(self, start=None, end=None):
+    if not self.recurring:
+      return []
+
+    duration = self.end - self.start
+    dts = list(self.recurrence.occurrences(start, end))
+
+    events = []
+    for dt in dts:
+      e = copy.copy(self)
+      e.start = dt
+      e.end = e.start + duration
+      events.append(e)
+
+    return events
 
   def _make_local_to_space(self, obj):
     if not obj:
