@@ -3,9 +3,11 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse
 
-from wprevents.base.decorators import ajax_required
+from wprevents.base.decorators import ajax_required, json_view
 from wprevents.events.models import Event, Space, FunctionalArea
 from wprevents.events.forms import SearchForm
+
+from datetime import datetime
 
 from month_manager import MonthManager
 
@@ -101,3 +103,15 @@ def map_spaces(request):
 
   return HttpResponse(response.content, content_type='application/json')
 
+
+def test_import(request):
+  from wprevents.admin.event_importer import EventImporter
+
+  importer = EventImporter()
+
+  with open("tmp/test.ics", "r") as ics_file:
+    data = ics_file.read().decode('utf-8')
+
+  importer.from_string(data)
+
+  return HttpResponse(datetime.now())

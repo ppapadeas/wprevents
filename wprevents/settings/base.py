@@ -20,7 +20,8 @@ INSTALLED_APPS = (['south'] +
                       '%s.admin' % PROJECT_MODULE,
 
                       'django_browserid',
-                      'tastypie'])
+                      'tastypie',
+                      'recurrence'])
 
 # Note! If you intend to add `south` to INSTALLED_APPS,
 # make sure it comes BEFORE `django_nose`.

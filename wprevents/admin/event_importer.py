@@ -11,13 +11,15 @@ from icalendar import Calendar
 import pytz
 
 from wprevents.events.models import Event, Space, FunctionalArea, EVENT_TITLE_LENGTH
+from recurrence import *
+from dateutil.rrule import rruleset, rrulestr
 
 
 class Error(Exception):
   pass
 
 class EventImporter:
-  def __init__(self, space):
+  def __init__(self, space=None):
     self.space = space
 
   def from_url(self, url):
@@ -26,13 +28,13 @@ class EventImporter:
   def from_string(self, data):
     cal = self.parse_data(self.sanitize(data))
 
-    try:
-      events, skipped = self.bulk_create_events(cal)
-    except transaction.TransactionManagementError, e:
-      transaction.rollback()
-      raise Error('An error with the database transaction occured while bulk inserting events: ' + str(e))
-    except Exception, e:
-      raise Error('An error occurred while bulk inserting events: ' + str(e))
+    # try:
+    events, skipped = self.bulk_create_events(cal)
+    # except transaction.TransactionManagementError, e:
+    #   transaction.rollback()
+    #   raise Error('An error with the database transaction occured while bulk inserting events: ' + str(e))
+    # except Exception, e:
+    #   raise Error('An error occurred while bulk inserting events: ' + str(e))
 
     return events, skipped
 
@@ -65,7 +67,7 @@ class EventImporter:
 
     return cal
 
-  @transaction.commit_manually
+  # @transaction.commit_manually
   def bulk_create_events(self, cal):
     ical_events = [e for e in cal.walk('VEVENT')]
     duplicate_events = self.find_duplicates(ical_events)
@@ -76,13 +78,14 @@ class EventImporter:
 
     # Prepare batch create by looping through ical events, filtering out duplicates
     events_to_create = []
+    recurrences = []
     skipped = 0
     for ical_event in ical_events:
       title = HTMLParser().unescape(ical_event.get('summary'))
       # Filter out duplicate events
       if any(x.title == title for x in duplicate_events):
         skipped += 1
-        continue
+        # continue
 
       start = self.ensure_timezone_datetime(ical_event.get('dtstart').dt)
       start = timezone.make_naive(start, pytz.timezone(settings.TIME_ZONE))
@@ -116,6 +119,8 @@ class EventImporter:
 
       events_to_create.append(event)
 
+      recurrences.append(self.get_recurrence(ical_event, event))
+
     # Bulk create and instantly retrieve events, and remove bulk_id
     Event.objects.bulk_create(events_to_create)
     created_events = Event.objects.filter(bulk_id=bulk_id)
@@ -125,7 +130,11 @@ class EventImporter:
     relations = []
     areas = FunctionalArea.objects.all()
 
-    for event in created_events:
+    for i, event in enumerate(created_events):
+      if recurrences[i] is not None:
+        event.recurrence = recurrences[i]
+        event.save()
+
       for area in self.guess_functional_areas(event.description, areas):
         relations.append(FunctionalAreaRelations(event_id=event.pk, functionalarea_id=area.pk))
 
@@ -133,7 +142,7 @@ class EventImporter:
 
     Event.objects.filter(bulk_id=bulk_id).update(bulk_id=None);
 
-    transaction.commit()
+    # transaction.commit()
 
     return created_events, skipped
 
@@ -183,3 +192,44 @@ class EventImporter:
     filter_start_dates = reduce(lambda q, date: q|Q(start=date), start_dates, Q())
 
     return Event.objects.filter(filter_titles|filter_start_dates)
+
+
+  def get_recurrence(self, ical_event, event):
+    if not ical_event.get('RRULE') \
+    and not ical_event.get('EXRULE') \
+    and not ical_event.get('RDATE') \
+    and not ical_event.get('EXDATE'):
+      return None
+
+    def get_as_list(obj, attr):
+      v = obj.get(attr)
+      if v:
+        return v if isinstance(v, list) else [v]
+      return []
+
+    def to_utc(dt):
+      if timezone.is_aware(dt):
+        return timezone.make_naive(dt.astimezone(pytz.utc), pytz.utc)
+      else:
+        return pytz.utc.localize(dt)
+
+    rset = rruleset()
+
+    for rrule in get_as_list(ical_event, 'RRULE'):
+      rrule = rrulestr(rrule.to_ical())
+      rset.rrule(rrule)
+
+    for exrule in get_as_list(ical_event, 'EXRULE'):
+      exrule = rrulestr(exrule.to_ical())
+      rset.rrule(exrule)
+
+    if ical_event.get('RDATE'):
+      for dt in ical_event['RDATE'].dts:
+        rset.rdate(to_utc(dt.dt))
+
+    if ical_event.get('EXDATE'):
+      for dt in ical_event['EXDATE'].dts:
+        rset.exdate(to_utc(dt.dt))
+
+    return from_dateutil_rruleset(rset)
+

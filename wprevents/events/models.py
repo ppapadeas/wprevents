@@ -1,14 +1,16 @@
 from datetime import datetime, timedelta
 
+import pytz
+
 from django.utils import text, timezone
 from django.conf import settings
 from django.db import models
 
 from uuslug import uuslug as slugify
 
-from utils import add_filter
+from recurrence.fields import RecurrenceModelField
 
-import pytz
+from utils import add_filter
 
 
 class CustomManager(models.Manager):
@@ -136,6 +138,8 @@ class Event(models.Model):
   space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted', on_delete=models.SET_NULL)
 
   areas = models.ManyToManyField(FunctionalArea, blank=True)
+
+  recurrence = RecurrenceModelField(null=True)
 
   class Meta:
     permissions = (
