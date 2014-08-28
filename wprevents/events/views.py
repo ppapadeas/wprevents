@@ -104,7 +104,7 @@ def map_spaces(request):
   return HttpResponse(response.content, content_type='application/json')
 
 
-def test_import(request):
+def test_import2(request):
   from wprevents.admin.event_importer import EventImporter
 
   importer = EventImporter()
@@ -113,5 +113,18 @@ def test_import(request):
     data = ics_file.read().decode('utf-8')
 
   importer.from_string(data)
+
+  return HttpResponse(datetime.now())
+
+
+def test_import(request):
+  from datetime import datetime
+
+  e = Event.objects.all()[0]
+
+  # print(e.recurrence.count())
+  events = e.get_instances(after=datetime(2013, 8, 6, 0, 0), before=datetime.now())
+
+  print(events)
 
   return HttpResponse(datetime.now())

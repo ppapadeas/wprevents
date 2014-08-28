@@ -173,12 +173,16 @@ class Event(models.Model):
 
     return duplicate_candidates
 
-  def get_instances(self, start=None, end=None):
+  def get_instances(self, after=None, before=None, inc=True):
     if not self.recurring:
       return []
 
     duration = self.end - self.start
-    dts = list(self.recurrence.occurrences(start, end))
+
+    if not after and not before:
+      dts = list(self.recurrence.occurrences())
+    else:
+      dts = self.recurrence.between(after, before, inc=inc)
 
     events = []
     for dt in dts:
