@@ -216,11 +216,11 @@ class EventImporter:
     rset = rruleset()
 
     for rrule in get_as_list(ical_event, 'RRULE'):
-      rrule = rrulestr(rrule.to_ical())
+      rrule = rrulestr(rrule.to_ical(), dtstart=event.start)
       rset.rrule(rrule)
 
     for exrule in get_as_list(ical_event, 'EXRULE'):
-      exrule = rrulestr(exrule.to_ical())
+      exrule = rrulestr(exrule.to_ical(), dtstart=event.start)
       rset.rrule(exrule)
 
     if ical_event.get('RDATE'):
@@ -232,4 +232,3 @@ class EventImporter:
         rset.exdate(to_utc(dt.dt))
 
     return from_dateutil_rruleset(rset)
-

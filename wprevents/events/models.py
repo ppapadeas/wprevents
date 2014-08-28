@@ -228,3 +228,8 @@ class Event(models.Model):
   @property
   def end_time(self):
     return self.local_end.strftime('%H:%M')
+
+  @property
+  def recurring(self):
+    return self.recurrence is not None
+
