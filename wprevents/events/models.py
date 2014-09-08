@@ -77,32 +77,27 @@ class Space(models.Model):
     return self.get_country_display()
 
 
-class EventManager(CustomManager):
+class InstanceManager(CustomManager):
   def past_events(self):
     return self.filter(end__lte=timezone.now())
 
-  def upcoming_events(self):
+  def upcoming(self):
     return self.filter(start__gte=timezone.now())
 
   def of_given_month(self, year, month):
     filters = { 'start__year': year, 'start__month': month }
     return self.filter(**filters)
 
-  def current_events(self):
-    now = timezone.now()
-
-    return self.filter(start__lte=now).filter(end__gte=now)
-
   def search(self, space_name, area_name, search_string=None, start_date=None, end_date=None, year=None, month=None):
     if end_date:
       end_date = end_date + timedelta(days=1)
 
     filters = {}
-    add_filter(filters, 'space__slug', 'contains',  space_name)
-    add_filter(filters, 'areas__slug', 'contains',  area_name)
-    add_filter(filters, 'title',       'icontains', search_string)
-    add_filter(filters, 'start',       'gte',       start_date)
-    add_filter(filters, 'end',         'lt',        end_date)
+    add_filter(filters, 'event__space__slug', 'contains',  space_name)
+    add_filter(filters, 'event__areas__slug', 'contains', area_name)
+    add_filter(filters, 'event__title', 'icontains', search_string)
+    add_filter(filters, 'start', 'gte', start_date)
+    add_filter(filters, 'end', 'lt', end_date)
     # Calendar-specific
     add_filter(filters, 'start',       'year',      year)
     add_filter(filters, 'start',       'month',     month)
@@ -118,10 +113,80 @@ class EventManager(CustomManager):
     return queryset
 
 
+class Instance(models.Model):
+  objects = InstanceManager()
+
+  event = models.ForeignKey('Event', related_name='instances')
+
+  start = models.DateTimeField()
+  end = models.DateTimeField()
+
+  class Meta:
+    index_together = [
+      ["event", "start"],
+    ]
+
+  def __unicode__(self):
+    return '%s' % self.event
+
+  def _make_local_to_space(self, obj):
+    if not obj:
+      return None
+    if self.event.space is not None and self.event.space.timezone is not None:
+      tz = pytz.timezone(self.event.space.timezone)
+      return obj.astimezone(tz)
+    else:
+      return obj
+
+  @property
+  def start_str(self):
+    return self.start.strftime('%Y%m%d%H%M%S')
+
+  @property
+  def local_start(self):
+    return self._make_local_to_space(self.start)
+
+  @property
+  def local_end(self):
+    return self._make_local_to_space(self.end)
+
+  @property
+  def start_day(self):
+    return self.local_start.strftime('%d')
+
+  @property
+  def start_month(self):
+    return self.local_start.strftime('%b')
+
+  @property
+  def start_date(self):
+    return self.local_start.strftime('%Y-%m-%d')
+
+  @property
+  def start_date_pretty(self):
+    return self.local_start.strftime('%B %-d, %Y')
+
+  @property
+  def start_time(self):
+    return self.local_start.strftime('%H:%M')
+
+  @property
+  def end_date(self):
+    return self.local_end.strftime('%Y-%m-%d')
+
+  @property
+  def end_date_pretty(self):
+    return self.local_end.strftime('%B %-d, %Y')
+
+  @property
+  def end_time(self):
+    return self.local_end.strftime('%H:%M')
+
+
 EVENT_TITLE_LENGTH = 120
 
 class Event(models.Model):
-  objects = EventManager()
+  objects = CustomManager()
 
   created = models.DateTimeField(auto_now_add=True)
   modified = models.DateTimeField(auto_now=True)
@@ -184,23 +249,17 @@ class Event(models.Model):
     else:
       dts = self.recurrence.between(after, before, inc=inc)
 
-    events = []
+    instances = []
     for dt in dts:
-      e = copy.copy(self)
+      e = Instance(event=self)
       e.start = dt
       e.end = e.start + duration
-      events.append(e)
+      instances.append(e)
 
-    return events
+    return instances
 
-  def _make_local_to_space(self, obj):
-    if not obj:
-      return None
-    if self.space is not None and self.space.timezone is not None:
-      tz = pytz.timezone(self.space.timezone)
-      return obj.astimezone(tz)
-    else:
-      return obj
+  def to_instance(self):
+    return Instance(event=self, start=self.start, end=self.end)
 
   @property
   def is_multiday(self):
@@ -211,46 +270,7 @@ class Event(models.Model):
     return [area.name for area in self.areas.all()]
 
   @property
-  def local_start(self):
-    return self._make_local_to_space(self.start)
-
-  @property
-  def local_end(self):
-    return self._make_local_to_space(self.end)
-
-  @property
-  def start_day(self):
-    return self.local_start.strftime('%d')
-
-  @property
-  def start_month(self):
-    return self.local_start.strftime('%b')
-
-  @property
-  def start_date(self):
-    return self.local_start.strftime('%Y-%m-%d')
-
-  @property
-  def start_date_pretty(self):
-    return self.local_start.strftime('%B %-d, %Y')
-
-  @property
-  def start_time(self):
-    return self.local_start.strftime('%H:%M')
-
-  @property
-  def end_date(self):
-    return self.local_end.strftime('%Y-%m-%d')
-
-  @property
-  def end_date_pretty(self):
-    return self.local_end.strftime('%B %-d, %Y')
-
-  @property
-  def end_time(self):
-    return self.local_end.strftime('%H:%M')
-
-  @property
   def recurring(self):
     return self.recurrence is not None
+
 

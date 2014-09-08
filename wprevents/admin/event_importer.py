@@ -85,7 +85,7 @@ class EventImporter:
       # Filter out duplicate events
       if any(x.title == title for x in duplicate_events):
         skipped += 1
-        # continue
+        continue
 
       start = self.ensure_timezone_datetime(ical_event.get('dtstart').dt)
       start = timezone.make_naive(start, pytz.timezone(settings.TIME_ZONE))

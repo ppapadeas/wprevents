@@ -141,6 +141,7 @@ class CustomSerializer(Serializer):
 
   def to_ical(self, data, options=None):
     options = options or {}
+    print(data)
     event = data.obj
 
     date_now = timezone.now()
