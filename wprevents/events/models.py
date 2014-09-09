@@ -4,6 +4,7 @@ import pytz
 import copy
 
 from django.utils import text, timezone
+from django.utils.timezone import make_aware, is_aware
 from django.conf import settings
 from django.db import models
 
@@ -129,59 +130,57 @@ class Instance(models.Model):
   def __unicode__(self):
     return '%s' % self.event
 
-  def _make_local_to_space(self, obj):
-    if not obj:
-      return None
-    if self.event.space is not None and self.event.space.timezone is not None:
-      tz = pytz.timezone(self.event.space.timezone)
-      return obj.astimezone(tz)
-    else:
-      return obj
-
   @property
   def start_str(self):
     return self.start.strftime('%Y%m%d%H%M%S')
 
   @property
-  def local_start(self):
-    return self._make_local_to_space(self.start)
-
-  @property
-  def local_end(self):
-    return self._make_local_to_space(self.end)
-
-  @property
   def start_day(self):
-    return self.local_start.strftime('%d')
+    return self.start.strftime('%d')
 
   @property
   def start_month(self):
-    return self.local_start.strftime('%b')
+    return self.start.strftime('%b')
 
   @property
   def start_date(self):
-    return self.local_start.strftime('%Y-%m-%d')
+    return self.start.strftime('%Y-%m-%d')
 
   @property
   def start_date_pretty(self):
-    return self.local_start.strftime('%B %-d, %Y')
+    return self.start.strftime('%B %-d, %Y')
 
   @property
   def start_time(self):
-    return self.local_start.strftime('%H:%M')
+    return self.start.strftime('%H:%M')
 
   @property
   def end_date(self):
-    return self.local_end.strftime('%Y-%m-%d')
+    return self.end.strftime('%Y-%m-%d')
 
   @property
   def end_date_pretty(self):
-    return self.local_end.strftime('%B %-d, %Y')
+    return self.end.strftime('%B %-d, %Y')
 
   @property
   def end_time(self):
-    return self.local_end.strftime('%H:%M')
+    return self.end.strftime('%H:%M')
 
+  @property
+  def is_multiday(self):
+    return self.start.date() != self.end.date()
+
+
+def make_local_to_space(dt, space):
+  if not dt:
+    return None
+  if space is not None and space.timezone is not None:
+    tz = pytz.timezone(space.timezone)
+    if not is_aware(dt):
+      dt = make_aware(dt, pytz.utc)
+    return dt.astimezone(tz).replace(tzinfo=None)
+  else:
+    return dt
 
 EVENT_TITLE_LENGTH = 120
 
@@ -252,18 +251,19 @@ class Event(models.Model):
     instances = []
     for dt in dts:
       e = Instance(event=self)
-      e.start = dt
+      e.start = make_local_to_space(dt, self.space)
       e.end = e.start + duration
       instances.append(e)
 
     return instances
 
   def to_instance(self):
-    return Instance(event=self, start=self.start, end=self.end)
+    if self.recurring:
+      raise Exception("Only non-recurring events can be converted to an instance")
 
-  @property
-  def is_multiday(self):
-    return self.start.date() != self.end.date()
+    start = make_local_to_space(self.start, self.space)
+    end = make_local_to_space(self.end, self.space)
+    return Instance(event=self, start=start, end=end)
 
   @property
   def area_names(self):
