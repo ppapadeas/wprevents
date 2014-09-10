@@ -24,7 +24,7 @@ from event_importer import EventImporter
 
 @permission_required('events.can_administrate_events')
 def events_list(request):
-  order_by = request.GET.get('order_by', '-start')
+  order_by = request.GET.get('order_by', '-local_start')
 
   event_list = Event.objects.all().order_by(order_by).select_related('space').prefetch_related('areas')
   paginator = Paginator(event_list, 20) # Mockup/spec: 22 items per page

@@ -7,6 +7,7 @@ from django.utils import text, timezone
 from django.utils.timezone import make_aware, is_aware
 from django.conf import settings
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from uuslug import uuslug as slugify
 
@@ -170,17 +171,14 @@ class Instance(models.Model):
   def is_multiday(self):
     return self.start.date() != self.end.date()
 
+  @property
+  def url(self):
+    return reverse('events_event_single', kwargs={
+      'id': self.event.id,
+      'start': self.start_str,
+      'slug': self.event.slug
+    })
 
-def make_local_to_space(dt, space):
-  if not dt:
-    return None
-  if space is not None and space.timezone is not None:
-    tz = pytz.timezone(space.timezone)
-    if not is_aware(dt):
-      dt = make_aware(dt, pytz.utc)
-    return dt.astimezone(tz).replace(tzinfo=None)
-  else:
-    return dt
 
 EVENT_TITLE_LENGTH = 120
 
@@ -199,6 +197,9 @@ class Event(models.Model):
 
   start = models.DateTimeField(default=timezone.now)
   end = models.DateTimeField(default=timezone.now)
+
+  local_start = models.DateTimeField(default=timezone.now)
+  local_end = models.DateTimeField(default=timezone.now)
 
   space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted', on_delete=models.SET_NULL)
 
@@ -220,7 +221,25 @@ class Event(models.Model):
   def save(self, *args, **kwargs):
     if not self.slug:
       self.define_slug()
+
+    self.update_local_datetimes()
+
     super(Event, self).save(*args, **kwargs)
+
+  def make_local_to_space(self, dt):
+    if not dt:
+      return None
+    if self.space is not None and self.space.timezone is not None:
+      tz = pytz.timezone(self.space.timezone)
+      if not is_aware(dt):
+        dt = make_aware(dt, pytz.utc)
+      return dt.astimezone(tz).replace(tzinfo=None)
+    else:
+      return dt
+
+  def update_local_datetimes(self):
+    self.local_start = self.make_local_to_space(self.start)
+    self.local_end = self.make_local_to_space(self.end)
 
   def define_slug(self):
     slug = text.slugify(self.title)
@@ -251,7 +270,7 @@ class Event(models.Model):
     instances = []
     for dt in dts:
       e = Instance(event=self)
-      e.start = make_local_to_space(dt, self.space)
+      e.start = self.make_local_to_space(dt)
       e.end = e.start + duration
       instances.append(e)
 
@@ -261,9 +280,7 @@ class Event(models.Model):
     if self.recurring:
       raise Exception("Only non-recurring events can be converted to an instance")
 
-    start = make_local_to_space(self.start, self.space)
-    end = make_local_to_space(self.end, self.space)
-    return Instance(event=self, start=start, end=end)
+    return Instance(event=self, start=self.local_start, end=self.local_end)
 
   @property
   def area_names(self):
@@ -273,4 +290,23 @@ class Event(models.Model):
   def recurring(self):
     return self.recurrence is not None
 
+  @property
+  def url(self):
+    return self.instances.all()[0].url
+
+  @property
+  def local_start_date(self):
+    return self.local_start.strftime('%Y-%m-%d')
+
+  @property
+  def local_end_date(self):
+    return self.local_end.strftime('%Y-%m-%d')
+
+  @property
+  def local_start_time(self):
+    return self.local_start.strftime('%H:%M')
+
+  @property
+  def local_end_time(self):
+    return self.local_end.strftime('%H:%M')
 

@@ -3,7 +3,6 @@
 {% endif %}
 {% for instance in list_instances %}
   {% set event = instance.event %}
-  {% set event_url = url('events_event_single', id=instance.event_id, start=instance.start_str, slug=event.slug) %}
   <li class="event row js-event" data-space="{{ event.space.slug }}" data-id="{{ event.id }}">
     <div class="event-date column col-2">
       <div class="day">{{ instance.start_day }}</div>
@@ -13,7 +12,7 @@
       </div>
     </div>
     <div class="event-info column col-8">
-      <a class="event-name js-event-link" href="{{ event_url }}">{{ event.title }}</a>
+      <a class="event-name js-event-link" href="{{ instance.url }}">{{ event.title }}</a>
       <div class="event-description">
         {% if event.description %}
         <p>{{ event.description }}</p>

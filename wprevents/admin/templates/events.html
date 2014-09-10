@@ -16,7 +16,7 @@
     <tr>
       <th>Event name <span class="sorting">{{ order_by_links('title') }}</span></th>
       <th>Space <span class="sorting">{{ order_by_links('space__name') }}</span></th>
-      <th>Date <span class="sorting">{{ order_by_links('start') }}</span></th>
+      <th>Date <span class="sorting">{{ order_by_links('local_start') }}</span></th>
       <th>Area</th>
       <th>Actions</th>
     </tr>
@@ -25,9 +25,9 @@
   <tbody>
     {% for event in events %}
     <tr data-id="{{ event.id }}" class="js-event">
-      <td><a href="{{ url('events_event_single', id=event.id, slug=event.slug) }}" title="{{ event.title }}" target="_blank">{{ event.title }}</a></td>
+      <td><a href="{{ event.url }}" title="{{ event.title }}" target="_blank">{{ event.title }}</a></td>
       <td>{{ event.space }}</td>
-      <td>{{ event.start_date }} - {{ event.end_date }}</td>
+      <td>{{ event.local_start_date }} - {{ event.local_end_date }}</td>
       <td>{{ event.area_names|join(', ') }}</td>
       <td class="actions">
 

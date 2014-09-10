@@ -33,9 +33,8 @@
                 {% if today_instances|length >= 6 %}{% set class=" class=grid" %}{% endif %}
                 <ul{{ class }}>
                 {% for instance in today_instances %}
-                {% set event = instance.event %}
                   <li class="event-box js-event">
-                    <a href="{{ url('events_event_single', id=event.id, start=instance.start_str, slug=event.slug) }}" class="js-event-link">{{ event.title }}</a>
+                    <a href="{{ instance.url }}" class="js-event-link">{{ instance.event.title }}</a>
                   </li>
                 {% endfor %}
                 </ul>

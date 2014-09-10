@@ -117,6 +117,9 @@ class EventImporter:
       # which is where an Event's slug is normally set
       event.define_slug()
 
+      # Also update start and end datetimes in local time (relative to space)
+      event.update_local_datetimes()
+
       events_to_create.append(event)
 
       recurrences.append(self.get_recurrence(ical_event, event))
