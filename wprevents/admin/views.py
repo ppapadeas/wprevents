@@ -14,7 +14,7 @@ from pytz import timezone
 
 from wprevents.base.utils import get_or_create_instance, save_ajax_form
 from wprevents.base.decorators import json_view, ajax_required, post_required
-from wprevents.events.models import Event, Space, FunctionalArea
+from wprevents.events.models import Event, Instance, Space, FunctionalArea
 
 from forms import EventForm, SpaceForm, FunctionalAreaForm, ImportEventForm
 from event_importer import EventImporter
@@ -242,7 +242,7 @@ def area_delete(request):
 def get_rows(qs):
   results = []
 
-  extract_month = connections[Event.objects.db].ops.date_trunc_sql('month', 'start')
+  extract_month = connections[Instance.objects.db].ops.date_trunc_sql('month', 'events_instance.start')
   rows = qs.extra(select={'month': extract_month}).values('month').annotate(num_events=Count('id'))
 
   for r in rows:
@@ -253,8 +253,8 @@ def get_rows(qs):
 
 def get_month_list():
   months = []
-  first = Event.objects.order_by('start')[0].start.date()
-  last = Event.objects.order_by('-start')[0].start.date()
+  first = Instance.objects.order_by('start')[0].start.date()
+  last = Instance.objects.order_by('-start')[0].start.date()
   current = first
 
   months.append(first.strftime('%Y-%m'))
@@ -288,7 +288,7 @@ def metrics(request):
     table[1 + i][0] = m
 
   # `Total Events` column
-  for date, count in get_rows(Event.objects):
+  for date, count in get_rows(Instance.objects):
     table[1 + months.index(date)][1] = count
 
   # Spaces columns
@@ -298,7 +298,7 @@ def metrics(request):
     table[0][offset + i] = s.name
 
   for i, s in enumerate(spaces):
-    for date, count in get_rows(Event.objects.filter(space=s)):
+    for date, count in get_rows(Instance.objects.filter(event__space=s)):
       table[1 + months.index(date)][offset + i] = count
 
   # Areas columns
@@ -308,7 +308,7 @@ def metrics(request):
     table[0][offset + i] = a.name
 
   for i, a in enumerate(areas):
-    for date, count in get_rows(Event.objects.filter(areas=a)):
+    for date, count in get_rows(Instance.objects.filter(event__areas=a)):
       table[1 + months.index(date)][offset + i] = count
 
   response = HttpResponse(content=to_csv(table))
