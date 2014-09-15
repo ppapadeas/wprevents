@@ -11,6 +11,8 @@ from icalendar import Calendar
 import pytz
 
 from wprevents.events.models import Event, Space, FunctionalArea, EVENT_TITLE_LENGTH
+from wprevents.base.tasks import generate_event_instances
+
 from recurrence import *
 from dateutil.rrule import rruleset, rrulestr
 
@@ -28,13 +30,14 @@ class EventImporter:
   def from_string(self, data):
     cal = self.parse_data(self.sanitize(data))
 
-    # try:
-    events, skipped = self.bulk_create_events(cal)
-    # except transaction.TransactionManagementError, e:
-    #   transaction.rollback()
-    #   raise Error('An error with the database transaction occured while bulk inserting events: ' + str(e))
-    # except Exception, e:
-    #   raise Error('An error occurred while bulk inserting events: ' + str(e))
+    try:
+      events, skipped = self.bulk_create_events(cal)
+      generate_event_instances.delay()
+    except transaction.TransactionManagementError, e:
+      transaction.rollback()
+      raise Error('An error with the database transaction occured while bulk inserting events: ' + str(e))
+    except Exception, e:
+      raise Error('An error occurred while bulk inserting events: ' + str(e))
 
     return events, skipped
 
@@ -67,7 +70,7 @@ class EventImporter:
 
     return cal
 
-  # @transaction.commit_manually
+  @transaction.commit_manually
   def bulk_create_events(self, cal):
     ical_events = [e for e in cal.walk('VEVENT')]
     duplicate_events = self.find_duplicates(ical_events)
@@ -145,7 +148,7 @@ class EventImporter:
 
     Event.objects.filter(bulk_id=bulk_id).update(bulk_id=None);
 
-    # transaction.commit()
+    transaction.commit()
 
     return created_events, skipped
 

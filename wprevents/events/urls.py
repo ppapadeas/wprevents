@@ -4,7 +4,6 @@ from . import views
 
 urlpatterns = patterns('',
   url(r'^testimport$', views.test_import, name='events_event_import'),
-  url(r'^testgen$', views.test_generate, name='events_event_generate'),
   url(r'^calendar$', views.calendar, name='events_event_calendar'),
   url(r'^filter_list$', views.filter_list, name='event_filter_list'),
   url(r'^filter_calendar$', views.filter_calendar, name='event_filter_calendar'),

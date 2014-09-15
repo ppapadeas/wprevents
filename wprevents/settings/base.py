@@ -141,3 +141,7 @@ MEDIA_URL = '/media/'
 
 USE_TZ = True
 TIME_ZONE = 'UTC'
+
+# django-celery setup
+import djcelery
+djcelery.setup_loader()

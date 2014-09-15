@@ -9,7 +9,6 @@ from wprevents.events.models import Event, Instance, Space, FunctionalArea
 from wprevents.events.forms import SearchForm
 
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 
 from month_manager import MonthManager
 
@@ -141,52 +140,3 @@ def test_import2(request):
   print(events)
 
   return HttpResponse(datetime.now())
-
-
-@post_required
-@csrf_exempt
-def test_generate(request):
-  events = Event.objects.all()
-  instances = []
-  before = datetime.now() + relativedelta(years=1)
-
-  unique_events = [e for e in events if not e.recurring]
-  recurring_events = [e for e in events if e.recurring]
-
-  for e in unique_events:
-    instances.append([e.to_instance()])
-  for e in recurring_events:
-    # TODO: 
-    # Using e.recurrence.dtstart here is not correct because theoretically
-    # this recurrent event could have an RDATE older than its DTSTART.
-    # Instead, we should determine the oldest datetime in the series,
-    # and pass it as the `after` argument.
-    instances.append(e.get_instances(after=e.recurrence.dtstart, before=before))
-
-  # Flatten this list of lists
-  instances = [item for sublist in instances for item in sublist]
-
-  print(instances)
-
-  for i in instances:
-    i.save()
-
-  return HttpResponse(datetime.now())
-
-#@post_required
-# def test_generate2(request):
-#   events = Event.objects.filter(id=13)
-#   instances = []
-
-#   recurring_events = [e for e in events if e.recurring]
-
-#   for e in recurring_events:
-#     instances.append(e.get_instances())
-
-#   # Flatten this list of lists
-#   instances = [item for sublist in instances for item in sublist]
-
-#   for i in instances:
-#     print(i.start)
-
-#   return HttpResponse(datetime.now())
