@@ -117,9 +117,10 @@ def map_spaces(request):
 def test_import(request):
   from wprevents.admin.event_importer import EventImporter
 
-  importer = EventImporter()
+  portland = Space.objects.get(slug='paris')
+  importer = EventImporter(portland)
 
-  with open("tmp/test.ics", "r") as ics_file:
+  with open("tmp/MOZPARIS.ics", "r") as ics_file:
     data = ics_file.read().decode('utf-8')
 
   importer.from_string(data)
