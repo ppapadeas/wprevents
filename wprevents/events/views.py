@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
@@ -113,10 +113,7 @@ def map_spaces(request):
 
 
 def event_redirect_url(request, id):
-  e = Event.objects.get(pk=id)
-
-  if not e:
-    return Http404()
+  e = get_object_or_404(Event.objects, pk=id)
 
   return HttpResponseRedirect(e.url)
 
