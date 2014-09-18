@@ -71,8 +71,6 @@ class InstanceResource(CustomResource):
       bundle.data['functional_areas'] = ','.join(bundle.obj.event.area_names)
       if bundle.obj.event.space:
         bundle.data['space'] = bundle.obj.event.space.name
-        # bundle.data['city'] = bundle.obj.event.space.city
-        # bundle.data['country'] = bundle.obj.event.space.country
 
     return bundle
 
