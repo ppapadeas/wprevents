@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.utils import timezone
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
 
 from wprevents.base.decorators import post_required, ajax_required, json_view
@@ -112,15 +112,23 @@ def map_spaces(request):
   return HttpResponse(response.content, content_type='application/json')
 
 
+def event_redirect_url(request, id):
+  e = Event.objects.get(pk=id)
+
+  if not e:
+    return Http404()
+
+  return HttpResponseRedirect(e.url)
+
 @post_required
 @csrf_exempt
 def test_import(request):
   from wprevents.admin.event_importer import EventImporter
 
-  portland = Space.objects.get(slug='paris')
-  importer = EventImporter(portland)
+  s = Space.objects.get(slug='portland')
+  importer = EventImporter(s)
 
-  with open("tmp/MOZPARIS.ics", "r") as ics_file:
+  with open("tmp/MOZPORTLAND.ics", "r") as ics_file:
     data = ics_file.read().decode('utf-8')
 
   importer.from_string(data)

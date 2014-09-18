@@ -295,6 +295,12 @@ class Event(models.Model):
     return self.instances.all()[0].url
 
   @property
+  def redirect_url(self):
+    return reverse('event_redirect_url', kwargs={
+      'id': self.id
+    })
+
+  @property
   def local_start_date(self):
     return self.local_start.strftime('%Y-%m-%d')
 

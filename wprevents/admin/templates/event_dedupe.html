@@ -4,7 +4,7 @@
   </h3>
 
   {% if events|length > 0 %}
-    <p class="intro">{{ event.title }} in {{ event.space.name }} scheduled for {{ event.start_date }} might be a duplicate of:</p>
+    <p class="intro">{{ event.title }} in {{ event.space.name }} scheduled for {{ event.local_start_date }} might be a duplicate of:</p>
 
     <div class="filter">
       <input type="text" class="js-name-filter fill-width" value="" placeholder="Filter by event name">
@@ -22,7 +22,7 @@
           <th>Event name</th>
           <th>Space</th>
           <th>Date</th>
-          <th>Area</th>
+          <th>Areas</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -32,7 +32,7 @@
         <tr data-id="{{ event.id }}">
           <td>{{ event.title }}</td>
           <td>{{ event.space }}</td>
-          <td>{{ event.start_date }}</td>
+          <td>{{ event.local_start_date }}</td>
           <td>{{ event.area_names|join(', ') }}</td>
           <td>
             <a href="#" class="delete-item js-delete">delete</a>

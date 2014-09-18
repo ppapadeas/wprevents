@@ -11,6 +11,7 @@ from tower import ugettext as _
 from pytz import common_timezones, timezone
 
 from wprevents.events.models import Event, Space, FunctionalArea
+from wprevents.base.tasks import generate_event_instances
 
 
 DATE_FORMAT = '%Y-%m-%d'
@@ -68,6 +69,11 @@ class EventForm(ModelForm):
       cleaned_data['end'] = make_naive(end, timezone(settings.TIME_ZONE))
 
     return cleaned_data
+
+  def save(self, commit=True):
+    m = super(EventForm, self).save(commit=commit)
+    generate_event_instances.delay()
+    return m
 
 
 class SpaceForm(ModelForm):

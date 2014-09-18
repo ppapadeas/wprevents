@@ -10,5 +10,6 @@ urlpatterns = patterns('',
   url(r'^spaces.json$', views.map_spaces, name='event_map_spaces'),
   url(r'^$', views.list, name='events_event_list'),
   url(r'^e/(?P<id>\w+)/(?P<start>\w+)/(?P<slug>[a-z0-9-]+)$', views.one, name='events_event_single'),
+  url(r'^e/(?P<id>\w+)$', views.event_redirect_url, name='event_redirect_url'),
   url(r'^screen/(?P<slug>[a-z0-9-]+)$', views.screen, name='event_screen'),
 )

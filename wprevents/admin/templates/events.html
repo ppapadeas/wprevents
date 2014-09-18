@@ -25,7 +25,7 @@
   <tbody>
     {% for event in events %}
     <tr data-id="{{ event.id }}" class="js-event">
-      <td><a href="{{ event.url }}" title="{{ event.title }}" target="_blank">{{ event.title }}</a></td>
+      <td><a href="{{ event.redirect_url }}" title="{{ event.title }}" target="_blank">{{ event.title }}</a></td>
       <td>{{ event.space }}</td>
       <td>{{ event.local_start_date }} - {{ event.local_end_date }}</td>
       <td>{{ event.area_names|join(', ') }}</td>
