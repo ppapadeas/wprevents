@@ -9,6 +9,7 @@ from django.utils.translation import get_language
 from product_details import product_details
 from tower import ugettext as _
 from pytz import common_timezones, timezone
+from recurrence.models import Recurrence
 
 from wprevents.events.models import Event, Space, FunctionalArea
 from wprevents.base.tasks import generate_event_instances
@@ -72,7 +73,16 @@ class EventForm(ModelForm):
 
   def save(self, commit=True):
     m = super(EventForm, self).save(commit=commit)
+
+    if self.instance.recurring:
+      # Synchronize the event start datetime with the recurrence DTSTART
+      r = Recurrence.objects.get(pk=self.instance.recurrence_id)
+      r.dtstart = self.instance.start
+      r.save()
+
+    # Since event dates may have changed, we must regenerate the instance table
     generate_event_instances.delay()
+
     return m
 
 
