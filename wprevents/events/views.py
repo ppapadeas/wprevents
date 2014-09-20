@@ -29,7 +29,7 @@ def one(request, id, start, slug):
 
 
 def render_index(request, template):
-  list_instances = Instance.objects.upcoming().order_by('start')
+  list_instances = Instance.objects.upcoming().order_by('start')[:50]
   list_instances = list_instances.select_related('event__space').prefetch_related('event__areas')
 
   now = timezone.now()
