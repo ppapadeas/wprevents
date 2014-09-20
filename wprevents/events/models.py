@@ -233,7 +233,7 @@ class Event(models.Model):
       tz = pytz.timezone(self.space.timezone)
       if not is_aware(dt):
         dt = make_aware(dt, pytz.utc)
-      return dt.astimezone(tz).replace(tzinfo=None)
+      return tz.normalize(dt.astimezone(tz)).replace(tzinfo=None)
     else:
       return dt
 
@@ -268,9 +268,16 @@ class Event(models.Model):
       dts = self.recurrence.between(after, before, inc=inc)
 
     instances = []
+    first_start = None
     for dt in dts:
       e = Instance(event=self)
       e.start = self.make_local_to_space(dt)
+
+      if first_start is None:
+        first_start = e.start
+      else:
+        e.start = e.start.replace(hour=first_start.hour, minute=first_start.minute, second=first_start.second)
+
       e.end = e.start + duration
       instances.append(e)
 
@@ -278,7 +285,7 @@ class Event(models.Model):
 
   def to_instance(self):
     if self.recurring:
-      raise Exception("Only non-recurring events can be converted to an instance")
+      raise Exception("Only non-recurring events can be converted to a single instance")
 
     return Instance(event=self, start=self.local_start, end=self.local_end)
 

@@ -166,8 +166,11 @@ def event_convert_datetimes(request):
   else:
     new_tz = timezone(Space.objects.get(id=new_space_id).timezone)
 
-  start = make_aware(start, current_tz).astimezone(new_tz)
-  end = make_aware(end, current_tz).astimezone(new_tz)
+  start = make_aware(start, current_tz)
+  end = make_aware(end, current_tz)
+
+  start = new_tz.normalize(start.astimezone(new_tz))
+  end = new_tz.normalize(end.astimezone(new_tz))
 
   return {
     'start_date': start.strftime('%Y-%m-%d'),
