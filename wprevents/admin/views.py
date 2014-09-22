@@ -15,6 +15,7 @@ from pytz import timezone
 from wprevents.base.utils import get_or_create_instance, save_ajax_form
 from wprevents.base.decorators import json_view, ajax_required, post_required
 from wprevents.events.models import Event, Instance, Space, FunctionalArea
+from wprevents.base.tasks import generate_event_instances
 
 from forms import EventForm, SpaceForm, FunctionalAreaForm, ImportEventForm
 from event_importer import EventImporter
@@ -73,6 +74,8 @@ def event_delete(request):
   query_string = '?' + query_string if query_string else ''
   redirect_to = '/admin/events/' + query_string
 
+  generate_event_instances.delay()
+
   return HttpResponseRedirect(redirect_to)
 
 
@@ -87,6 +90,7 @@ def event_ajax_delete(request):
 
     if event:
       event.delete()
+      generate_event_instances.delay()
   except Event.DoesNotExist:
     pass
 
