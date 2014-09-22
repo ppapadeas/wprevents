@@ -9,4 +9,4 @@
 	url = git@github.com:collective/icalendar.git
 [submodule "vendor-local/src/django-recurrence"]
 	path = vendor-local/src/django-recurrence
-	url = git://github.com/django-recurrence/django-recurrence
+	url = git://github.com/sork/django-recurrence
