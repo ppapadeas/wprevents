@@ -116,33 +116,3 @@ def event_redirect_url(request, id):
   e = get_object_or_404(Event.objects, pk=id)
 
   return HttpResponseRedirect(e.url)
-
-@post_required
-@csrf_exempt
-def test_import(request):
-  from wprevents.admin.event_importer import EventImporter
-
-  s = Space.objects.get(slug='portland')
-  importer = EventImporter(s)
-
-  with open("tmp/MOZPORTLAND.ics", "r") as ics_file:
-    data = ics_file.read().decode('utf-8')
-
-  importer.from_string(data)
-
-  return HttpResponse(datetime.now())
-
-
-@post_required
-@csrf_exempt
-def test_import2(request):
-  from datetime import datetime
-
-  e = Event.objects.all()[0]
-
-  # print(e.recurrence.count())
-  events = e.get_instances(after=datetime(2013, 8, 6, 0, 0), before=datetime.now())
-
-  print(events)
-
-  return HttpResponse(datetime.now())
