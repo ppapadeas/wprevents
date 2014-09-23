@@ -141,13 +141,13 @@ class CustomSerializer(Serializer):
 
   def to_ical(self, data, options=None):
     options = options or {}
-    event = data.obj
+    instance = data.obj
 
     date_now = timezone.now()
     ical = get_template('single_event_ical_template.ics')
 
     context = Context({
-      'event': event,
+      'instance': instance,
       'date_now': date_now,
       'host': settings.SITE_URL
     })

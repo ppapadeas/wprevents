@@ -15,7 +15,7 @@ var App = Backbone.Router.extend({
   routes: {
     '': 'listTab', // index page is on list tab by default
     'calendar': 'calendarTab',
-    'e/:id/:slug': 'eventPage'
+    'e/:id/:start/:slug': 'eventPage'
   },
 
   initialize: function() {

@@ -1,17 +1,19 @@
+{% set event = instance.event %}
 BEGIN:VCALENDAR
-PRODID:-//reps.mozilla.com Events//
+PRODID:events.mozspaces.org
 VERSION:2.0
 METHOD:PUBLISH
 BEGIN:VEVENT
-UID:{{ host }}@{{ event.id }}
+UID:{{ event.id }}
 CLASS:PUBLIC
 DTSTAMP:{{ date_now|format_datetime_utc }}
-DTSTART;TZID={{ event.timezone }}:{{ event.start|format_datetime_utc }}
-DTEND;TZID={{ event.timezone }}:{{ event.end|format_datetime_utc }}
-{{ "LOCATION:%s, %s, %s"|format(event.space.name, event.space.city, event.space.country_name)|ical_escape_char|ical_format_lines }}
+DTSTART;TZID={{ event.space.timezone }}:{{ instance.start|format_datetime_utc }}
+DTEND;TZID={{ event.space.timezone }}:{{ instance.end|format_datetime_utc }}
+{% if event.space %}
+{{ "LOCATION:%s, %s"|format(event.space.name, event.space.country_name)|ical_escape_char|ical_format_lines }}
+{% endif %}
 {{ "SUMMARY:%s"|format(event.title)|ical_escape_char|ical_format_lines }}
 {{ "DESCRIPTION:%s"|format(event.description)|ical_escape_char|ical_format_lines }}
-{{ "URL:%s%s"|format(host, url('events_event_single', id=event.id, slug=event.slug))|ical_escape_char|ical_format_lines }}
-SEQUENCE:{{ event.times_edited }}
+{{ "URL:%s%s"|format(host, instance.url)|ical_escape_char|ical_format_lines }}
 END:VEVENT
 END:VCALENDAR

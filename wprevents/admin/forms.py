@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time
 
 from django import forms
 from django.conf import settings
@@ -9,8 +9,10 @@ from django.utils.translation import get_language
 from product_details import product_details
 from tower import ugettext as _
 from pytz import common_timezones, timezone
+from recurrence.models import Recurrence
 
 from wprevents.events.models import Event, Space, FunctionalArea
+from wprevents.base.tasks import generate_event_instances
 
 
 DATE_FORMAT = '%Y-%m-%d'
@@ -34,12 +36,12 @@ class EventForm(ModelForm):
     super(EventForm, self).__init__(*args, **kwargs)
 
     if self.instance.start:
-      self.fields['start_date'].initial = self.instance.start_date
-      self.fields['start_time'].initial = self.instance.start_time
+      self.fields['start_date'].initial = self.instance.local_start_date
+      self.fields['start_time'].initial = self.instance.local_start_time
 
     if self.instance.end:
-      self.fields['end_date'].initial = self.instance.end_date
-      self.fields['end_time'].initial = self.instance.end_time
+      self.fields['end_date'].initial = self.instance.local_end_date
+      self.fields['end_time'].initial = self.instance.local_end_time
 
   def clean(self):
     """Clean form."""
@@ -49,7 +51,6 @@ class EventForm(ModelForm):
     start_time = cleaned_data.get('start_time')
     end_date = cleaned_data.get('end_date')
     end_time = cleaned_data.get('end_time')
-
     space = cleaned_data.get('space')
 
     if space is not None and space.timezone is not None:
@@ -57,15 +58,32 @@ class EventForm(ModelForm):
     else:
       tz = timezone(settings.TIME_ZONE)
 
-    if start_date and start_time:
+    # We need to handle a special case here, because midnight is incorrectly
+    # considered as False in Python < 3.5. This test allows users to set a "00:00"
+    # value for start_time and end_time fields.
+    if start_date and (start_time or start_time == time(0,0,0)):
       start = make_aware(datetime.combine(start_date, start_time), tz)
       cleaned_data['start'] = make_naive(start, timezone(settings.TIME_ZONE))
 
-    if end_date and end_time:
+    if end_date and (end_time or end_time == time(0,0,0)):
       end = make_aware(datetime.combine(end_date, end_time), tz)
       cleaned_data['end'] = make_naive(end, timezone(settings.TIME_ZONE))
 
     return cleaned_data
+
+  def save(self, commit=True):
+    m = super(EventForm, self).save(commit=commit)
+
+    if self.instance.recurring:
+      # Synchronize the event start datetime with the recurrence DTSTART
+      r = Recurrence.objects.get(pk=self.instance.recurrence_id)
+      r.dtstart = self.instance.start
+      r.save()
+
+    # Since event dates may have changed, we must regenerate the instance table
+    generate_event_instances.delay()
+
+    return m
 
 
 class SpaceForm(ModelForm):

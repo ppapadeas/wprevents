@@ -1,9 +1,10 @@
 from django.utils import timezone
 
+from tastypie import fields
 from tastypie.resources import ModelResource
 
 from wprevents.base.serializers import CustomSerializer
-from models import Event, Space, FunctionalArea
+from models import Event, Instance, Space, FunctionalArea
 
 def compute_resource_name(resource):
   """Compute resource name from class name, ie. 'EventResource' -> 'event'"""
@@ -51,6 +52,27 @@ class EventResource(CustomResource):
 
     return bundle
 
+class InstanceResource(CustomResource):
+  class Meta:
+    queryset = Instance.objects.all()
+    fields = ['id', 'start', 'end']
+    allowed_methods = ['get']
+    include_resource_uri = False
+    include_absolute_url = False
+
+    serializer = CustomSerializer(formats=['csv', 'ical'])
+
+  def dehydrate(self, bundle):
+    if bundle.obj.event:
+      bundle.data['event_id'] = bundle.obj.event.id
+      bundle.data['title'] = bundle.obj.event.title
+      bundle.data['slug'] = bundle.obj.event.slug
+      bundle.data['description'] = bundle.obj.event.description
+      bundle.data['functional_areas'] = ','.join(bundle.obj.event.area_names)
+      if bundle.obj.event.space:
+        bundle.data['space'] = bundle.obj.event.space.name
+
+    return bundle
 
 class SpaceResource(CustomResource):
   class Meta:

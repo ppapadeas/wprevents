@@ -3,17 +3,17 @@ import datetime
 
 
 class MonthManager(object):
-  def __init__(self, year, month, events):
+  def __init__(self, year, month, instances):
     self.matrix = calendar.monthcalendar(year, month)
-    self.events = events
+    self.instances = instances
     self.name = calendar.month_name[month]
     self.month = month
     self.year = year
 
-  def get_events_for_day(self, day):
+  def get_instances_for_day(self, day):
     day = datetime.date(self.year, self.month, day)
 
-    return [e for e in self.events if e.start.date() <= day <= e.end.date()]
+    return [i for i in self.instances if i.start.date() <= day <= i.end.date()]
 
   @property
   def previous_month(self):

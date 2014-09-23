@@ -23,18 +23,18 @@
         <td>
           {% if day != 0 %}
           <div class="cell-wrapper js-cell">
-            {% set today_events = month_manager.get_events_for_day(day) %}
+            {% set today_instances = month_manager.get_instances_for_day(day) %}
             <div class="cell-content{% if today_events|length == 0%} empty{% endif %}">
               <div class="day">
                 <a href="#" class="js-day" data-date="{{ month_manager.format_date_for_day(day) }}">{{ day }}</a>
               </div>
               <div class="content">
                 {% set class="" %}
-                {% if today_events|length >= 6 %}{% set class=" class=grid" %}{% endif %}
+                {% if today_instances|length >= 6 %}{% set class=" class=grid" %}{% endif %}
                 <ul{{ class }}>
-                {% for event in today_events %}
+                {% for instance in today_instances %}
                   <li class="event-box js-event">
-                    <a href="{{ url('events_event_single', id=event.id, slug=event.slug) }}" class="js-event-link">{{ event.title }}</a>
+                    <a href="{{ instance.url }}" class="js-event-link">{{ instance.event.title }}</a>
                   </li>
                 {% endfor %}
                 </ul>

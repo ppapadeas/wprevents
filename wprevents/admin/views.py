@@ -14,7 +14,8 @@ from pytz import timezone
 
 from wprevents.base.utils import get_or_create_instance, save_ajax_form
 from wprevents.base.decorators import json_view, ajax_required, post_required
-from wprevents.events.models import Event, Space, FunctionalArea
+from wprevents.events.models import Event, Instance, Space, FunctionalArea
+from wprevents.base.tasks import generate_event_instances
 
 from forms import EventForm, SpaceForm, FunctionalAreaForm, ImportEventForm
 from event_importer import EventImporter
@@ -24,7 +25,7 @@ from event_importer import EventImporter
 
 @permission_required('events.can_administrate_events')
 def events_list(request):
-  order_by = request.GET.get('order_by', '-start')
+  order_by = request.GET.get('order_by', '-local_start')
 
   event_list = Event.objects.all().order_by(order_by).select_related('space').prefetch_related('areas')
   paginator = Paginator(event_list, 20) # Mockup/spec: 22 items per page
@@ -73,6 +74,8 @@ def event_delete(request):
   query_string = '?' + query_string if query_string else ''
   redirect_to = '/admin/events/' + query_string
 
+  generate_event_instances.delay()
+
   return HttpResponseRedirect(redirect_to)
 
 
@@ -87,6 +90,7 @@ def event_ajax_delete(request):
 
     if event:
       event.delete()
+      generate_event_instances.delay()
   except Event.DoesNotExist:
     pass
 
@@ -166,8 +170,11 @@ def event_convert_datetimes(request):
   else:
     new_tz = timezone(Space.objects.get(id=new_space_id).timezone)
 
-  start = make_aware(start, current_tz).astimezone(new_tz)
-  end = make_aware(end, current_tz).astimezone(new_tz)
+  start = make_aware(start, current_tz)
+  end = make_aware(end, current_tz)
+
+  start = new_tz.normalize(start.astimezone(new_tz))
+  end = new_tz.normalize(end.astimezone(new_tz))
 
   return {
     'start_date': start.strftime('%Y-%m-%d'),
@@ -242,7 +249,7 @@ def area_delete(request):
 def get_rows(qs):
   results = []
 
-  extract_month = connections[Event.objects.db].ops.date_trunc_sql('month', 'start')
+  extract_month = connections[Instance.objects.db].ops.date_trunc_sql('month', 'events_instance.start')
   rows = qs.extra(select={'month': extract_month}).values('month').annotate(num_events=Count('id'))
 
   for r in rows:
@@ -253,8 +260,8 @@ def get_rows(qs):
 
 def get_month_list():
   months = []
-  first = Event.objects.order_by('start')[0].start.date()
-  last = Event.objects.order_by('-start')[0].start.date()
+  first = Instance.objects.order_by('start')[0].start.date()
+  last = Instance.objects.order_by('-start')[0].start.date()
   current = first
 
   months.append(first.strftime('%Y-%m'))
@@ -288,7 +295,7 @@ def metrics(request):
     table[1 + i][0] = m
 
   # `Total Events` column
-  for date, count in get_rows(Event.objects):
+  for date, count in get_rows(Instance.objects):
     table[1 + months.index(date)][1] = count
 
   # Spaces columns
@@ -298,7 +305,7 @@ def metrics(request):
     table[0][offset + i] = s.name
 
   for i, s in enumerate(spaces):
-    for date, count in get_rows(Event.objects.filter(space=s)):
+    for date, count in get_rows(Instance.objects.filter(event__space=s)):
       table[1 + months.index(date)][offset + i] = count
 
   # Areas columns
@@ -308,7 +315,7 @@ def metrics(request):
     table[0][offset + i] = a.name
 
   for i, a in enumerate(areas):
-    for date, count in get_rows(Event.objects.filter(areas=a)):
+    for date, count in get_rows(Instance.objects.filter(event__areas=a)):
       table[1 + months.index(date)][offset + i] = count
 
   response = HttpResponse(content=to_csv(table))

@@ -1,18 +1,18 @@
-{% if list_events|length == 0 %}
+{% if list_instances|length == 0 %}
   <li class="billboard no-events-found">No events found</li>
 {% endif %}
-{% for event in list_events %}
-  {% set event_url = url('events_event_single', id=event.id, slug=event.slug) %}
+{% for instance in list_instances %}
+  {% set event = instance.event %}
   <li class="event row js-event" data-space="{{ event.space.slug }}" data-id="{{ event.id }}">
     <div class="event-date column col-2">
-      <div class="day">{{ event.start_day }}</div>
+      <div class="day">{{ instance.start_day }}</div>
       <div class="monthyear">
-        <div class="month">{{ event.start_month }}</div>
-        <div class="year">{{ event.start.year }}</div>
+        <div class="month">{{ instance.start_month }}</div>
+        <div class="year">{{ instance.start.year }}</div>
       </div>
     </div>
     <div class="event-info column col-8">
-      <a class="event-name js-event-link" href="{{ event_url }}">{{ event.title }}</a>
+      <a class="event-name js-event-link" href="{{ instance.url }}">{{ event.title }}</a>
       <div class="event-description">
         {% if event.description %}
         <p>{{ event.description }}</p>

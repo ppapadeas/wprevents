@@ -1,14 +1,19 @@
 from datetime import datetime, timedelta
 
+import pytz
+import copy
+
 from django.utils import text, timezone
+from django.utils.timezone import make_aware, is_aware
 from django.conf import settings
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from uuslug import uuslug as slugify
 
-from utils import add_filter
+from recurrence.fields import RecurrenceModelField
 
-import pytz
+from utils import add_filter
 
 
 class CustomManager(models.Manager):
@@ -74,32 +79,27 @@ class Space(models.Model):
     return self.get_country_display()
 
 
-class EventManager(CustomManager):
+class InstanceManager(CustomManager):
   def past_events(self):
     return self.filter(end__lte=timezone.now())
 
-  def upcoming_events(self):
+  def upcoming(self):
     return self.filter(start__gte=timezone.now())
 
   def of_given_month(self, year, month):
     filters = { 'start__year': year, 'start__month': month }
     return self.filter(**filters)
 
-  def current_events(self):
-    now = timezone.now()
-
-    return self.filter(start__lte=now).filter(end__gte=now)
-
   def search(self, space_name, area_name, search_string=None, start_date=None, end_date=None, year=None, month=None):
     if end_date:
       end_date = end_date + timedelta(days=1)
 
     filters = {}
-    add_filter(filters, 'space__slug', 'contains',  space_name)
-    add_filter(filters, 'areas__slug', 'contains',  area_name)
-    add_filter(filters, 'title',       'icontains', search_string)
-    add_filter(filters, 'start',       'gte',       start_date)
-    add_filter(filters, 'end',         'lt',        end_date)
+    add_filter(filters, 'event__space__slug', 'contains',  space_name)
+    add_filter(filters, 'event__areas__slug', 'contains', area_name)
+    add_filter(filters, 'event__title', 'icontains', search_string)
+    add_filter(filters, 'start', 'gte', start_date)
+    add_filter(filters, 'end', 'lt', end_date)
     # Calendar-specific
     add_filter(filters, 'start',       'year',      year)
     add_filter(filters, 'start',       'month',     month)
@@ -115,10 +115,75 @@ class EventManager(CustomManager):
     return queryset
 
 
+class Instance(models.Model):
+  objects = InstanceManager()
+
+  event = models.ForeignKey('Event', related_name='instances')
+
+  start = models.DateTimeField()
+  end = models.DateTimeField()
+
+  class Meta:
+    index_together = [
+      ["event", "start"],
+    ]
+
+  def __unicode__(self):
+    return '%s' % self.event
+
+  @property
+  def start_str(self):
+    return self.start.strftime('%Y%m%d%H%M%S')
+
+  @property
+  def start_day(self):
+    return self.start.strftime('%d')
+
+  @property
+  def start_month(self):
+    return self.start.strftime('%b')
+
+  @property
+  def start_date(self):
+    return self.start.strftime('%Y-%m-%d')
+
+  @property
+  def start_date_pretty(self):
+    return self.start.strftime('%B %-d, %Y')
+
+  @property
+  def start_time(self):
+    return self.start.strftime('%H:%M')
+
+  @property
+  def end_date(self):
+    return self.end.strftime('%Y-%m-%d')
+
+  @property
+  def end_date_pretty(self):
+    return self.end.strftime('%B %-d, %Y')
+
+  @property
+  def end_time(self):
+    return self.end.strftime('%H:%M')
+
+  @property
+  def is_multiday(self):
+    return self.start.date() != self.end.date()
+
+  @property
+  def url(self):
+    return reverse('events_event_single', kwargs={
+      'id': self.event.id,
+      'start': self.start_str,
+      'slug': self.event.slug
+    })
+
+
 EVENT_TITLE_LENGTH = 120
 
 class Event(models.Model):
-  objects = EventManager()
+  objects = CustomManager()
 
   created = models.DateTimeField(auto_now_add=True)
   modified = models.DateTimeField(auto_now=True)
@@ -133,9 +198,14 @@ class Event(models.Model):
   start = models.DateTimeField(default=timezone.now)
   end = models.DateTimeField(default=timezone.now)
 
+  local_start = models.DateTimeField(default=timezone.now)
+  local_end = models.DateTimeField(default=timezone.now)
+
   space = models.ForeignKey(Space, null=True, blank=True, related_name='events_hosted', on_delete=models.SET_NULL)
 
   areas = models.ManyToManyField(FunctionalArea, blank=True)
+
+  recurrence = RecurrenceModelField(null=True)
 
   class Meta:
     permissions = (
@@ -151,7 +221,25 @@ class Event(models.Model):
   def save(self, *args, **kwargs):
     if not self.slug:
       self.define_slug()
+
+    self.update_local_datetimes()
+
     super(Event, self).save(*args, **kwargs)
+
+  def make_local_to_space(self, dt):
+    if not dt:
+      return None
+    if self.space is not None and self.space.timezone is not None:
+      tz = pytz.timezone(self.space.timezone)
+      if not is_aware(dt):
+        dt = make_aware(dt, pytz.utc)
+      return tz.normalize(dt.astimezone(tz)).replace(tzinfo=None)
+    else:
+      return dt
+
+  def update_local_datetimes(self):
+    self.local_start = self.make_local_to_space(self.start)
+    self.local_end = self.make_local_to_space(self.end)
 
   def define_slug(self):
     slug = text.slugify(self.title)
@@ -168,59 +256,70 @@ class Event(models.Model):
 
     return duplicate_candidates
 
-  def _make_local_to_space(self, obj):
-    if not obj:
-      return None
-    if self.space is not None and self.space.timezone is not None:
-      tz = pytz.timezone(self.space.timezone)
-      return obj.astimezone(tz)
-    else:
-      return obj
+  def get_instances(self, after=None, before=None, inc=True):
+    if not self.recurring:
+      return []
 
-  @property
-  def is_multiday(self):
-    return self.start.date() != self.end.date()
+    duration = self.end - self.start
+
+    if not after and not before:
+      dts = list(self.recurrence.occurrences())
+    else:
+      dts = self.recurrence.between(after, before, inc=inc)
+
+    instances = []
+    first_start = None
+    for dt in dts:
+      e = Instance(event=self)
+      e.start = self.make_local_to_space(dt)
+
+      if first_start is None:
+        first_start = e.start
+      else:
+        e.start = e.start.replace(hour=first_start.hour, minute=first_start.minute, second=first_start.second)
+
+      e.end = e.start + duration
+      instances.append(e)
+
+    return instances
+
+  def to_instance(self):
+    if self.recurring:
+      raise Exception("Only non-recurring events can be converted to a single instance")
+
+    return Instance(event=self, start=self.local_start, end=self.local_end)
 
   @property
   def area_names(self):
     return [area.name for area in self.areas.all()]
 
   @property
-  def local_start(self):
-    return self._make_local_to_space(self.start)
+  def recurring(self):
+    return self.recurrence is not None
 
   @property
-  def local_end(self):
-    return self._make_local_to_space(self.end)
+  def url(self):
+    return self.instances.all()[0].url
 
   @property
-  def start_day(self):
-    return self.local_start.strftime('%d')
+  def redirect_url(self):
+    return reverse('event_redirect_url', kwargs={
+      'id': self.id
+    })
 
   @property
-  def start_month(self):
-    return self.local_start.strftime('%b')
-
-  @property
-  def start_date(self):
+  def local_start_date(self):
     return self.local_start.strftime('%Y-%m-%d')
 
   @property
-  def start_date_pretty(self):
-    return self.local_start.strftime('%B %-d, %Y')
-
-  @property
-  def start_time(self):
-    return self.local_start.strftime('%H:%M')
-
-  @property
-  def end_date(self):
+  def local_end_date(self):
     return self.local_end.strftime('%Y-%m-%d')
 
   @property
-  def end_date_pretty(self):
-    return self.local_end.strftime('%B %-d, %Y')
+  def local_start_time(self):
+    return self.local_start.strftime('%H:%M')
 
   @property
-  def end_time(self):
+  def local_end_time(self):
     return self.local_end.strftime('%H:%M')
+

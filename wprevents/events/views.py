@@ -1,35 +1,44 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.views.decorators.csrf import csrf_exempt
 
-from wprevents.base.decorators import ajax_required
-from wprevents.events.models import Event, Space, FunctionalArea
+from wprevents.base.decorators import post_required, ajax_required, json_view
+from wprevents.events.models import Event, Instance, Space, FunctionalArea
 from wprevents.events.forms import SearchForm
+
+from datetime import datetime
 
 from month_manager import MonthManager
 
 
-def one(request, id, slug):
-  event = get_object_or_404(Event.objects.select_related('space').prefetch_related('areas'), id=id)
+def one(request, id, start, slug):
+  start = datetime.strptime(start, '%Y%m%d%H%M%S')
+  instance = Instance.objects.filter(event_id=id).filter(start=start)
+
+  if not instance:
+    raise Http404
+
+  instance = instance[0]
 
   return render(request, 'event.html', {
-    'event': event,
-    'event_absolute_url': request.build_absolute_uri(reverse('events_event_single', args=(event.pk, event.slug,)))
+    'instance': instance,
+    'event_absolute_url': request.build_absolute_uri(reverse('events_event_single', args=(instance.event.id, instance.start_str, instance.event.slug,)))
   })
 
 
 def render_index(request, template):
-  list_events = Event.objects.upcoming_events().order_by('start')
-  list_events = list_events.select_related('space').prefetch_related('areas')
+  list_instances = Instance.objects.upcoming().order_by('start')[:50]
+  list_instances = list_instances.select_related('event__space').prefetch_related('event__areas')
 
   now = timezone.now()
-  calendar_events = Event.objects.of_given_month(now.year, now.month)
-  calendar_events = calendar_events.select_related('space').prefetch_related('areas')
-  month_manager = MonthManager(year=now.year, month=now.month, events=calendar_events)
+  calendar_instances = Instance.objects.of_given_month(now.year, now.month)
+  calendar_instances = calendar_instances.select_related('event__space').prefetch_related('event__areas')
+  month_manager = MonthManager(year=now.year, month=now.month, instances=calendar_instances)
 
   return render(request, template, {
-    'list_events': list_events,
+    'list_instances': list_instances,
     'spaces': Space.objects.all(),
     'areas': FunctionalArea.objects.all(),
     'month_manager': month_manager
@@ -45,7 +54,7 @@ def calendar(request):
 @ajax_required
 def filter_list(request):
   form = SearchForm(request.GET)
-  events = []
+  instances = []
 
   if form.is_valid():
     search_params = {
@@ -56,10 +65,10 @@ def filter_list(request):
       'end_date': form.cleaned_data.get('end')
     }
 
-    events = Event.objects.search(**search_params).order_by('start')
+    instances = Instance.objects.search(**search_params).order_by('start')
 
   return render(request, 'list_content.html', {
-    'list_events': events
+    'list_instances': instances
   })
 
 
@@ -77,8 +86,8 @@ def filter_calendar(request):
       'month': form.cleaned_data.get('month', now.month)
     }
 
-    calendar_events = Event.objects.search(**search_params)
-    month_manager = MonthManager(year=search_params['year'], month=search_params['month'], events=calendar_events)
+    calendar_instances = Instance.objects.search(**search_params)
+    month_manager = MonthManager(year=search_params['year'], month=search_params['month'], instances=calendar_instances)
 
   return render(request, 'calendar_content.html', {
     'month_manager': month_manager
@@ -86,10 +95,11 @@ def filter_calendar(request):
 
 
 def screen(request, slug):
-  events = Event.objects.upcoming_events().filter(space__slug=slug).order_by('start')[:10]
+  instances = Instance.objects.upcoming().filter(event__space__slug=slug).order_by('start')[:10]
 
   return render(request, 'screen.html', {
-    'list_events': events
+    'list_instances': instances,
+    'space': instances[0].event.space.slug if len(instances) > 0 else ''
   })
 
 
@@ -101,3 +111,8 @@ def map_spaces(request):
 
   return HttpResponse(response.content, content_type='application/json')
 
+
+def event_redirect_url(request, id):
+  e = get_object_or_404(Event.objects, pk=id)
+
+  return HttpResponseRedirect(e.url)

@@ -7,3 +7,6 @@
 [submodule "vendor-local/src/icalendar"]
 	path = vendor-local/src/icalendar
 	url = git@github.com:collective/icalendar.git
+[submodule "vendor-local/src/django-recurrence"]
+	path = vendor-local/src/django-recurrence
+	url = git://github.com/sork/django-recurrence
