@@ -7,7 +7,8 @@ var AreaSelectView = require('./areaselect');
 
 var EventModalView = FormModalView.extend({
   events: _.extend({}, FormModalView.prototype.events, {
-    'change #id_space': 'onChangeSpace'
+    'change #id_space': 'onChangeSpace',
+    'click .date-picker-icon': 'openDatePicker'
   }),
 
   initialize: function(options) {
@@ -59,6 +60,12 @@ var EventModalView = FormModalView.extend({
     }.bind(this));
 
     this.currentSpace = values.new_space;
+  },
+
+  openDatePicker: function(e) {
+    // Pretend the user clicked on the text input field
+    // in order to open the Pikaday date picker.
+    $(e.target).prev().trigger('click');
   }
 });
 
