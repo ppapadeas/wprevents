@@ -87,6 +87,9 @@ class EventForm(ModelForm):
 
 
 class SpaceForm(ModelForm):
+  name =  forms.CharField(error_messages={'required': 'Name is required'})
+  city =  forms.CharField(error_messages={'required': 'City is required'})
+  address =  forms.CharField(error_messages={'required': 'Address is required'})
   timezone = forms.ChoiceField(choices=zip(common_timezones,
                                            common_timezones))
 
@@ -107,9 +110,12 @@ class SpaceForm(ModelForm):
     choices.insert(0, ('', _('All')))
 
     self.fields['country'].choices = choices
+    self.fields['country'].error_messages = {'required': 'Country is required'}
 
 
 class FunctionalAreaForm(ModelForm):
+  name =  forms.CharField(error_messages={'required': 'Name is required'})
+  slug =  forms.CharField(error_messages={'required': 'Slug is required'})
   class Meta:
     model = FunctionalArea
     fields = ['id', 'name', 'slug', 'color']

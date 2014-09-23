@@ -54,8 +54,8 @@ class Space(models.Model):
   country = models.CharField(max_length=50, default='US', choices=COUNTRIES)
   postal_code = models.CharField(max_length=8, blank=True)
 
-  lat = models.FloatField(null=True)
-  lon = models.FloatField(null=True)
+  lat = models.FloatField(null=True, blank=True)
+  lon = models.FloatField(null=True, blank=True)
 
   photo = models.FileField(upload_to='img', max_length=300, null=True, blank=True)
 
