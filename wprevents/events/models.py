@@ -99,7 +99,7 @@ class InstanceManager(CustomManager):
     add_filter(filters, 'event__areas__slug', 'contains', area_name)
     add_filter(filters, 'event__title', 'icontains', search_string)
     add_filter(filters, 'start', 'gte', start_date)
-    add_filter(filters, 'end', 'lt', end_date)
+    add_filter(filters, 'end', 'lte', end_date)
     # Calendar-specific
     add_filter(filters, 'start',       'year',      year)
     add_filter(filters, 'start',       'month',     month)
