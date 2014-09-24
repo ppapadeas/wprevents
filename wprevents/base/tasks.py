@@ -14,7 +14,7 @@ def generate_event_instances():
   # Retrieve event definitions in order to generate all instances
   events = Event.objects.all()
   instances = []
-  before = datetime.now() + relativedelta(years=1)
+  before = datetime.now() + relativedelta(years=2)
 
   unique_events = [e for e in events if not e.recurring]
   recurring_events = [e for e in events if e.recurring]
