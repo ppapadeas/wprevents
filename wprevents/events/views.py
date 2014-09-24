@@ -10,7 +10,7 @@ from wprevents.events.forms import SearchForm
 
 from datetime import datetime
 
-from month_manager import MonthManager
+from calendar_helper import CalendarHelper
 
 
 def one(request, id, start, slug):
@@ -35,13 +35,13 @@ def render_index(request, template):
   now = timezone.now()
   calendar_instances = Instance.objects.of_given_month(now.year, now.month)
   calendar_instances = calendar_instances.select_related('event__space').prefetch_related('event__areas')
-  month_manager = MonthManager(year=now.year, month=now.month, instances=calendar_instances)
+  calendar_helper = CalendarHelper(year=now.year, month=now.month, instances=calendar_instances)
 
   return render(request, template, {
     'list_instances': list_instances,
     'spaces': Space.objects.all(),
     'areas': FunctionalArea.objects.all(),
-    'month_manager': month_manager
+    'calendar': calendar_helper
   })
 
 def list(request):
@@ -87,10 +87,10 @@ def filter_calendar(request):
     }
 
     calendar_instances = Instance.objects.search(**search_params)
-    month_manager = MonthManager(year=search_params['year'], month=search_params['month'], instances=calendar_instances)
+    calendar_helper = CalendarHelper(year=search_params['year'], month=search_params['month'], instances=calendar_instances)
 
   return render(request, 'calendar_content.html', {
-    'month_manager': month_manager
+    'calendar': calendar_helper
   })
 
 

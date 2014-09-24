@@ -2,7 +2,7 @@ import calendar
 from datetime import date, time
 
 
-class MonthManager(object):
+class CalendarHelper(object):
   def __init__(self, year, month, instances):
     self.matrix = calendar.monthcalendar(year, month)
     self.instances = instances

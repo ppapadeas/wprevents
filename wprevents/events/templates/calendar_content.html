@@ -1,7 +1,7 @@
 <nav class="cal-nav row js-cal-nav">
-  <a href="#" class="previous-month column col-3 js-prev" data-year="{{ month_manager.year_of_previous_month }}" data-month="{{ month_manager.previous_month }}">&laquo; <span>{{ month_manager.previous_month_name }} {{ month_manager.year_of_previous_month }}</span></a>
-  <div class="current-month column col-6 js-title" data-year="{{ month_manager.year }}" data-month="{{ month_manager.month }}">{{ month_manager.name }} {{ month_manager.year }}</div>
-  <a href="#" class="next-month column col-3 js-next" data-year="{{ month_manager.year_of_next_month }}" data-month="{{ month_manager.next_month }}"><span>{{ month_manager.next_month_name }} {{ month_manager.year_of_next_month }}</span> &raquo;</a>
+  <a href="#" class="previous-month column col-3 js-prev" data-year="{{ calendar.year_of_previous_month }}" data-month="{{ calendar.previous_month }}">&laquo; <span>{{ calendar.previous_month_name }} {{ calendar.year_of_previous_month }}</span></a>
+  <div class="current-month column col-6 js-title" data-year="{{ calendar.year }}" data-month="{{ calendar.month }}">{{ calendar.name }} {{ calendar.year }}</div>
+  <a href="#" class="next-month column col-3 js-next" data-year="{{ calendar.year_of_next_month }}" data-month="{{ calendar.next_month }}"><span>{{ calendar.next_month_name }} {{ calendar.year_of_next_month }}</span> &raquo;</a>
   <table class="weekdays fill-width row">
     <tr class="weekdays">
         <td>Mon</td>
@@ -17,16 +17,16 @@
 <div class="calendar-wrapper js-wrapper">
   <div class="month-wrapper js-content">
     <table class="fill-width row cal">
-      {% for week in month_manager.matrix %}
+      {% for week in calendar.matrix %}
       <tr>
         {% for day in week %}
         <td>
           {% if day != 0 %}
           <div class="cell-wrapper js-cell">
-            {% set today_instances = month_manager.get_instances_for_day(day) %}
+            {% set today_instances = calendar.get_instances_for_day(day) %}
             <div class="cell-content{% if today_events|length == 0%} empty{% endif %}">
               <div class="day">
-                <a href="#" class="js-day" data-date="{{ month_manager.format_date_for_day(day) }}">{{ day }}</a>
+                <a href="#" class="js-day" data-date="{{ calendar.format_date_for_day(day) }}">{{ day }}</a>
               </div>
               <div class="content">
                 {% set class="" %}
