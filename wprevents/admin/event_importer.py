@@ -23,6 +23,7 @@ class Error(Exception):
 class EventImporter:
   def __init__(self, space=None):
     self.space = space
+    self.spaces = Space.objects.all()
 
   def from_url(self, url):
     return self.from_string(self.fetch_url(url))
@@ -74,7 +75,6 @@ class EventImporter:
   def bulk_create_events(self, cal):
     ical_events = [e for e in cal.walk('VEVENT')]
     duplicate_events = self.find_duplicates(ical_events)
-    spaces = Space.objects.all()
 
     # Temporary bulk_id used to fetch back newly created events
     bulk_id = random.randrange(1000000000)
@@ -90,20 +90,21 @@ class EventImporter:
         skipped += 1
         continue
 
-      start = self.ensure_timezone_datetime(ical_event.get('dtstart').dt)
-      start = timezone.make_naive(start, pytz.timezone(settings.TIME_ZONE))
-
-      end = self.ensure_timezone_datetime(ical_event.get('dtend').dt)
-      end = timezone.make_naive(end, pytz.timezone(settings.TIME_ZONE))
-
       location = ical_event.get('location', '')
       description = ical_event.get('description', '')
       description = HTMLParser().unescape(description).encode('utf-8')
 
       if self.space is None:
-        space = self.guess_space(location, spaces)
+        space = self.guess_space(location)
       else:
         space = self.space
+
+      start = self.convert_datetime(ical_event.get('dtstart').dt, space)
+      end = self.convert_datetime(ical_event.get('dtend').dt, space)
+
+      # We always want to store datetimes as UTC
+      start = timezone.make_naive(start, pytz.utc)
+      end = timezone.make_naive(end, pytz.utc)
 
       title = title[:EVENT_TITLE_LENGTH] # Truncate to avoid potential errors
 
@@ -153,11 +154,11 @@ class EventImporter:
     return created_events, skipped
 
 
-  def guess_space(self, location, spaces):
+  def guess_space(self, location):
     """
     Guess an existing Space from a string containing a raw event location
     """
-    guessed_space = [s for s in spaces if s.name.lower() in location.lower()]
+    guessed_space = [s for s in self.spaces if s.name.lower() in location.lower()]
 
     return guessed_space[0] if guessed_space else None
 
@@ -167,16 +168,19 @@ class EventImporter:
 
     return guessed_areas
 
+  def convert_datetime(self, dt, space):
+    if isinstance(dt, date) and not isinstance(dt, datetime):
+      # If there is no time specified for this dt,
+      # convert it to a datetime object with a time set to 00:00
+      dt = datetime.combine(dt, time(0, 0, 0))
 
-  def ensure_timezone_datetime(self, checked_date):
-    if isinstance(checked_date, date) and not isinstance(checked_date, datetime):
-      # Cast date as datetime: handle special case where events checked_date date is set for the whole day within the iCal file
-      checked_date = datetime.combine(checked_date, time())
+      if space and space.timezone:
+        # If the event space is known, make it local to its timezone
+        dt = pytz.timezone(space.timezone).localize(dt)
+      else:
+        dt = pytz.utc.localize(dt)
 
-      if checked_date.tzinfo is None:
-        checked_date = pytz.utc.localize(checked_date)
-    return checked_date
-
+    return dt
 
   def find_duplicates(self, ical_events):
     """
@@ -188,10 +192,14 @@ class EventImporter:
 
     for ical_event in ical_events:
       titles.append(ical_event.get('summary'))
-      start = ical_event.get('dtstart').dt
-      start = self.ensure_timezone_datetime(start)
 
-      start_dates.append(timezone.make_naive(start, pytz.timezone(settings.TIME_ZONE)))
+      if self.space is None:
+        space = self.guess_space(ical_event.get('location', ''))
+      else:
+        space = self.space
+
+      start = self.convert_datetime(ical_event.get('dtstart').dt, space)
+      start_dates.append(timezone.make_naive(start, pytz.utc))
 
     # Dynamically build 'or' filters
     filter_titles = reduce(lambda q, e: q|Q(title=e.title), titles, Q())

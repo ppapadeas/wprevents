@@ -1,5 +1,5 @@
 import calendar
-import datetime
+from datetime import date, time
 
 
 class MonthManager(object):
@@ -11,9 +11,19 @@ class MonthManager(object):
     self.year = year
 
   def get_instances_for_day(self, day):
-    day = datetime.date(self.year, self.month, day)
+    day = date(self.year, self.month, day)
+    day_instances = []
 
-    return [i for i in self.instances if i.start.date() <= day <= i.end.date()]
+    for i in self.instances:
+      if i.start.date() <= day <= i.end.date():
+        if day == i.end.date() and i.end.time() == time(0, 0, 0):
+          # All-day events finish at 00:00 on their end date, but we don't want them
+          # to appear in the calendar on this date because they could be mistaken for
+          # multi-day events. This is why we need to handle this special case here.
+          continue
+        day_instances.append(i)
+
+    return day_instances
 
   @property
   def previous_month(self):
@@ -44,5 +54,4 @@ class MonthManager(object):
     return self.year + 1 if self.next_month == 1 else self.year
 
   def format_date_for_day(self, day):
-    date = datetime.date(self.year, self.month, day)
-    return date
+    return date(self.year, self.month, day)
