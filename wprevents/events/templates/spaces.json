@@ -17,7 +17,11 @@
     },
     "geometry": {
       "type": "Point",
+      {% if space.lon and space.lat %}
       "coordinates": [{{ space.lon }}, {{ space.lat }}]
+      {% else %}
+      "coordinates": [0, 0]
+      {% endif %}
     }
   }{% if not loop.last %},{% endif %}
 {% endfor %}]
