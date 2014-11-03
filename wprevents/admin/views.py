@@ -18,7 +18,7 @@ from wprevents.events.models import Event, Instance, Space, FunctionalArea
 from wprevents.base.tasks import generate_event_instances
 
 from forms import EventForm, SpaceForm, FunctionalAreaForm, ImportEventForm
-from event_importer import EventImporter
+from event_importer import EventImporter, EventImporterError
 
 
 # EVENTS
@@ -129,7 +129,7 @@ def event_import_ical(request):
       importer = EventImporter(space)
       imported_events, skipped = importer.from_url(url)
 
-    except event_importer.Error as e:
+    except EventImporterError as e:
       return { 'status': 'error', 'errors': { '1': str(e) } }
     except Exception, e:
       return { 'status': 'error', 'errors': { '1': str(e) } }

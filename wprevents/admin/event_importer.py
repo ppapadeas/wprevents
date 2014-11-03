@@ -17,7 +17,7 @@ from recurrence import *
 from dateutil.rrule import rruleset, rrulestr
 
 
-class Error(Exception):
+class EventImporterError(Exception):
   pass
 
 class EventImporter:
@@ -36,9 +36,9 @@ class EventImporter:
       generate_event_instances.delay()
     except transaction.TransactionManagementError, e:
       transaction.rollback()
-      raise Error('An error with the database transaction occured while bulk inserting events: ' + str(e))
+      raise EventImporterError('An error with the database transaction occured while bulk inserting events: ' + str(e))
     except Exception, e:
-      raise Error('An error occurred while bulk inserting events: ' + str(e))
+      raise EventImporterError('An error occurred while bulk inserting events: ' + str(e))
 
     return events, skipped
 
@@ -48,9 +48,9 @@ class EventImporter:
       request = urllib2.Request(url)
       response = urllib2.urlopen(request)
     except urllib2.URLError, e:
-      raise Error('URL: error' + str(e.reason))
+      raise EventImporterError('URL: error' + str(e.reason))
     except urllib2.HTTPError, e:
-      raise Error('HTTP error: ' + str(e.code))
+      raise EventImporterError('HTTP error: ' + str(e.code))
 
     data = response.read().decode('utf-8')
 
@@ -67,14 +67,14 @@ class EventImporter:
     try:
       cal = Calendar.from_ical(data)
     except ValueError:
-      raise Error('Error parsing icalendar file. The file may contain invalid characters.')
+      raise EventImporterError('Error parsing icalendar file. The file may contain invalid characters.')
 
     return cal
 
   @transaction.commit_manually
   def bulk_create_events(self, cal):
     ical_events = [e for e in cal.walk('VEVENT')]
-    duplicate_events = self.find_duplicates(ical_events)
+    duplicate_candidates = self.find_duplicate_candidates(ical_events)
 
     # Temporary bulk_id used to fetch back newly created events
     bulk_id = random.randrange(1000000000)
@@ -85,10 +85,7 @@ class EventImporter:
     skipped = 0
     for ical_event in ical_events:
       title = HTMLParser().unescape(ical_event.get('summary'))
-      # Filter out duplicate events
-      if any(x.title == title for x in duplicate_events):
-        skipped += 1
-        continue
+      title = title[:EVENT_TITLE_LENGTH] # Truncate to avoid potential errors
 
       location = ical_event.get('location', '')
       description = ical_event.get('description', '')
@@ -106,7 +103,10 @@ class EventImporter:
       start = timezone.make_naive(start, pytz.utc)
       end = timezone.make_naive(end, pytz.utc)
 
-      title = title[:EVENT_TITLE_LENGTH] # Truncate to avoid potential errors
+      # Filter out duplicate events
+      if any(self.is_duplicate(e, start, title, space) for e in duplicate_candidates):
+        skipped += 1
+        continue
 
       event = Event(
         start = start,
@@ -182,7 +182,7 @@ class EventImporter:
 
     return dt
 
-  def find_duplicates(self, ical_events):
+  def find_duplicate_candidates(self, ical_events):
     """
     Return all events previously added in the database that would be duplicate candidates (ie. same title, same start date) of all events provided in the
       imported ical file.
@@ -207,6 +207,24 @@ class EventImporter:
 
     return Event.objects.filter(filter_titles|filter_start_dates)
 
+  def is_duplicate(self, duplicate_candidate, start, title, space):
+    """ 
+    Determine if the event given as the first argument is a duplicate
+    of another event that we are importing by comparing its properties
+    """
+
+    e = duplicate_candidate
+
+    # Dates coming from the database are always timezone aware because 
+    # settings.USE_TZ is True, so we must convert to a naive datetime in order
+    # to compare them.
+    naive_start = timezone.make_naive(e.start, pytz.utc)
+
+    # Start dates and titles and spaces must be identical
+    if naive_start == start and e.title == title and space == e.space:
+      return True
+
+    return False
 
   def get_recurrence(self, ical_event, event):
     if not ical_event.get('RRULE') \
