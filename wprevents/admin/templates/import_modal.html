@@ -10,15 +10,15 @@
     <form method="POST" enctype="multipart/form-data" action="{{ url('admin_event_import_ical') }}">
       {{ csrf() }}
       <div class="row">
-        <label for="url">URL</label>
-        <div class="field">
-          <input type="url" name="url" id="url" placeholder="http://">
-        </div>
-      </div>
-      <div class="row">
         <label>Space</label>
         <div class="field">
           {{ form.space }}
+        </div>
+      </div>
+      <div class="row">
+        <label for="url">URL</label>
+        <div class="field">
+          <input type="url" name="url" id="url" placeholder="http://">
         </div>
       </div>
       <div class="button-container">

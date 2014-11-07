@@ -92,6 +92,8 @@ class EventImporter:
       description = HTMLParser().unescape(description).encode('utf-8')
 
       if self.space is None:
+        # Auto-detection is disabled for now
+        # (Space field in import modal is required=True)
         space = self.guess_space(location)
       else:
         space = self.space
@@ -218,10 +220,10 @@ class EventImporter:
     # Dates coming from the database are always timezone aware because 
     # settings.USE_TZ is True, so we must convert to a naive datetime in order
     # to compare them.
-    naive_start = timezone.make_naive(e.start, pytz.utc)
+    naive_start_date = timezone.make_naive(e.start, pytz.utc).date()
 
     # Start dates and titles and spaces must be identical
-    if naive_start == start and e.title == title and space == e.space:
+    if naive_start_date == start.date() and e.title == title and space == e.space:
       return True
 
     return False

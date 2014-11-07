@@ -123,5 +123,5 @@ class FunctionalAreaForm(ModelForm):
 
 
 class ImportEventForm(forms.Form):
-  space = forms.ModelChoiceField(queryset=Space.objects.all(), required=False, empty_label='auto detect')
-  url = forms.CharField(required=False)
+  space = forms.ModelChoiceField(queryset=Space.objects.all(), required=True, empty_label='', error_messages={'required': 'Space is required'})
+  url = forms.CharField(required=True, error_messages={'required': 'URL is required'})

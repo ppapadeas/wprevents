@@ -118,28 +118,29 @@ def event_dedupe(request, id=None):
 def event_import_ical(request):
   form = ImportEventForm(request.POST or None)
 
-  if form.is_valid():
-    url = form.cleaned_data['url']
-    space = form.cleaned_data['space']
+  if request.method == 'POST':
+    if form.is_valid():
+      url = form.cleaned_data['url']
+      space = form.cleaned_data['space']
 
-    if not url:
-      return { 'status': 'error', 'errors': { '1': 'URL field cannot be empty' } }
+      try:
+        importer = EventImporter(space)
+        imported_events, skipped = importer.from_url(url)
 
-    try:
-      importer = EventImporter(space)
-      imported_events, skipped = importer.from_url(url)
+      except EventImporterError as e:
+        return { 'status': 'error', 'errors': { '1': str(e) } }
+      except Exception, e:
+        return { 'status': 'error', 'errors': { '1': str(e) } }
 
-    except EventImporterError as e:
-      return { 'status': 'error', 'errors': { '1': str(e) } }
-    except Exception, e:
-      return { 'status': 'error', 'errors': { '1': str(e) } }
+      message = 'Import successful: ' + str(len(imported_events)) + ' events created, '+ str(skipped) +' events skipped'
 
-    message = 'Import successful: ' + str(len(imported_events)) + ' events created, '+ str(skipped) +' events skipped'
-
-    return {
-      'status': 'success',
-      'message': message
-    }
+      return {
+        'status': 'success',
+        'message': message
+      }
+    else:
+      return { 'status': 'error',
+               'errors': dict(form.errors.iteritems()) }
 
   return render(request, 'import_modal.html', {
     'form': form
